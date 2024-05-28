@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+    <link rel="stylesheet" th:href="@{/createStyle.css}">
+</head>
+<body>
+<!--<h1>상품 등록</h1>-->
+<form id="createProductForm" th:action="@{/prod/insert}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="conditions"></label>
+            <select id="conditions" name="conditions" required>
+                <option value="1">판매 예정</option>
+                <option value="2">판매 중</option>
+                <option value="3">판매 금지</option>
+                <option value="4">품절</option>
+            </select>
+        </div>
+    <div>
+        <label for="prodName">상품명:</label>
+        <input type="text" id="prodName" name="prodName" th:value="${product.prodName}" required>
+    </div>
+    <div>
+        <label for="prodDescription">상품 설명:</label>
+        <textarea id="prodDescription" name="prodDescription" rows="8" cols="1000" th:text="${product.prodDescription}" required></textarea>
+    </div>
+<!--    <div>-->
+<!--        <label for="productCategory">카테고리:</label>-->
+<!--        <select id="productCategory" name="productCategory" required>-->
+<!--            <option value="electronics">전자 제품</option>-->
+<!--            <option value="clothing">의류</option>-->
+<!--            <option value="home">가정용품</option>-->
+<!--            <option value="books">도서</option>-->
+<!--            <option value="beauty">뷰티</option>-->
+<!--            &lt;!&ndash; 추가 카테고리 &ndash;&gt;-->
+<!--        </select>-->
+<!--    </div>-->
+    <div>
+        <label for="prodPrice">가격:</label>
+        <input type="text" id="prodPrice" name="prodPrice" th:value="${product.prodPrice}" required>
+    </div>
+
+    <div>
+        <label for="prodImage">상품 이미지:</label>
+        <input type="file" id="prodImage" name="prodImage" accept="image/*" required>
+    </div>
+    <div>
+        <button type="submit">상품 등록</button>
+    </div>
+</form>
+
+<!-- 카테고리 ajax로 따로 만들어서 연결하기 -->
+
+
+<!-- JavaScript for dynamically adding and removing options -->
+<!--<script>-->
+<!--    let optionCount = 0;-->
+
+<!--    function addOption() {-->
+<!--        optionCount++;-->
+<!--        const optionsContainer = document.getElementById('optionsContainer');-->
+
+<!--        const optionDiv = document.createElement('div');-->
+<!--        optionDiv.id = `option${optionCount}`;-->
+<!--        optionDiv.innerHTML = `-->
+<!--                <label for="optionName${optionCount}">옵션명:</label>-->
+<!--                <input type="text" id="optionName${optionCount}" name="options[${optionCount}][name]" required>-->
+<!--                <label for="optionStock${optionCount}">재고 수량:</label>-->
+<!--                <input type="number" id="optionStock${optionCount}" name="options[${optionCount}][stock]" required>-->
+<!--                <button type="button" onclick="removeOption(${optionCount})">삭제</button>-->
+<!--            `;-->
+<!--        optionsContainer.appendChild(optionDiv);-->
+<!--    }-->
+
+<!--    function removeOption(optionId) {-->
+<!--        const optionDiv = document.getElementById(`option${optionId}`);-->
+<!--        optionDiv.remove();-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>

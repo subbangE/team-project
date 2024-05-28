@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myapp.team.product.ProductMapper">
+
+  <!-- 전체 상품 조회 -->
+  <select id="findAllProducts" resultType="Product">
+    SELECT product_no, product_name, product_price, product_content
+    FROM PRODUCTS
+  </select>
+
+  <!-- 상품 ID로 조회 -->
+  <select id="findProductById" parameterType="int" resultType="Product">
+    SELECT product_no, product_name, product_price, product_content
+    FROM PRODUCTS
+    WHERE product_no = #{product_no}
+  </select>
+
+  <!-- 상품 생성 -->
+  <insert id="createProduct" parameterType="Product">
+    INSERT INTO PRODUCTS (product_name, product_price, product_content)
+    VALUES (#{product_name}, #{product_price}, #{product_content})
+  </insert>
+
+  <!-- 상품 업데이트 -->
+  <update id="updateProduct" parameterType="Product">
+    UPDATE PRODUCTS
+    SET product_name = #{product_name},
+        product_price = #{product_price},
+        product_content = #{product_content}
+    WHERE product_no = #{product_no}
+  </update>
+
+  <!-- 상품 삭제 -->
+  <delete id="deleteProduct" parameterType="int">
+    DELETE FROM PRODUCTS
+    WHERE product_no = #{product_no}
+  </delete>
+
+</mapper>
