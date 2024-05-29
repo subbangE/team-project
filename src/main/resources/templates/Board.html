@@ -22,14 +22,14 @@
         </thead>
         <tbody>
         <tr th:each="question : ${questions}">
-            <td th:text="${question.question_no}">질문번호</td>
-            <td th:text="${question.question_title}">제목</td>
-            <td th:text="${question.question_content}">내용</td>
-            <td th:text="${question.user_no}">회원일련번호</td>
+            <td th:text="${question.questionNo}">질문번호</td>
+            <td th:text="${question.questionTitle}">제목</td>
+            <td th:text="${question.questionContent}">내용</td>
+            <td th:text="${question.userNo}">회원일련번호</td>
             <td>
-                <a th:href="@{/question/update/{question_no}(question_no=${question.question_no})}">수정</a>
+                <a th:href="@{/question/update/{questionNo}(questionNo=${question.questionNo})}">수정</a>
                 <form method="post" th:action="@{/question/delete}" th:object="${question}">
-                    <input type="hidden" name="question_no" th:value="${question.question_no}">
+                    <input type="hidden" name="questionNo" th:value="${question.questionNo}">
                     <button type="submit">삭제</button>
                 </form>
             </td>

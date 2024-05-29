@@ -19,12 +19,12 @@ public class QuestionController {
     private QuestionMapper questionMapper;
 
     // 회원일련번호별로 질문한 것들 가져오게 하는 컨트롤러 => URL 수정해야함 마이페이지용
-//    @GetMapping("/mypage/{userId}")
-//    public String getQuestionsbyuserId(@PathVariable("userId") int userId, Model model) {
-//        List<Question> userquestionList = questionMapper.getQuestionListByuserId(userId);
-//        model.addAttribute("userquestionList", userquestionList);
-//        return "board";
-//    }
+    @GetMapping("/mypage/{userNo}")
+    public String getQuestionsbyuserId(@PathVariable("userNo") int userNo, Model model) {
+        List<Question> userquestionList = questionMapper.getQuestionListByuserId(userNo);
+        model.addAttribute("userquestionList", userquestionList);
+        return "board";
+    }
 
     // 질문 다가져오게 하는 컨트롤러 ( 질문 목록 ) => URL("/prod/{prodId}")로 수정해야함 (제품 상세페이지)
     @GetMapping
@@ -43,37 +43,37 @@ public class QuestionController {
 
     //  질문 등록하는 컨트롤러 => URL("/question/create/{prodId}")
     @PostMapping("/create")
-    public String createQuestion(@RequestParam("question_title") String question_title,
-                               @RequestParam("question_content") String question_content,
-                               @RequestParam("user_no") int user_no) {
-        Question question = new Question(question_title, question_content, user_no);
+    public String createQuestion(@RequestParam("questionTitle") String questionTitle,
+                               @RequestParam("questionContent") String questionContent,
+                               @RequestParam("userNo") int userNo) {
+        Question question = new Question(questionTitle, questionContent, userNo);
         System.out.println(question);
         questionMapper.insertQuestion(question);
         return "redirect:/question";
     }
 
     // 질문 하나씩 가져 오게 하는 컨트롤러
-    @GetMapping("/update/{question_no}")
-    public String showUpdateForm(@PathVariable int question_no, Model model) {
-        Question question = questionMapper.getQuestion(question_no);
+    @GetMapping("/update/{questionNo}")
+    public String showUpdateForm(@PathVariable int questionNo, Model model) {
+        Question question = questionMapper.getQuestion(questionNo);
         model.addAttribute("question", question);
         return "UpdateBoard";
     }
 
     // 질문 수정하는 컨트롤러 => URL("/수정하기 아직 모름") 마이페이지에서 수정하기
-    @PostMapping("/update/{question_no}")
-    public String updateQuestion(@PathVariable("question_no") int question_no,
-                               @RequestParam("question_title") String question_title,
-                               @RequestParam("question_content") String question_content) {
-        questionMapper.updateQuestion(question_no, question_title, question_content);
+    @PostMapping("/update/{questionNo}")
+    public String updateQuestion(@PathVariable("questionNo") int questionNo,
+                               @RequestParam("questionTitle") String questionTitle,
+                               @RequestParam("questionContent") String questionContent) {
+        questionMapper.updateQuestion(questionNo, questionTitle, questionContent);
         return "redirect:/question";
     }
 
     // 질문 삭제하는 컨트롤러 => URL("/삭제하기 아직 모름") 마이페이지에서 삭제하기
     @PostMapping("/delete")
-    public String deleteQuestion(@RequestParam int question_no) {
-        System.out.println("삭제 비용 번호: " + question_no);
-        questionMapper.deleteQuestion(question_no);
+    public String deleteQuestion(@RequestParam int questionNo) {
+        System.out.println("삭제 비용 번호: " + questionNo);
+        questionMapper.deleteQuestion(questionNo);
         return "redirect:/question";
     }
 }
