@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문 등록</title>
+</head>
+<body>
+
+<h1>질문 등록</h1>
+
+<form action="#" th:action="@{/question/create}" th:object="${question}" method="post">
+    <div>
+        <label for="questionTitle">제목:</label>
+        <input type="text" id="questionTitle" th:field="*{question_title}" required />
+    </div>
+    <div>
+        <label for="questionContent">내용:</label>
+        <textarea id="questionContent" th:field="*{question_content}" required></textarea>
+    </div>
+    <div>
+        <label for="userId">작성자 ID:</label>
+        <input type="text" id="userId" th:field="*{user_no}" required />
+    </div>
+    <div>
+        <button type="submit">등록</button>
+    </div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문 리스트</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>질문 리스트</h1>
+    <a href="/question/create">질문 생성</a>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>회원일련번호</th>
+            <th>수정 및 삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="question : ${questions}">
+            <td th:text="${question.question_no}">질문번호</td>
+            <td th:text="${question.question_title}">제목</td>
+            <td th:text="${question.question_content}">내용</td>
+            <td th:text="${question.user_no}">회원일련번호</td>
+            <td>
+                <a th:href="@{/question/update/{question_no}(question_no=${question.question_no})}">수정</a>
+                <form method="post" th:action="@{/question/delete}" th:object="${question}">
+                    <input type="hidden" name="question_no" th:value="${question.question_no}">
+                    <button type="submit">삭제</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
