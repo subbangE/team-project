@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니 추가</title>
+</head>
+<body>
+<h1>장바구니 추가</h1>
+<form th:action="@{/cart/create}" method="post">
+    <label for="user_no">사용자 번호:</label>
+    <input type="number" id="user_no" name="user_no">
+    <label for="product_no">상품 번호:</label>
+    <input type="text" id="product_no" name="product_no">
+    <label for="cart_count">수량:</label>
+    <input type="number" id="cart_count" name="cart_count">
+    <button type="submit">추가</button>
+</form>
+<a th:href="@{/cart}">뒤로가기</a>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>장바구니</title>
+</head>
+<body>
+<h1>장바구니 리스트</h1>
+<table>
+    <thead>
+    <tr>
+        <th>장바구니 번호</th>
+        <th>사용자 번호</th>
+        <th>상품 번호</th>
+        <th>수량</th>
+        <th>작업</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cart : ${cartItems}">
+        <td th:text="${cart.cartNo}"></td>
+        <td th:text="${cart.userNo}"></td>
+        <td th:text="${cart.productNo}"></td>
+        <td th:text="${cart.cartCount}"></td>
+        <td>
+            <form th:action="@{/cart/update/{cartNo}(cartNo=${cart.cartNo})}" method="post">
+                <input type="hidden" name="userNo" th:value="${cart.userNo}" />
+                <input type="text" name="productNo" th:value="${cart.productNo}" />
+                <input type="number" name="cartCount" th:value="${cart.cartCount}" />
+                <button type="submit">수정</button>
+            </form>
+            <form th:action="@{/cart/delete}" method="post">
+                <input type="hidden" name="cartNo" th:value="${cart.cartNo}" />
+                <input type="hidden" name="userNo" th:value="${cart.userNo}" />
+                <button type="submit">삭제</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>장바구니 항목 추가</h2>
+<form th:action="@{/cart/create}" method="post">
+    <label for="cartNo">장바구니 번호:</label>
+    <input type="number" id="cartNo" name="cartNo" />
+    <label for="userNo">사용자 번호:</label>
+    <input type="number" id="userNo" name="userNo" />
+    <label for="productNo">상품 번호:</label>
+    <input type="text" id="productNo" name="productNo" />
+    <label for="cartCount">수량:</label>
+    <input type="number" id="cartCount" name="cartCount" />
+    <button type="submit">추가</button>
+</form>
+</body>
+</html>

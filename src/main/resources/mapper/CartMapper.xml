@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myapp.team.cart.mapper.CartMapper">
+
+    <select id="findByUserNo" parameterType="int" resultType="com.myapp.team.cart.Cart">
+        SELECT * FROM cart WHERE user_no = #{userNo}
+    </select>
+
+    <select id="getCart" parameterType="int" resultType="com.myapp.team.cart.Cart">
+        SELECT * FROM cart WHERE cart_no = #{cartNo}
+    </select>
+
+    <insert id="insertCart" parameterType="com.myapp.team.cart.Cart">
+        INSERT INTO cart (user_no, product_no, cart_count)
+        VALUES (#{userNo}, #{productNo}, #{cartCount})
+    </insert>
+
+    <update id="updateCart" parameterType="map">
+        UPDATE cart
+        SET product_no = #{productNo}, cart_count = #{cartCount}
+        WHERE cart_no = #{cartNo}
+    </update>
+
+    <delete id="deleteCart" parameterType="int">
+        DELETE FROM cart WHERE cart_no = #{cartNo}
+    </delete>
+
+</mapper>
