@@ -8,23 +8,23 @@
 </head>
 <body>
 <!--<h1>상품 등록</h1>-->
-<form id="createProductForm" th:action="@{/prod/insert}" method="post" enctype="multipart/form-data">
-        <div>
-            <label for="conditions"></label>
-            <select id="conditions" name="conditions" required>
-                <option value="1">판매 예정</option>
-                <option value="2">판매 중</option>
-                <option value="3">판매 금지</option>
-                <option value="4">품절</option>
-            </select>
-        </div>
+<form id="createProductForm" th:action="@{/prod/create}" method="post" enctype="multipart/form-data">
+<!--        <div>-->
+<!--            <label for="conditions"></label>-->
+<!--            <select id="conditions" name="conditions" required>-->
+<!--                <option value="1">판매 예정</option>-->
+<!--                <option value="2">판매 중</option>-->
+<!--                <option value="3">판매 금지</option>-->
+<!--                <option value="4">품절</option>-->
+<!--            </select>-->
+<!--        </div>-->
     <div>
         <label for="prodName">상품명:</label>
-        <input type="text" id="prodName" name="prodName" th:value="${product.prodName}" required>
+        <input type="text" id="prodName" name="prodName" th:value="${product.productName}" required>
     </div>
     <div>
         <label for="prodDescription">상품 설명:</label>
-        <textarea id="prodDescription" name="prodDescription" rows="8" cols="1000" th:text="${product.prodDescription}" required></textarea>
+        <textarea id="prodDescription" name="prodDescription" rows="8" cols="1000" th:text="${product.productContent}" required></textarea>
     </div>
 <!--    <div>-->
 <!--        <label for="productCategory">카테고리:</label>-->
@@ -39,13 +39,12 @@
 <!--    </div>-->
     <div>
         <label for="prodPrice">가격:</label>
-        <input type="text" id="prodPrice" name="prodPrice" th:value="${product.prodPrice}" required>
+        <input type="text" id="prodPrice" name="prodPrice" th:value="${product.productPrice}" required>
     </div>
-
-    <div>
-        <label for="prodImage">상품 이미지:</label>
-        <input type="file" id="prodImage" name="prodImage" accept="image/*" required>
-    </div>
+<!--    <div>-->
+<!--        <label for="prodImage">상품 이미지:</label>-->
+<!--        <input type="file" id="prodImage" name="prodImage" accept="image/*" required>-->
+<!--    </div>-->
     <div>
         <button type="submit">상품 등록</button>
     </div>

@@ -18,8 +18,8 @@ public class ProductService {
         return productMapper.findAllProducts();
     }
 
-    public Product findProductById(int product_no) {
-        return productMapper.findProductById(product_no);
+    public Product findProductById(int productNo) {
+        return productMapper.findProductById(productNo);
     }
 
     public void createProduct(Product product) {
@@ -30,7 +30,7 @@ public class ProductService {
         productMapper.updateProduct(product);
     }
 
-    public void deleteProduct(int product_no) {
-        productMapper.deleteProduct(product_no);
+    public void deleteProduct(int productNo) {
+        productMapper.deleteProduct(productNo);
     }
 }

@@ -6,13 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-public class Product {
+public class ProductDTO {
 
     private int productNo;
     private String productName;
-    private String productContent;
     private double productPrice;
+    private String productContent;
     private MultipartFile imageFile;
 }
-
-

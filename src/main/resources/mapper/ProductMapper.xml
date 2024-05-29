@@ -22,7 +22,7 @@
     VALUES (#{product_name}, #{product_price}, #{product_content})
   </insert>
 
-  <!-- 상품 업데이트 -->
+  <!-- 상품 수정 -->
   <update id="updateProduct" parameterType="Product">
     UPDATE PRODUCTS
     SET product_name = #{product_name},
