@@ -63,7 +63,7 @@ public class ProductController {
 
         productService.insertProduct(product);
         ra.addFlashAttribute("manage_result", product.getProductName()); //상품이름이 등록되었음을 알리는 경고창 띄우기위함
-        return "list";
+        return "redirect:/prod/list";
     }
 
     // Update Page
@@ -71,7 +71,7 @@ public class ProductController {
     public String updateProductPage(@PathVariable int id, Model model) {
         Product product = productService.findProductById(id);
         model.addAttribute("product", product);
-        return "list";
+        return "update";
     }
 
     // UPDATE

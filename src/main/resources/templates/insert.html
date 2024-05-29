@@ -19,6 +19,20 @@
                 <option value="품절">품절</option>
             </select>
         </div>
+
+        <div>
+            <label for="categoryName"></label>
+            <select id="categoryName" name="categoryName" th:value="${product.categoryName}">
+                <option value="식품">식품</option>
+                <option value="패션">패션</option>
+                <option value="홈리빙">홈리빙</option>
+                <option value="뷰티">뷰티</option>
+                <option value="문구">문구</option>
+            </select>
+<!--            <p th:if="${#fields.hasErrors('category')}"-->
+<!--               th:errorclass="text-danger" th:errors="${product.category}"></p>-->
+        </div>
+
     <div>
         <label for="productName">상품명:</label>
         <input type="text" id="productName" name="productName" th:value="${product.productName}" required>
@@ -42,10 +56,11 @@
         <label for="productPrice">가격:</label>
         <input type="text" id="productPrice" name="productPrice" th:value="${product.productPrice}" required>
     </div>
-<!--    <div>-->
-<!--        <label for="prodImage">상품 이미지:</label>-->
-<!--        <input type="file" id="prodImage" name="prodImage" accept="image/*" required>-->
-<!--    </div>-->
+    <div>
+        <label for="prodImage">상품 이미지:</label>
+        <input type="file" id="prodImage" name="prodImage" accept="image/*" required>
+    </div>
+<!--    <td><img th:src="@{'/images/'+${product.imageFile}}" width="200"></td>-->
     <div>
         <button type="submit">상품 등록</button>
     </div>

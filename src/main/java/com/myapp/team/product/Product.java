@@ -10,10 +10,13 @@ public class Product {
 
     private int productNo;
     private String productCondition;
+    private String categoryName;
     private String productName;
     private String productContent;
     private double productPrice;
-    private MultipartFile imageFile;
+//    private MultipartFile imageFile;
+    private String imageFileName;  // 제품 이름
+
 }
 
 
