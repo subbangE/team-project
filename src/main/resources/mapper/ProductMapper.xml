@@ -3,9 +3,11 @@
 
 <mapper namespace="com.myapp.team.product.ProductMapper">
 
+  <!-- Admin Product -->
+
   <!-- 전체 상품 조회 -->
   <select id="findAllProducts" resultType="Product">
-    SELECT product_no, product_name, product_price, product_content
+    SELECT product_no, product_condition, product_name, product_price, product_content
     FROM PRODUCTS
   </select>
 
@@ -17,24 +19,25 @@
   </select>
 
   <!-- 상품 생성 -->
-  <insert id="createProduct" parameterType="Product">
-    INSERT INTO PRODUCTS (product_name, product_price, product_content)
-    VALUES (#{product_name}, #{product_price}, #{product_content})
+  <insert id="insertProduct" parameterType="com.myapp.team.product.Product">
+    INSERT INTO PRODUCTS (product_name, product_condition, product_price, product_content)
+    VALUES (#{productName}, #{productCondition}, #{productPrice}, #{productContent})
   </insert>
 
   <!-- 상품 수정 -->
   <update id="updateProduct" parameterType="Product">
     UPDATE PRODUCTS
-    SET product_name = #{product_name},
-        product_price = #{product_price},
-        product_content = #{product_content}
-    WHERE product_no = #{product_no}
+    SET product_name = #{productName},
+        product_condition = #{productCondition},
+        product_price = #{productPrice},
+        product_content = #{productContent}
+    WHERE product_no = #{productNo}
   </update>
 
   <!-- 상품 삭제 -->
   <delete id="deleteProduct" parameterType="int">
     DELETE FROM PRODUCTS
-    WHERE product_no = #{product_no}
+    WHERE product_no = #{productNo}
   </delete>
 
 </mapper>

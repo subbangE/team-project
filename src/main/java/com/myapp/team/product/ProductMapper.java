@@ -10,11 +10,11 @@ public interface ProductMapper {
 
     List<Product> findAllProducts();
 
-    Product findProductById(int product_no);
+    Product findProductById(int productNo);
 
-    void createProduct(Product product);
+    void insertProduct(Product product);
 
     void updateProduct(Product product);
 
-    void deleteProduct(int product_no);
+    void deleteProduct(int productNo);
 }

@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -21,19 +20,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    // 상품 페이지
+    // Product Page
     @GetMapping("/product")
     public String showProductsPage(Model model) {
         model.addAttribute("product", new Product());
         return "product";
     }
-
-//    // 상품 리스트
-//    @GetMapping("/allList")
-//    @ResponseBody
-//    public List<Product> getAllProducts() {
-//        return productService.findAllProducts();
-//    }
 
     // Product Detail Page
     @GetMapping("/{id}")
@@ -42,23 +34,36 @@ public class ProductController {
         return productService.findProductById(id);
     }
 
-    // Create Page
-    @GetMapping("/create")
-    public String createProductPage(Model model) {
-        model.addAttribute("product", new Product());
-        return "create";
+    // 등록된 전체 상품을 리스트로 보여주는 곳 (관리자)
+    @GetMapping("/list")
+    public String listProducts(Model model) {
+        List<Product> products = productService.findAllProducts();
+        model.addAttribute("products", products);
+        return "list";
     }
 
-    // Create
-    @PostMapping("/create")
-    public String createProduct(@ModelAttribute Product product, BindingResult result) {
+    // Create Page
+    @GetMapping("/insert/{id}")
+    public String createProductPage(@PathVariable int id, Model model) {
+        Product product = productService.findProductById(id);
+        model.addAttribute("product", product);
+        return "insert";
+    }
 
-        if (result.hasErrors()) {
-            return "create";
-        }
-        productService.createProduct(product);
+    // Create Page
+    @GetMapping("/insert")
+    public String createProductPage(Model model) throws Exception {
+        model.addAttribute("product", new Product());
+        return "insert";
+    }
 
-        return "redirect:/prod/product";
+    // CREATE
+    @PostMapping("/insert")
+    public String insertProduct(@ModelAttribute Product product, BindingResult result, RedirectAttributes ra) {
+
+        productService.insertProduct(product);
+        ra.addFlashAttribute("manage_result", product.getProductName()); //상품이름이 등록되었음을 알리는 경고창 띄우기위함
+        return "list";
     }
 
     // Update Page
@@ -66,22 +71,21 @@ public class ProductController {
     public String updateProductPage(@PathVariable int id, Model model) {
         Product product = productService.findProductById(id);
         model.addAttribute("product", product);
-        return "update";
+        return "list";
     }
 
-    // Update
+    // UPDATE
     @PostMapping("/update/{id}")
     public String updateProduct(@PathVariable int id, @ModelAttribute Product product) {
         product.setProductNo(id);
         productService.updateProduct(product);
-        return "redirect:/prod/product";
+        return "redirect:/prod/list";
     }
 
-    // Delete
-    @DeleteMapping("/delete/{id}")
-    @ResponseBody
+    // DELETE
+    @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable int id) {
         productService.deleteProduct(id);
-        return "redirect:/prod/product";
+        return "redirect:/prod/list";
     }
 }

@@ -4,27 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 등록</title>
-    <link rel="stylesheet" th:href="@{/createStyle.css}">
+    <link rel="stylesheet" th:href="@{/insert.css}">
 </head>
 <body>
 <!--<h1>상품 등록</h1>-->
-<form id="createProductForm" th:action="@{/prod/create}" method="post" enctype="multipart/form-data">
-<!--        <div>-->
-<!--            <label for="conditions"></label>-->
-<!--            <select id="conditions" name="conditions" required>-->
-<!--                <option value="1">판매 예정</option>-->
-<!--                <option value="2">판매 중</option>-->
-<!--                <option value="3">판매 금지</option>-->
-<!--                <option value="4">품절</option>-->
-<!--            </select>-->
-<!--        </div>-->
+<form id="createProductForm" th:action="@{/prod/insert}" method="post" enctype="multipart/form-data">
+
+        <div>
+            <label for="productCondition"></label>
+            <select id="productCondition" name="productCondition" th:value="${product.productCondition}" required>
+                <option value="판매 예정">판매 예정</option>
+                <option value="판매 중">판매 중</option>
+                <option value="판매 금지">판매 금지</option>
+                <option value="품절">품절</option>
+            </select>
+        </div>
     <div>
-        <label for="prodName">상품명:</label>
-        <input type="text" id="prodName" name="prodName" th:value="${product.productName}" required>
+        <label for="productName">상품명:</label>
+        <input type="text" id="productName" name="productName" th:value="${product.productName}" required>
     </div>
     <div>
-        <label for="prodDescription">상품 설명:</label>
-        <textarea id="prodDescription" name="prodDescription" rows="8" cols="1000" th:text="${product.productContent}" required></textarea>
+        <label for="productContent">상품 설명:</label>
+        <textarea id="productContent" name="productContent" rows="8" cols="1000" th:text="${product.productContent}" required></textarea>
     </div>
 <!--    <div>-->
 <!--        <label for="productCategory">카테고리:</label>-->
@@ -38,8 +39,8 @@
 <!--        </select>-->
 <!--    </div>-->
     <div>
-        <label for="prodPrice">가격:</label>
-        <input type="text" id="prodPrice" name="prodPrice" th:value="${product.productPrice}" required>
+        <label for="productPrice">가격:</label>
+        <input type="text" id="productPrice" name="productPrice" th:value="${product.productPrice}" required>
     </div>
 <!--    <div>-->
 <!--        <label for="prodImage">상품 이미지:</label>-->
@@ -48,7 +49,11 @@
     <div>
         <button type="submit">상품 등록</button>
     </div>
+    <div>
+        <a href="/prod/list" class="button">리스트로 이동</a>
+    </div>
 </form>
+
 
 <!-- 카테고리 ajax로 따로 만들어서 연결하기 -->
 

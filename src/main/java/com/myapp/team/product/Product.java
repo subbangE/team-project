@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class Product {
 
     private int productNo;
+    private String productCondition;
     private String productName;
     private String productContent;
     private double productPrice;
