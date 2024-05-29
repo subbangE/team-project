@@ -20,19 +20,20 @@ public class QuestionController {
 
     // 회원일련번호별로 질문한 것들 가져오게 하는 컨트롤러 => URL 수정해야함 마이페이지용
     @GetMapping("/mypage/{userNo}")
-    public String getQuestionsbyuserId(@PathVariable("userNo") int userNo, Model model) {
-        List<Question> userquestionList = questionMapper.getQuestionListByuserId(userNo);
+    public String getQuestion(@PathVariable("userNo") int userNo, Model model) {
+        List<Question> userquestionList = questionMapper.selectQuestionById(userNo);
         model.addAttribute("userquestionList", userquestionList);
-        return "board";
+        System.out.println(userquestionList);
+        return "MypageBoard";
     }
 
     // 질문 다가져오게 하는 컨트롤러 ( 질문 목록 ) => URL("/prod/{prodId}")로 수정해야함 (제품 상세페이지)
     @GetMapping
-    public String getQuestions(Model model) {
-        List<Question> questionList = questionMapper.getQuestionList();
+    public String getQuestionList(Model model) {
+        List<Question> questionList = questionMapper.selectAllQuestion();
         model.addAttribute("questions", questionList);
         System.out.println(questionList);
-        return "board";
+        return "Board";
     }
 
     @GetMapping("/create")
@@ -55,14 +56,14 @@ public class QuestionController {
     // 질문 하나씩 가져 오게 하는 컨트롤러
     @GetMapping("/update/{questionNo}")
     public String showUpdateForm(@PathVariable int questionNo, Model model) {
-        Question question = questionMapper.getQuestion(questionNo);
+        Question question = questionMapper.selectQuestion(questionNo);
         model.addAttribute("question", question);
         return "UpdateBoard";
     }
 
     // 질문 수정하는 컨트롤러 => URL("/수정하기 아직 모름") 마이페이지에서 수정하기
     @PostMapping("/update/{questionNo}")
-    public String updateQuestion(@PathVariable("questionNo") int questionNo,
+    public String editQuestion(@PathVariable("questionNo") int questionNo,
                                @RequestParam("questionTitle") String questionTitle,
                                @RequestParam("questionContent") String questionContent) {
         questionMapper.updateQuestion(questionNo, questionTitle, questionContent);
