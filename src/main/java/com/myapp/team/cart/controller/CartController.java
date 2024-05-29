@@ -41,7 +41,7 @@ public class CartController {
                                  @RequestParam("cartCount") int cartCount) {
         Cart cart = new Cart(cartNo, userNo, productNo, cartCount);
         cartMapper.insertCart(cart);
-        return "redirect:/cart?userNo=" + userNo;
+        return "redirect:/cart/" + userNo;
     }
 
     // 특정 장바구니 항목 조회 (수정 폼으로 이동)
@@ -53,20 +53,20 @@ public class CartController {
     }
 
     // 장바구니 항목 수정
-    @PutMapping("/update/{cartNo}")
+    @PostMapping("/update/{cartNo}")
     public String updateCartItem(@PathVariable("cartNo") int cartNo,
                                  @RequestParam("productNo") String productNo,
                                  @RequestParam("cartCount") int cartCount,
                                  @RequestParam("userNo") int userNo) {
         cartMapper.updateCart(cartNo, productNo, cartCount);
-        return "redirect:/cart?userNo=" + userNo;
+        return "redirect:/cart/" + userNo;
     }
 
     // 장바구니 항목 삭제
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public String deleteCartItem(@RequestParam int cartNo,
                                  @RequestParam int userNo) {
         cartMapper.deleteCart(cartNo);
-        return "redirect:/cart?userNo=" + userNo;
+        return "redirect:/cart/" + userNo;
     }
 }
