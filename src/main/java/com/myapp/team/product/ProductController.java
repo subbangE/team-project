@@ -32,15 +32,17 @@ public class ProductController {
         return "product";
     }
 
-    @GetMapping("/products")
+@GetMapping("/products")
     public String getProducts(Model model) {
         List<Product> products = productService.findAllProducts();
-//        List<Option> options = optionService.findAllOptions();
-
+        for (Product product : products) {
+            List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
+            product.setOptions(options);
+        }
         model.addAttribute("products", products);
-//        model.addAttribute("options", options);
         return "product";
     }
+
 
     // Product Detail Page
     @GetMapping("/{id}")

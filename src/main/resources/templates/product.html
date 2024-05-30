@@ -43,6 +43,9 @@
         <div th:each="product : ${products}" class="product-item" data-category="${product.categoryName}">
             <h3 th:text="${product.productName}">Product Name</h3>
             <p class="price" th:text="${product.productPrice} + '원'">Price</p>
+
+<!--            ㅇ여기엔 옵션 뜸. 수정하기 !! -->
+            <h3 th:each="option : ${product.options}" th:text="${option.optionName}"></h3>
 <!--            <p class="description" th:text="${product.productContent}">Description</p>-->
             <button>Add to Cart</button>
         </div>
@@ -52,6 +55,7 @@
 
 <footer>
     <p>&copy; 2024 dapala Shopping Mall. All rights reserved.</p>
+
 </footer>
 
 <script src="/js/product.js"></script>

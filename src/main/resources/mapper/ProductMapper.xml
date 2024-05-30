@@ -35,7 +35,7 @@
         product_condition = #{productCondition},
         category_name = #{categoryName},
         product_price = #{productPrice},
-        product_content = #{productContent}
+        product_content = #{productContent},
       product_image_name = #{productImageName}
     WHERE product_no = #{productNo}
   </update>
