@@ -5,6 +5,7 @@ import com.myapp.team.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,10 +15,16 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+
 
     public void register(User user) {
         user.setUserPw(passwordEncoder.encode(user.getUserPw()));
+        user.setRole("USER");
         userMapper.insertUser(user);
+    }
+
+    public void updateUserRole(String userId, String role) {
+        userMapper.updateUserRole(userId, role);
     }
 }

@@ -7,13 +7,17 @@
 
     <insert id="insertUser" parameterType="User">
         INSERT INTO user (user_id, user_pw, user_name, user_birth, user_address, user_email)
-        VALUES (#{userId},#{userPw},#{userName},#{userBirth},#{userAddress},#{userEmail})
+        VALUES (#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userAddress}, #{userEmail})
     </insert>
 
-
     <select id="findByUserId" resultType="com.myapp.team.user.model.User" parameterType="String">
-            SELECT * FROM user WHERE user_id = #{userId}
+        SELECT * FROM user WHERE user_id = #{userId}
     </select>
 
+    <update id="updateUserRole" parameterType="String">
+        UPDATE user
+        SET role = #{role}
+        WHERE user_id = #{userId}
+    </update>
 
 </mapper>

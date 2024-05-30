@@ -23,5 +23,6 @@ public class User {
 
     private String userEmail;
 
-    private boolean userAdmin;
+    private String role;
+
 }

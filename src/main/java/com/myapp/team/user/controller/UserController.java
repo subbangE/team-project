@@ -4,12 +4,12 @@ import com.myapp.team.user.model.User;
 import com.myapp.team.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -41,16 +41,31 @@ public class UserController {
     }
 
     //로그인
-    @GetMapping({"/login", "/"})
-    public String loginPage(Principal principal) {
-        if (principal == null) {
-            return "login";
-        }
-        return "redirect:/index";
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
-//인덱스 페이지 호출(Get안해주면 페이지 안뜸)
+
+    //인덱스 페이지 호출(Get안해주면 페이지 안뜸)
     @GetMapping("/index")
-    public String indexPage(){
+    public String indexPage() {
         return "index";
     }
+
+    @PostMapping("/admin/grant")
+    @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
+    public String grantAdmin(@RequestParam String userId, String role) {
+        userService.updateUserRole(userId, "ADMIN");
+        userService.updateUserRole(userId, "USER");
+        return userId + "의 권한이 " + role + "(으)로 변경되었습니다";
+    }
+
+    //ADMIN 역할을 가진 유저만 페이지에 입장가능하게 해줌
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminPage() {
+        return "admin";
+    }
 }
+

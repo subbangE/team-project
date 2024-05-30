@@ -21,4 +21,5 @@ class TeamApplicationTests {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("user"));
     }
 
+
 }
