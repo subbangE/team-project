@@ -1,4 +1,4 @@
-package com.myapp.team.Board;
+package com.myapp.team.Board.Question;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,28 +18,59 @@ public class QuestionController {
     @Autowired
     private QuestionMapper questionMapper;
 
+    @Autowired
+    private QuestionService questionService;
+
+    // questionNo에 해당되는 답변 가져 오는 컨트롤러
+//    @GetMapping("/{questionNo}")
+//    public String showAnswerForm(@PathVariable("questionNo") int questionNo, Model model) {
+//        List<Question> answerList = questionMapper.getAnswerByQuestionNo(questionNo);
+//        model.addAttribute("answerList", answerList);
+//        return "QuestionDetail";
+//    }
+
     // 회원일련번호별로 질문한 것들 가져오게 하는 컨트롤러 => URL 수정해야함 마이페이지용
     @GetMapping("/mypage/{userNo}")
     public String getQuestion(@PathVariable("userNo") int userNo, Model model) {
         List<Question> userquestionList = questionMapper.selectQuestionById(userNo);
         model.addAttribute("userquestionList", userquestionList);
-        System.out.println(userquestionList);
+//        System.out.println(userquestionList);
         return "MypageBoard";
     }
 
-    // 질문 다가져오게 하는 컨트롤러 ( 질문 목록 ) => URL("/prod/{prodId}")로 수정해야함 (제품 상세페이지)
+    // 질문 번호, 질문 제목 및 회원일련번호만 가져오게 하는 컨트롤러
     @GetMapping
-    public String getQuestionList(Model model) {
-        List<Question> questionList = questionMapper.selectAllQuestion();
-        model.addAttribute("questions", questionList);
+    public String getQuestion(Model model) {
+        List<Question> questionList = questionMapper.getQuestion();
+        model.addAttribute("questionList", questionList);
         System.out.println(questionList);
         return "Board";
     }
 
+    // 질문과 답변 하나씩 가져 오게 하는 컨트롤러 (QuestionService 사용)
+    @GetMapping("/{questionNo}")
+    public String showQuestionDetailForm(@PathVariable int questionNo, Model model) {
+        Question question = questionService.getQuestionById(questionNo);
+        model.addAttribute("question", question);
+        //model.addAttribute("questionNo", questionNo);
+        System.out.println(question);
+        return "QuestionDetail";
+    }
+
+    // 질문 다가져오게 하는 컨트롤러 ( 질문 목록 ) => URL("/prod/{prodId}")로 수정해야함 (제품 상세페이지)
+//    @GetMapping
+//    public String getQuestionList(Model model) {
+//        List<Question> questionList = questionMapper.selectAllQuestion();
+//        model.addAttribute("questions", questionList);
+//        System.out.println(questionList);
+//        return "Board";
+//    }
+
+    // 질문 생성 페이지 보여주는 컨트롤러
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("question", new Question());
-        return "CreateBoard";
+        return "CreateQuestion";
     }
 
     //  질문 등록하는 컨트롤러 => URL("/question/create/{prodId}")
@@ -55,10 +86,10 @@ public class QuestionController {
 
     // 질문 하나씩 가져 오게 하는 컨트롤러
     @GetMapping("/update/{questionNo}")
-    public String showUpdateForm(@PathVariable int questionNo, Model model) {
+    public String showQuestionUpdateForm(@PathVariable int questionNo, Model model) {
         Question question = questionMapper.selectQuestion(questionNo);
         model.addAttribute("question", question);
-        return "UpdateBoard";
+        return "UpdateQuestion";
     }
 
     // 질문 수정하는 컨트롤러 => URL("/수정하기 아직 모름") 마이페이지에서 수정하기
@@ -67,13 +98,13 @@ public class QuestionController {
                                @RequestParam("questionTitle") String questionTitle,
                                @RequestParam("questionContent") String questionContent) {
         questionMapper.updateQuestion(questionNo, questionTitle, questionContent);
-        return "redirect:/question";
+        return "redirect:/question/{questionNo}";
     }
 
     // 질문 삭제하는 컨트롤러 => URL("/삭제하기 아직 모름") 마이페이지에서 삭제하기
     @PostMapping("/delete")
     public String deleteQuestion(@RequestParam int questionNo) {
-        System.out.println("삭제 비용 번호: " + questionNo);
+//        System.out.println("삭제 질문 번호: " + questionNo);
         questionMapper.deleteQuestion(questionNo);
         return "redirect:/question";
     }

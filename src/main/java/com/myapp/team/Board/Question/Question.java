@@ -1,5 +1,6 @@
-package com.myapp.team.Board;
+package com.myapp.team.Board.Question;
 
+import com.myapp.team.Board.Answer.Answer;
 import lombok.*;
 
 @Data
@@ -21,4 +22,6 @@ public class Question {
         this.questionContent = questionContent;
         this.userNo = userNo;
     }
+
+    private Answer answer;
 }
