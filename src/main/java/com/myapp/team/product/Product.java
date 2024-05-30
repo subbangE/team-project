@@ -1,29 +1,34 @@
 package com.myapp.team.product;
 
-import com.myapp.team.product.option.Option;
+import com.myapp.team.option.Option;
 import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 public class Product {
 
-    private int productNo;
+    private Integer productNo;
     private String productCondition;
     private String categoryName;
     private String productName;
     private String productContent;
     private double productPrice;
-//    private MultipartFile imageFile;
-    private String imageFileName;  // 제품 이름
+    private String productImageName;
 
-    private List<Option> options;
+    private List<Option> options;  // 옵션 리스트
 
-    // 옵션 테이블 추가해야함.
+    public Product() {
+        this.options = new ArrayList<>();  // options 필드를 빈 리스트로 초기화
+    }
+
+    private MultipartFile productImageFile;
+
 }
 
 

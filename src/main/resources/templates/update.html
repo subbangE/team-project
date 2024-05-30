@@ -39,9 +39,15 @@
         <label for="productPrice">가격:</label>
         <input type="text" id="productPrice" name="productPrice" th:value="${product.productPrice}" required>
     </div>
+    <div id="optionsContainer">
+        <!-- 옵션들이 여기에 추가됨 -->
+    </div>
+    <div>
+        <button type="button" onclick="addOption()">옵션 추가</button>
+    </div>
     <div>
         <label for="prodImage">상품 이미지:</label>
-        <input type="file" id="prodImage" name="prodImage" accept="image/*" required>
+        <input type="file" id="prodImage" name="prodImage" accept="image/*">
     </div>
     <div>
         <button type="submit">상품 수정</button>
@@ -50,5 +56,6 @@
         <a href="/prod/list" class="button">리스트로 이동</a>
     </div>
 </form>
+<script src="/js/update.js"></script>
 </body>
 </html>

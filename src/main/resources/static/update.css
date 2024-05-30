@@ -69,3 +69,17 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.option-group {
+    margin-bottom: 10px;
+    position: relative;
+}
+.delete-btn {
+    display: block;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-top: 5px;
+}

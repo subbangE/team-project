@@ -7,21 +7,25 @@
 
   <!-- 전체 상품 조회 -->
   <select id="findAllProducts" resultType="Product">
-    SELECT product_no, product_condition, category_name, product_name, product_price, product_content
+    SELECT product_no, product_condition, category_name, product_name, product_price, product_content, product_image_name
     FROM PRODUCTS
   </select>
 
   <!-- 상품 ID로 조회 -->
   <select id="findProductById" parameterType="int" resultType="Product">
-    SELECT product_no, product_condition, category_name, product_name, product_price, product_content
+    SELECT product_no, product_condition, category_name, product_name, product_price, product_content, product_image_name
     FROM PRODUCTS
     WHERE product_no = #{product_no}
   </select>
 
-  <!-- 상품 생성 -->
-  <insert id="insertProduct" parameterType="com.myapp.team.product.Product">
-    INSERT INTO PRODUCTS (product_name, product_condition, category_name, product_price, product_content)
-    VALUES (#{productName}, #{productCondition}, #{categoryName}, #{productPrice}, #{productContent})
+  <insert id="insertProduct" parameterType="com.myapp.team.product.Product" useGeneratedKeys="true" keyProperty="productNo">
+    INSERT INTO PRODUCTS (product_condition, category_name, product_name, product_content, product_price, product_image_name)
+    VALUES (#{productCondition}, #{categoryName}, #{productName}, #{productContent}, #{productPrice}, #{productImageName})
+  </insert>
+
+  <insert id="insertOption" parameterType="com.myapp.team.option.Option">
+    INSERT INTO PRODUCT_OPTION (option_name, option_value, option_count, product_no)
+    VALUES (#{optionName}, #{optionValue}, #{optionCount}, #{productNo})
   </insert>
 
   <!-- 상품 수정 -->
@@ -32,13 +36,17 @@
         category_name = #{categoryName},
         product_price = #{productPrice},
         product_content = #{productContent}
+      product_image_name = #{productImageName}
     WHERE product_no = #{productNo}
   </update>
 
-  <!-- 상품 삭제 -->
+<!-- 상품 옵션 삭제 -->
+  <delete id="deleteOptions" parameterType="int">
+    DELETE FROM PRODUCT_OPTION WHERE product_no = #{productNo};
+  </delete>
+<!-- 상품 지우기 -->
   <delete id="deleteProduct" parameterType="int">
-    DELETE FROM PRODUCTS
-    WHERE product_no = #{productNo}
+    DELETE FROM PRODUCTS WHERE product_no = #{productNo};
   </delete>
 
 </mapper>

@@ -9,6 +9,7 @@
 <body>
 <!--<h1>상품 등록</h1>-->
 <form id="createProductForm" th:action="@{/prod/insert}" method="post" enctype="multipart/form-data">
+    <div>
 
         <div>
             <label for="productCondition"></label>
@@ -23,16 +24,16 @@
         <div>
             <label for="categoryName"></label>
             <select id="categoryName" name="categoryName" th:value="${product.categoryName}">
-                <option value="식품">식품</option>
-                <option value="패션">패션</option>
-                <option value="홈리빙">홈리빙</option>
-                <option value="뷰티">뷰티</option>
-                <option value="문구">문구</option>
+                <option value="" disabled selected>카테고리</option>
+                <option value="산리오">산리오</option>
+                <option value="실바니안 패밀리">실바니안 패밀리</option>
+                <option value="레고">레고</option>
+                <option value="카우스">카우스</option>
+                <option value="베어브릭">베어브릭</option>
             </select>
 <!--            <p th:if="${#fields.hasErrors('category')}"-->
 <!--               th:errorclass="text-danger" th:errors="${product.category}"></p>-->
         </div>
-
     <div>
         <label for="productName">상품명:</label>
         <input type="text" id="productName" name="productName" th:value="${product.productName}" required>
@@ -41,24 +42,27 @@
         <label for="productContent">상품 설명:</label>
         <textarea id="productContent" name="productContent" rows="8" cols="1000" th:text="${product.productContent}" required></textarea>
     </div>
-<!--    <div>-->
-<!--        <label for="productCategory">카테고리:</label>-->
-<!--        <select id="productCategory" name="productCategory" required>-->
-<!--            <option value="electronics">전자 제품</option>-->
-<!--            <option value="clothing">의류</option>-->
-<!--            <option value="home">가정용품</option>-->
-<!--            <option value="books">도서</option>-->
-<!--            <option value="beauty">뷰티</option>-->
-<!--            &lt;!&ndash; 추가 카테고리 &ndash;&gt;-->
-<!--        </select>-->
-<!--    </div>-->
     <div>
         <label for="productPrice">가격:</label>
         <input type="text" id="productPrice" name="productPrice" th:value="${product.productPrice}" required>
     </div>
+
+        <div>
+            <label for="optionName">옵션 이름:</label>
+            <input type="text" id="optionName" name="optionName" required>
+        </div>
+        <div>
+            <label for="optionValue">옵션 값:</label>
+            <input type="text" id="optionValue" name="optionValue" required>
+        </div>
+        <div>
+            <label for="optionCount">옵션 수량:</label>
+            <input type="text" id="optionCount" name="optionCount" required>
+        </div>
+
     <div>
-        <label for="prodImage">상품 이미지:</label>
-        <input type="file" id="prodImage" name="prodImage" accept="image/*" required>
+        <label for="productImageFile">상품 이미지:</label>
+        <input type="file" id="productImageFile" name="productImageFile" accept="image/*">
     </div>
 <!--    <td><img th:src="@{'/images/'+${product.imageFile}}" width="200"></td>-->
     <div>
@@ -67,36 +71,28 @@
     <div>
         <a href="/prod/list" class="button">리스트로 이동</a>
     </div>
+    </div>
 </form>
-
-
-<!-- 카테고리 ajax로 따로 만들어서 연결하기 -->
-
-
-<!-- JavaScript for dynamically adding and removing options -->
-<!--<script>-->
-<!--    let optionCount = 0;-->
-
-<!--    function addOption() {-->
-<!--        optionCount++;-->
-<!--        const optionsContainer = document.getElementById('optionsContainer');-->
-
-<!--        const optionDiv = document.createElement('div');-->
-<!--        optionDiv.id = `option${optionCount}`;-->
-<!--        optionDiv.innerHTML = `-->
-<!--                <label for="optionName${optionCount}">옵션명:</label>-->
-<!--                <input type="text" id="optionName${optionCount}" name="options[${optionCount}][name]" required>-->
-<!--                <label for="optionStock${optionCount}">재고 수량:</label>-->
-<!--                <input type="number" id="optionStock${optionCount}" name="options[${optionCount}][stock]" required>-->
-<!--                <button type="button" onclick="removeOption(${optionCount})">삭제</button>-->
-<!--            `;-->
-<!--        optionsContainer.appendChild(optionDiv);-->
-<!--    }-->
-
-<!--    function removeOption(optionId) {-->
-<!--        const optionDiv = document.getElementById(`option${optionId}`);-->
-<!--        optionDiv.remove();-->
-<!--    }-->
-<!--</script>-->
+<!-- OOOPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--<form id="createOptionForm" th:action="@{/insertOption}" method="post" enctype="multipart/form-data">-->
+<!--    <div>-->
+<!--        <label for="optionName">옵션 이름:</label>-->
+<!--        <input type="text" id="optionName" name="optionName" required>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="optionValue">옵션 값:</label>-->
+<!--        <input type="text" id="optionValue" name="optionValue" required>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="optionCount">옵션 수량:</label>-->
+<!--        <input type="text" id="optionCount" name="optionCount" required>-->
+<!--    </div>-->
+<!--    <div id="optionsContainer"></div>-->
+<!--    &lt;!&ndash; 옵션들이 여기에 추가됨 &ndash;&gt;-->
+<!--    &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <button type="button" onclick="addOption()">more option</button>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--</form>-->
+<script src="/js/insert.js"></script>
 </body>
 </html>

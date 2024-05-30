@@ -10,7 +10,7 @@
 <div class="container">
     <h1>Product List</h1>
     <h3><a href="/prod/insert">새 상품 등록하기</a></h3>
-    <h3><a href="/prod/product">상품 페이지로 이동</a></h3>
+    <h3><a href="/prod/products">상품 페이지로 이동</a></h3>
 
     <table class="product-table">
         <thead>
@@ -21,20 +21,28 @@
             <th>Product Name</th>
             <th>Price</th>
             <th>Content</th>
-            <th>Image</th>
+            <th>Option</th>
+<!--            <th>Image</th>-->
             <th>Modify</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product : ${products}">
 <!--            <td><a th:href="@{/prod/insert/{id}(id=${product.productNo})}" th:text="${product.productNo}">Product No</a></td>-->
-            <td th:text="${product.productNo}">Product Number</td>
-            <td th:text="${product.productCondition}">Product Condition</td>
-            <td th:text="${product.categoryName}">Product Category Name</td>
-            <td th:text="${product.productName}">Product Name</td>
-            <td th:text="${product.productPrice}">Product Price</td>
-            <td th:text="${product.productContent}">Product Content</td>
-            <td><img th:src="@{'/public/images/'+${product.imageFileName}}" width="100"></td>
+            <td th:text="${product.productNo}"></td>
+            <td th:text="${product.productCondition}"></td>
+            <td th:text="${product.categoryName}"></td>
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.productPrice}"></td>
+            <td th:text="${product.productContent}"></td>
+            <td>
+                <ul>
+                    <li th:each="option : ${product.options}" th:text="${option.optionName}"></li>
+                </ul>
+            </td>
+<!--            <td th:text="${product.options}">Product Option</td>-->
+
+<!--            <td><img th:src="@{'/public/images/'+${product.productImageName}}" width="100"></td>-->
             <td>
                 <a th:href="@{/prod/update/{id}(id=${product.productNo})}">
                     <button type="button">수정</button>

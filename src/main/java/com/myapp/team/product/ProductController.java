@@ -1,5 +1,7 @@
 package com.myapp.team.product;
 
+import com.myapp.team.option.Option;
+import com.myapp.team.option.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -14,16 +17,28 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final OptionService optionService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, OptionService optionService) {
         this.productService = productService;
+        this.optionService = optionService;
     }
 
     // Product Page
     @GetMapping("/product")
     public String showProductsPage(Model model) {
         model.addAttribute("product", new Product());
+        return "product";
+    }
+
+    @GetMapping("/products")
+    public String getProducts(Model model) {
+        List<Product> products = productService.findAllProducts();
+//        List<Option> options = optionService.findAllOptions();
+
+        model.addAttribute("products", products);
+//        model.addAttribute("options", options);
         return "product";
     }
 
@@ -58,11 +73,43 @@ public class ProductController {
     }
 
     // CREATE
-    @PostMapping("/insert")
-    public String insertProduct(@ModelAttribute Product product, BindingResult result, RedirectAttributes ra) {
+//    @PostMapping("/insert")
+//    public String insertProduct(Product product, RedirectAttributes ra) {
+//        productService.insertProduct(product);
+//
+//        // Product 객체의 options 필드에 있는 각 Option 객체를 데이터베이스에 저장
+////        for (Option option : product.getOptions()) {
+////            option.setProduct(product);  // Option 객체가 속한 Product 객체를 설정
+////            optionService.insertOption(option);  // Option 객체를 데이터베이스에 저장
+////        }
+//
+//        ra.addFlashAttribute("manage_result", product.getProductName());
+//        return "redirect:/prod/list";
+//    }
 
+    @PostMapping("/insert")
+    public String insertProduct(Product product, @RequestParam("optionName") List<String> optionNames,
+                                @RequestParam("optionValue") List<String> optionValues,
+                                @RequestParam("optionCount") List<Integer> optionCounts,
+                                RedirectAttributes ra) {
+        List<Option> options = new ArrayList<>();
+        for (int i = 0; i < optionNames.size(); i++) {
+            Option option = new Option();
+            option.setOptionName(optionNames.get(i));
+            option.setOptionValue(optionValues.get(i));
+            option.setOptionCount(optionCounts.get(i));
+            options.add(option);
+        }
+        product.setOptions(options);
         productService.insertProduct(product);
-        ra.addFlashAttribute("manage_result", product.getProductName()); //상품이름이 등록되었음을 알리는 경고창 띄우기위함
+
+        ra.addFlashAttribute("manage_result", product.getProductName());
+        return "redirect:/prod/list";
+    }
+
+    @PostMapping("/insertOption")
+    public String insertOption(Product product, Option option) {
+        optionService.insertOption(product, option);
         return "redirect:/prod/list";
     }
 
@@ -85,7 +132,20 @@ public class ProductController {
     // DELETE
     @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable int id) {
+        optionService.deleteOption(id);
         productService.deleteProduct(id);
         return "redirect:/prod/list";
     }
+
+    @PostMapping("/option/delete")
+    public String deleteOption(int optionNo) {
+        optionService.deleteOption(optionNo);
+        return "redirect:/prod/list";
+    }
+
+//    @GetMapping("/products")
+//    public List<Product> getProductsByCategory(@RequestParam String category) {
+//        return productService.getProductsByCategory(category);
+//    }
+
 }

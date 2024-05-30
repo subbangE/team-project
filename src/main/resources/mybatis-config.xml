@@ -16,6 +16,6 @@
   </environments>
 
   <mappers>
-    <mapper resource="mapper/ProductMapper.xml"/>
+    <mapper resource="mapper/*.xml"/>
   </mappers>
 </configuration>
