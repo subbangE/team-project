@@ -1,6 +1,5 @@
 package com.myapp.team.cart.controller;
 
-
 import com.myapp.team.cart.mapper.CartMapper;
 import com.myapp.team.cart.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -15,7 +15,9 @@ import java.util.List;
 public class CartController {
 
     @Autowired
-    private CartMapper cartMapper;
+    private CartMapper cartMapper; // CartMapper 의존성을 자동으로 주입받음
+
+
 
     // 특정 사용자의 장바구니 항목 조회
     @GetMapping("/{userNo}")
@@ -69,4 +71,6 @@ public class CartController {
         cartMapper.deleteCart(cartNo);
         return "redirect:/cart/" + userNo;
     }
+
+
 }
