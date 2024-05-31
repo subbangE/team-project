@@ -31,10 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 //
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if ("ADMIN".equals(user.getRole())) {
-            authorities.add(new SimpleGrantedAuthority(user.getRole()));
+        String role = user.getRole();
+        if (role != null) {
+            authorities.add(new SimpleGrantedAuthority(role));
         } else {
-            authorities.add(new SimpleGrantedAuthority(user.getRole()));
+            // Handle the case where role is null, e.g., log an error or throw an exception
+            throw new IllegalArgumentException("User role cannot be null");
         }
 
         return new org.springframework.security.core.userdetails.User(user.getUserId(), user.getUserPw(), authorities);

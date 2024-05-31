@@ -14,10 +14,4 @@
         SELECT * FROM user WHERE user_id = #{userId}
     </select>
 
-    <update id="updateUserRole" parameterType="String">
-        UPDATE user
-        SET role = #{role}
-        WHERE user_id = #{userId}
-    </update>
-
 </mapper>

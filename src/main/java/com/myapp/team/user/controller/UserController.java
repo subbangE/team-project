@@ -52,20 +52,5 @@ public class UserController {
         return "index";
     }
 
-    @PostMapping("/admin/grant")
-    @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
-    public String grantAdmin(@RequestParam String userId, String role) {
-        userService.updateUserRole(userId, "ADMIN");
-        userService.updateUserRole(userId, "USER");
-        return userId + "의 권한이 " + role + "(으)로 변경되었습니다";
-    }
-
-    //ADMIN 역할을 가진 유저만 페이지에 입장가능하게 해줌
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String adminPage() {
-        return "admin";
-    }
 }
 

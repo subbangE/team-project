@@ -24,7 +24,5 @@ public class UserService {
         userMapper.insertUser(user);
     }
 
-    public void updateUserRole(String userId, String role) {
-        userMapper.updateUserRole(userId, role);
-    }
+
 }

@@ -12,6 +12,6 @@ public interface UserMapper {
 
     User findByUserId(String userId);
 
-    void updateUserRole(@Param("userId") String userId, @Param("role") String role);
+
 
 }
