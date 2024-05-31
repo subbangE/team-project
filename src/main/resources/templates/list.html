@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
     <link rel="stylesheet" th:href="@{/list.css}">
 </head>
 <body>
+<main>
 <div class="container">
     <h1>Product List</h1>
     <h3><a href="/prod/insert">새 상품 등록하기</a></h3>
@@ -20,12 +20,13 @@
             <th>Category</th>
             <th>Product Name</th>
             <th>Price</th>
-            <th>Content</th>
+<!--            <th>Content</th>-->
             <th>Option</th>
 <!--            <th>Image</th>-->
             <th>Modify</th>
         </tr>
         </thead>
+
         <tbody>
         <tr th:each="product : ${products}">
 <!--            <td><a th:href="@{/prod/insert/{id}(id=${product.productNo})}" th:text="${product.productNo}">Product No</a></td>-->
@@ -34,10 +35,13 @@
             <td th:text="${product.categoryName}"></td>
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productPrice}"></td>
-            <td th:text="${product.productContent}"></td>
+<!--            <td th:text="${product.productContent}"></td>-->
+            <!-- 옵션 -->
             <td>
                 <ul>
-                    <li th:each="option : ${product.options}" th:text="${option.optionName}"></li>
+                    <li th:each="option : ${product.options}">
+                        <span th:text="${option.optionName}"></span>
+                    </li>
                 </ul>
             </td>
 <!--            <td th:text="${product.options}">Product Option</td>-->
@@ -52,8 +56,11 @@
                 </form>
             </td>
         </tr>
+
         </tbody>
+
     </table>
 </div>
+</main>
 </body>
 </html>

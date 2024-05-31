@@ -4,6 +4,8 @@ import com.myapp.team.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class Option {
@@ -19,4 +21,8 @@ public class Option {
     public void setProduct(Product product) {
     }
 
+    public void setProductId(int id) {
+    }
+
 }
+

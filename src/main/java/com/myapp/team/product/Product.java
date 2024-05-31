@@ -1,5 +1,6 @@
 package com.myapp.team.product;
 
+import com.myapp.team.image.Image;
 import com.myapp.team.option.Option;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,8 @@ public class Product {
     private double productPrice;
     private String productImageName;
 
+    private String productImagePath; // 이미지 경로 추가
+
     private List<Option> options;  // 옵션 리스트
 
     public Product() {
@@ -30,5 +33,6 @@ public class Product {
     private MultipartFile productImageFile;
 
 }
+
 
 

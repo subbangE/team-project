@@ -20,6 +20,12 @@ public class OptionController {
 //        return "redirect:/prod/list";
 //    }
 
+    @PostMapping("/option/update")
+    public String updateOption(Option option) {
+        optionService.updateOption(option);
+        return "redirect:/prod/list";
+    }
+
 // deleteOption
     @PostMapping("/option/delete")
     public String deleteOption(int optionNo) {

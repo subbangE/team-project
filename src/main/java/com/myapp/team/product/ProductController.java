@@ -7,9 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -26,13 +33,13 @@ public class ProductController {
     }
 
     // Product Page
-    @GetMapping("/product")
+/*    @GetMapping("/product")
     public String showProductsPage(Model model) {
         model.addAttribute("product", new Product());
         return "product";
-    }
+    }*/
 
-@GetMapping("/products")
+    @GetMapping("/products")
     public String getProducts(Model model) {
         List<Product> products = productService.findAllProducts();
         for (Product product : products) {
@@ -42,7 +49,6 @@ public class ProductController {
         model.addAttribute("products", products);
         return "product";
     }
-
 
     // Product Detail Page
     @GetMapping("/{id}")
@@ -55,6 +61,10 @@ public class ProductController {
     @GetMapping("/list")
     public String listProducts(Model model) {
         List<Product> products = productService.findAllProducts();
+        for (Product product : products) {
+            List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
+            product.setOptions(options);
+        }
         model.addAttribute("products", products);
         return "list";
     }
@@ -74,21 +84,6 @@ public class ProductController {
         return "insert";
     }
 
-    // CREATE
-//    @PostMapping("/insert")
-//    public String insertProduct(Product product, RedirectAttributes ra) {
-//        productService.insertProduct(product);
-//
-//        // Product 객체의 options 필드에 있는 각 Option 객체를 데이터베이스에 저장
-////        for (Option option : product.getOptions()) {
-////            option.setProduct(product);  // Option 객체가 속한 Product 객체를 설정
-////            optionService.insertOption(option);  // Option 객체를 데이터베이스에 저장
-////        }
-//
-//        ra.addFlashAttribute("manage_result", product.getProductName());
-//        return "redirect:/prod/list";
-//    }
-
     @PostMapping("/insert")
     public String insertProduct(Product product, @RequestParam("optionName") List<String> optionNames,
                                 @RequestParam("optionValue") List<String> optionValues,
@@ -103,6 +98,29 @@ public class ProductController {
             options.add(option);
         }
         product.setOptions(options);
+
+        // 이미지 파일 저장
+        MultipartFile image = product.getProductImageFile();
+        if (image != null && !image.isEmpty()) {
+        Date createDate = new Date();
+        String storeFileName = createDate.getTime() + "." + image.getOriginalFilename();
+        try {
+            String uploadDir = "public/images/";
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectory(uploadPath);
+            }
+            try (InputStream inputStream = image.getInputStream()) {
+                Files.copy(inputStream, Paths.get(uploadDir + storeFileName), StandardCopyOption.REPLACE_EXISTING);
+            }
+            // 저장된 이미지 경로를 설정
+            product.setProductImageName(storeFileName);
+            product.setProductImagePath("/images/" + storeFileName);
+        } catch (Exception ex) {
+            System.out.println("이이이이미미이이이지지지지이이없다 " + ex.getMessage());
+            }
+        }
+
         productService.insertProduct(product);
 
         ra.addFlashAttribute("manage_result", product.getProductName());
@@ -117,23 +135,53 @@ public class ProductController {
 
     // Update Page
     @GetMapping("/update/{id}")
-    public String updateProductPage(@PathVariable int id, Model model) {
+    public String updateProductPage(@PathVariable("id") int id, Model model) {
         Product product = productService.findProductById(id);
+        List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
+        product.setOptions(options);
         model.addAttribute("product", product);
         return "update";
     }
 
+
     // UPDATE
+//    @PostMapping("/update/{id}")
+//    public String updateProduct(@PathVariable("id") int id, @ModelAttribute Product product, Option option) {
+//        option.setOptionNo(id);
+//        product.setProductNo(id);
+//        optionService.updateOption(option);
+//        productService.updateProduct(product);
+//        return "redirect:/prod/list";
+//    }
+
     @PostMapping("/update/{id}")
-    public String updateProduct(@PathVariable int id, @ModelAttribute Product product) {
+    public String updateProduct(@PathVariable("id") int id, @ModelAttribute Product product, BindingResult result, RedirectAttributes ra) {
+        // PathVariable로 전달된 id를 Product 객체에 설정
         product.setProductNo(id);
+
+        // Product 먼저 업데이트
         productService.updateProduct(product);
+        // 옵션 업데이트
+        for (Option option : product.getOptions()) {
+            option.setProductId(id);
+            optionService.updateOption(option);
+        }
+
+        // 결과 메시지를 RedirectAttributes에 추가
+        ra.addFlashAttribute("manage_result", product.getProductName());
+
+        System.out.println("update test = " + product);
+
+        // 제품 목록 페이지로 리디렉션
         return "redirect:/prod/list";
     }
 
+
+
+
     // DELETE
     @PostMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable int id) {
+    public String deleteProduct(@PathVariable("id") int id) {
         optionService.deleteOption(id);
         productService.deleteProduct(id);
         return "redirect:/prod/list";
@@ -144,10 +192,5 @@ public class ProductController {
         optionService.deleteOption(optionNo);
         return "redirect:/prod/list";
     }
-
-//    @GetMapping("/products")
-//    public List<Product> getProductsByCategory(@RequestParam String category) {
-//        return productService.getProductsByCategory(category);
-//    }
 
 }
