@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>주문/CS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .status {
+            font-weight: bold;
+            color: green;
+        }
+        .actions button {
+            margin-right: 5px;
+        }
+        .description {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .description p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>주문 리스트(주문 상세)</h1>
+    <div class="tabs">
+        <button>주문내역(1건)</button>
+        <button>취소(0건)</button>
+        <button>교환(0건)</button>
+        <button>반품(0건)</button>
+        <button>환불(0건)</button>
+        <button>CS내역(0건)</button>
+        <button>고객상담(0건)</button>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>주문 번호</th>
+            <th>상품번호</th>
+            <th>주문 일자</th>
+            <th>수령인 명</th>
+            <th>수령인 연락처</th>
+            <th>수령인 주소</th>
+            <th>배송 요청 메시지</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>20190211-0000077-01</td>
+            <td>123456</td>
+            <td>2019-02-11</td>
+            <td>홍길동</td>
+            <td>010-1234-5678</td>
+            <td>서울특별시 강남구 테헤란로 123</td>
+            <td>부재 시 경비실에 맡겨주세요</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="actions">
+        <button>입금확인</button>
+        <button>주문취소</button>
+        <button>상품교환</button>
+        <button>상품반품</button>
+        <button>배송상품 추가</button>
+    </div>
+    <div class="description">
+        <p><strong>배송상품추가</strong></p>
+        <p>- 동일 주문번호의 수량 상품 중 부분배송처리된 송장번호에 미배송된 상품을 추가할 수 있습니다.</p>
+        <p>- 동일 주문번호 상품 중 '배송중' 상태가 있는 경우에만 추가할 수 있으며, 배송 추가 가능한 상품만 체크박스가 활성화됩니다.</p>
+
+        <p><strong>배송 상품 추가 가능 조건</strong></p>
+        <p>- 동일한 주문번호 : 부분배송, 배송준비중, 배송완료 상태 상품</p>
+        <p>- 배송 상품 추가 가능하지 않은 경우 : 배송상품추가 버튼 비활성화</p>
+
+        <p><strong>입금확인</strong></p>
+        <p>- 입금확인 설정시 해당 주문의 상태가 입금확인으로 표시됩니다.</p>
+        <p>- 상태 값 변경 : 입금확인 시 네이버페이에서 '배송중' 상태로 변경됩니다.</p>
+        <p>단, 배송중 처리 시에는 네이버페이센터에 배송중 상태가 반영됩니다.</p>
+
+        <p><strong>주문취소</strong></p>
+        <p>- 주문 내역의 전체취소 및 부분취소를 진행할 수 있습니다.</p>
+        <p>- 주문취소는 취소 처리 후 취소 처리 요청을 통해 취소처리를 진행할 수 있습니다.</p>
+        <p>- 네이버페이센터에서 취소 요청이 확인되면, 해당 주문의 상태 값이 변경됩니다.</p>
+        <p>단, 네이버페이 주문의 경우 상태 변경 시 네이버페이센터에 설정된 내용으로 반영됩니다.</p>
+
+        <p><strong>상품 교환</strong></p>
+        <p>- 상품교환 요청시 전체 및 부분교환을 진행할 수 있습니다.</p>
+        <p>- 부분 교환의 경우 부분 교환을 완료한 후 교환 상태가 '교환완료'로 변경됩니다.</p>
+        <p>- 상품교환의 경우, '상품교환' 버튼을 통해 상품을 교환처리할 수 있습니다.</p>
+        <p>단, 상품교환 요청 시 주문번호와 동일한 주문의 상태 값이 변경됩니다.</p>
+
+        <p><strong>상품반품</strong></p>
+        <p>- 상품반품 요청시 전체 및 부분반품을 진행할 수 있습니다.</p>
+        <p>- 부분 반품의 경우 부분 반품을 완료한 후 반품 상태가 '반품완료'로 변경됩니다.</p>
+        <p>- 상품반품의 경우, '상품반품' 버튼을 통해 반품처리할 수 있습니다.</p>
+        <p>단, 상품반품 요청 시 주문번호와 동일한 주문의 상태 값이 변경됩니다.</p>
+
+        <p><strong>주문상태</strong></p>
+        <p>- 주문의 상태를 변경할 수 있습니다.</p>
+        <p>- 주문 상태 변경 시에는 네이버페이센터에 설정된 내용으로 반영됩니다.</p>
+    </div>
+</div>
+</body>
+</html>

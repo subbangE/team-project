@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>주문 완료</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .order-details {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>주문 완료</h1>
+    <div class="order-details">
+        <p>주문이 성공적으로 완료되었습니다!</p>
+        <p>주문 번호: <span th:text="${order.ordersId}"></span></p>
+        <p>상품명: <span th:text="${order.productName}"></span></p>
+        <p>총 금액: <span th:text="${order.totalAmount} + '원'"></span></p>
+    </div>
+    <a href="/orders" class="btn">주문 내역 보기</a>
+</div>
+</body>
+</html>
