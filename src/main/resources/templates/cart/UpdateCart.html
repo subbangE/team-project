@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Cart</title>
+</head>
+<body>
+<h1>Update Cart Item</h1>
+<form action="@{/cart/update/{index}(index=${index})}" th:object="${cart}" method="post">
+    <!-- action URL 확인 필요 -->
+    <label for="cartNo">Cart No:</label>
+    <input type="number" id="cartNo" th:field="*{cartNo}" readonly />
+    <!-- th:field 값 확인 필요 -->
+
+    <label for="userNo">User No:</label>
+    <input type="number" id="userNo" th:field="*{userNo}" readonly />
+
+    <label for="productNo">Product No:</label>
+    <input type="text" id="productNo" th:field="*{productNo}" readonly />
+
+    <label for="cartCount">Count:</label>
+    <input type="number" id="cartCount" th:field="*{cartCount}" />
+
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

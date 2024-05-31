@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 수정</title>
-    <link rel="stylesheet" th:href="@{/update.css}">
+    <link rel="stylesheet" th:href="@{/product/prodstyle/update.css}">
 </head>
 <body>
 <form id="updateProductForm" th:action="@{/prod/update/{id}(id=${product.productNo})}" method="post" enctype="multipart/form-data">
@@ -76,6 +76,6 @@
         <a href="/prod/list" class="button">리스트로 이동</a>
     </div>
 </form>
-<script src="/js/update.js"></script>
+<script src="/product/prodjs/update.js"></script>
 </body>
 </html>
