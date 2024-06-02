@@ -1,6 +1,6 @@
 package com.myapp.team.cart.mapper;
 
-import com.myapp.team.cart.entity.Cart;
+import com.myapp.team.cart.model.Cart;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -22,4 +22,10 @@ public interface CartMapper {
 
 
     void deleteCart(int cartNo);
+
+
+
+    List<Cart> findCartByUserId(String userNo);
+
+    void addCart(Cart cart);
 }

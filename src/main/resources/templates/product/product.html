@@ -52,9 +52,7 @@
         <!-- data-category="${product.category_name}" : 카테고리 분류 -->
         <div th:each="product : ${products}" class="product-item" data-category="${product.categoryName}">
 
-            <h3 th:text="${product.productNo}">Product Number</h3>
-            <h3><a th:href="@{/prod/detail/{id}(id=${product.productName})}" th:text="${product.productName}">Product No</a></h3>
-<!--            <h3 th:text="${product.productName}">Product Name</h3>-->
+            <h3><a th:href="@{/prod/detail/{id}(id=${product.productNo})}" th:text="${product.productName}">Product No</a></h3>
             <p class="price" th:text="${product.productPrice} + '원'">Price</p>
 
             <!-- 상품 이미지 추가 -->

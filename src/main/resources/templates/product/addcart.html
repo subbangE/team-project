@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니</title>
+<!--    <link rel="stylesheet" type="text/css" href="/css/styles.css">-->
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .product-detail, .cart {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .product-detail h1, .cart h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .product-detail p, .cart ul, .cart p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #ddd;
+    }
+
+</style>
+<body>
+<div class="cart">
+    <h1>장바구니</h1>
+    <ul>
+        <li th:each="product : ${cartItems}">
+            <span th:text="${product.productName}">상품 이름</span>
+            <span th:text="${product.product}">수량</span>
+            <span th:text="${product.product * product.productContent}">가격</span>
+<!--            <button onclick="removeFromCart([[${item.product.id}]])">삭제</button>-->
+        </li>
+    </ul>
+    <p th:text="'총 가격: ' + ${totalPrice} + '원'">총 가격</p>
+    <button onclick="location.href='/checkout'">구매하기</button>
+</div>
+
+<script>
+    function removeFromCart(productId) {
+        fetch(`/cart/remove/${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if(response.ok) {
+                location.reload();
+            } else {
+                alert('삭제 실패');
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myapp.team.cart.mapper.OrderMapper">
-    <resultMap id="OrderResultMap" type="com.myapp.team.cart.entity.Order">
+    <resultMap id="OrderResultMap" type="com.myapp.team.cart.model.Order">
         <id property="ordersId" column="orders_id" />
         <result property="productNo" column="product_no" />
         <result property="orderDate" column="order_date" />
@@ -19,7 +19,7 @@
         SELECT * FROM ORDER_LIST WHERE orders_id = #{ordersId}
     </select>
 
-    <insert id="insert" parameterType="com.myapp.team.cart.entity.Order">
+    <insert id="insert" parameterType="com.myapp.team.cart.model.Order">
         INSERT INTO ORDER_LIST (orders_id, product_no, order_date, order_user_name, order_user_phone, order_user_adress, order_message)
         VALUES (#{ordersId}, #{productNo}, #{orderDate}, #{orderUserName}, #{orderUserPhone}, #{orderUserAdress}, #{orderMessage})
     </insert>

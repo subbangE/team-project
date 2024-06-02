@@ -1,7 +1,7 @@
 package com.myapp.team.cart.controller;
 
 import com.myapp.team.cart.mapper.CartMapper;
-import com.myapp.team.cart.entity.Cart;
+import com.myapp.team.cart.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,33 +15,33 @@ public class CartController {
 
     @Autowired
     private CartMapper cartMapper; // CartMapper 의존성을 자동으로 주입받음
+    private CartService cartService;
 
     // 특정 사용자의 장바구니 항목 조회
     @GetMapping("/{userNo}")
     public String getCartItems(@PathVariable("userNo") int userNo, Model model) {
         List<Cart> cartItems = cartMapper.findByUserNo(userNo);
         model.addAttribute("cartItems", cartItems);
-        model.addAttribute("userNo", userNo);
         return "cart/cart"; // 'cart.html' 템플릿을 반환
     }
 
     // 장바구니 항목 추가 폼 보여주기
-    @GetMapping("/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("cart", new Cart());
-        return "cart/CreateCart";
-    }
+//    @GetMapping("/create")
+//    public String showCreateForm(Model model) {
+//        model.addAttribute("cart", new Cart());
+//        return "cart/CreateCart";
+//    }
 
     // 장바구니 항목 추가
-    @PostMapping("/create")
-    public String createCartItem(@RequestParam("cartNo") int cartNo,
-                                 @RequestParam("userNo") int userNo,
-                                 @RequestParam("productNo") String productNo,
-                                 @RequestParam("cartCount") int cartCount) {
-        Cart cart = new Cart(cartNo, userNo, productNo, cartCount);
-        cartMapper.insertCart(cart);
-        return "redirect:/cart/" + userNo;
-    }
+//    @PostMapping("/create")
+//    public String createCartItem(@RequestParam("cartNo") int cartNo,
+//                                 @RequestParam("userNo") int userNo,
+//                                 @RequestParam("productNo") String productNo,
+//                                 @RequestParam("cartCount") int cartCount) {
+//        Cart cart = new Cart(cartNo, userNo, productNo, cartCount);
+//        cartMapper.insertCart(cart);
+//        return "redirect:/cart/" + userNo;
+//    }
 
     // 특정 장바구니 항목 조회 (수정 폼으로 이동)
     @GetMapping("/update/{cartNo}")
@@ -69,5 +69,11 @@ public class CartController {
         return "redirect:/cart/" + userNo;
     }
 
+    @GetMapping("/cart/{userId}")
+    public String viewCart(@PathVariable("userId") String userId, Model model) {
+        List<Cart> cartItems = cartService.findCartByUserId(userId);
+        model.addAttribute("cartItems", cartItems);
+        return "cart/cart";
+    }
 
 }

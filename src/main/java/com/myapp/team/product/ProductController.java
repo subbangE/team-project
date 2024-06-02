@@ -1,8 +1,16 @@
 package com.myapp.team.product;
 
+import com.myapp.team.cart.controller.CartController;
+import com.myapp.team.cart.controller.CartService;
+import com.myapp.team.cart.model.Cart;
 import com.myapp.team.option.Option;
 import com.myapp.team.option.OptionService;
+import com.myapp.team.user.model.User;
+import com.myapp.team.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,11 +34,15 @@ public class ProductController {
 
     private final ProductService productService;
     private final OptionService optionService;
+    private final CartService cartService;
+    private final UserService userService;
 
     @Autowired
-    public ProductController(ProductService productService, OptionService optionService) {
+    public ProductController(ProductService productService, OptionService optionService, CartService cartService, UserService userService) {
         this.productService = productService;
         this.optionService = optionService;
+        this.cartService = cartService;
+        this.userService = userService;
     }
 
     @GetMapping("/products")
@@ -43,9 +56,9 @@ public class ProductController {
         return "product/product";
     }
 
-    // Product Detail Page
+    // 상품 번호로 조회 (상품 상세 페이지)
     @GetMapping("/{id}")
-    @ResponseBody
+//    @ResponseBody
     public Product getProductById(@PathVariable int id) {
         return productService.findProductById(id);
     }
@@ -64,12 +77,12 @@ public class ProductController {
     }
 
     // Create Page
-    @GetMapping("/insert/{id}")
-    public String createProductPage(@PathVariable int id, Model model) {
-        Product product = productService.findProductById(id);
-        model.addAttribute("product", product);
-        return "product/insert";
-    }
+//    @GetMapping("/insert/{id}")
+//    public String createProductPage(@PathVariable int id, Model model) {
+//        Product product = productService.findProductById(id);
+//        model.addAttribute("product", product);
+//        return "product/insert";
+//    }
 
     // Create Page
     @GetMapping("/insert")
@@ -163,10 +176,8 @@ public class ProductController {
 
         // 결과 메시지를 RedirectAttributes에 추가
         ra.addFlashAttribute("manage_result", product.getProductName());
-
         System.out.println("update test = " + product);
-
-        // 제품 목록 페이지로 리디렉션
+        // 제품 목록 페이지로 리다이렉션
         return "redirect:/prod/list";
     }
 
@@ -186,12 +197,47 @@ public class ProductController {
 
 
     // 상품 상세 페이지
+//    @GetMapping("/detail/{id}")
+//    public String detailProduct(@PathVariable("id") int id, Model model) {
+//        Product product = productService.findProductById(id);
+//        List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
+//        product.setOptions(options);
+//        model.addAttribute("product", product);
+//        return "product/detail";
+//    }
+
     @GetMapping("/detail/{id}")
-    public String detailProduct(@PathVariable("id") int id, Model model) {
+    public String detailProduct(@PathVariable("id") int id, Model model, Principal principal) {
         Product product = productService.findProductById(id);
         List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
         product.setOptions(options);
         model.addAttribute("product", product);
+
+        // 현재 로그인한 사용자의 userNo를 가져옴
+//        String userNo = principal.getName();
+//        model.addAttribute("userNo", userNo);
+
         return "product/detail";
+    }
+
+    // 장바구니로 이동 페이지 -> 필요없음
+//    @GetMapping("/cart")
+//    public String cartPage() {
+//        return "cart/cart";
+//    }
+
+    @GetMapping("/prod/addcart/{userId}")
+    public String addCart(@RequestParam("productNo") int productNo, @RequestParam("optionNo") int optionNo, @RequestParam("cartCount") int cartCount, Principal principal) {
+        String userId = principal.getName();  // 현재 로그인한 사용자의 userId를 가져옴
+
+        Cart cart = new Cart();
+        cart.setUserNo(Integer.parseInt(userId));  // userId를 사용하여 설정
+        cart.setProductNo(String.valueOf(productNo));
+//        cart.setOptionNo(optionNo);
+        cart.setCartCount(cartCount);
+
+        cartService.addCart(cart);  // 장바구니에 추가
+
+        return "redirect:/prod/addcart/" + userId;  // /cart/{userId}로 리디렉션
     }
 }

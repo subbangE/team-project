@@ -4,125 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장바구니</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #ffe6f0;
-            margin: 0;
-            padding: 20px;
-            background-size: cover; /* 배경 이미지가 화면을 덮도록 설정 */
-            background-repeat: no-repeat; /* 이미지 반복 없음 */
-            background-position: center center; /* 이미지 중앙 정렬 */
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgba(255, 240, 245, 0.9); /* 배경색에 투명도 추가 */
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #ff1493;
-            margin-bottom: 20px;
-        }
-
-        .cart-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .cart-table th, .cart-table td {
-            border: 1px solid #ffb6c1;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .cart-table th {
-            background-color: #ff69b4;
-            color: white;
-            font-weight: bold;
-        }
-
-        .inline-form {
-            display: inline-block;
-            margin: 0 5px;
-        }
-
-        .inline-form input[type="text"],
-        .inline-form input[type="number"] {
-            width: 80px;
-            padding: 5px;
-            margin-right: 5px;
-            border: 1px solid #ffb6c1;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .small-input {
-            width: 50px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            margin: 5px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn-edit {
-            background-color: #ff69b4;
-            color: white;
-        }
-
-        .btn-delete {
-            background-color: #ff1493;
-            color: white;
-        }
-
-        .btn-add {
-            background-color: #ff69b4;
-            color: white;
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        .add-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .add-form .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .add-form label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .add-form input {
-            padding: 10px;
-            border: 1px solid #ffb6c1;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-    </style>
+<link rel="stylesheet" href="/cart/cartcss/cart.css">
 </head>
 
 <body>
@@ -135,7 +17,7 @@
             <th>사용자 번호</th>
             <th>상품 번호</th>
             <th>수량</th>
-            <th>작업</th>
+            <th>작업</th>  <!-- 수정, 삭제 버튼 -->
         </tr>
         </thead>
         <tbody>
@@ -160,6 +42,8 @@
         </tr>
         </tbody>
     </table>
+
+    <!-- 이건 어떤 기능으로 있는거 ? -->
     <h2>장바구니 항목 추가</h2>
     <form th:action="@{/cart/create}" method="post" class="add-form">
         <div class="form-group">

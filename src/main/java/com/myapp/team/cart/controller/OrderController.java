@@ -1,6 +1,6 @@
 package com.myapp.team.cart.controller;
 
-import com.myapp.team.cart.entity.Order;
+import com.myapp.team.cart.model.Order;
 import com.myapp.team.cart.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +15,8 @@ public class OrderController {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    // 이건 뭔 파일 ??
 
     @GetMapping
     public String getAllOrders(Model model) {

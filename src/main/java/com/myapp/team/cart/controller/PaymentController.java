@@ -1,6 +1,6 @@
 package com.myapp.team.cart.controller;
 
-import com.myapp.team.cart.entity.Payment;
+import com.myapp.team.cart.model.Payment;
 import com.myapp.team.cart.mapper.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

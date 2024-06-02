@@ -1,4 +1,4 @@
-package com.myapp.team.cart.entity;
+package com.myapp.team.cart.model;
 
 import lombok.*;
 
@@ -24,4 +24,9 @@ public class Cart {
         this.productNo = productNo;
         this.cartCount = cartCount;
     }
+
+    // 상품 정보를 추가로 가져올 경우 사용
+    private String productName;
+    private int productPrice;
+
 }

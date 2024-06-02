@@ -1,6 +1,6 @@
 package com.myapp.team.cart.mapper;
 
-import com.myapp.team.cart.entity.Order;
+import com.myapp.team.cart.model.Order;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

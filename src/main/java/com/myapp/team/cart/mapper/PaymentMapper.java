@@ -1,6 +1,6 @@
 package com.myapp.team.cart.mapper;
 
-import com.myapp.team.cart.entity.Payment;
+import com.myapp.team.cart.model.Payment;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

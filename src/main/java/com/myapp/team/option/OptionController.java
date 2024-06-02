@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class OptionController {
 
     private final OptionService optionService;
-
     public OptionController(OptionService optionService) {
         this.optionService = optionService;
     }
@@ -20,13 +19,14 @@ public class OptionController {
 //        return "redirect:/prod/list";
 //    }
 
+    // 옵션 수정
     @PostMapping("/option/update")
     public String updateOption(Option option) {
         optionService.updateOption(option);
         return "redirect:/prod/list";
     }
 
-// deleteOption
+    // 옵션 삭제 (보류)
     @PostMapping("/option/delete")
     public String deleteOption(int optionNo) {
 

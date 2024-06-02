@@ -2,17 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.myapp.team.cart.mapper.CartMapper">
 
-    <select id="findByUserNo" parameterType="int" resultType="com.myapp.team.cart.entity.Cart">
+    <select id="findByUserNo" parameterType="int" resultType="com.myapp.team.cart.model.Cart">
         SELECT * FROM cart WHERE user_no = #{userNo}
     </select>
 
-    <select id="getCart" parameterType="int" resultType="com.myapp.team.cart.entity.Cart">
+    <select id="getCart" parameterType="int" resultType="com.myapp.team.cart.model.Cart">
         SELECT * FROM cart WHERE cart_no = #{cartNo}
     </select>
 
-    <insert id="insertCart" parameterType="com.myapp.team.cart.entity.Cart">
+    <insert id="insertCart" parameterType="com.myapp.team.cart.model.Cart">
         INSERT INTO cart (user_no, product_no, cart_count)
         VALUES (#{userNo}, #{productNo}, #{cartCount})
     </insert>
@@ -26,5 +27,31 @@
     <delete id="deleteCart" parameterType="int">
         DELETE FROM cart WHERE cart_no = #{cartNo}
     </delete>
+
+
+<!--    내가 추가한 거 -->
+    <select id="findCartByUserId" parameterType="String" resultType="com.myapp.team.cart.model.Cart">
+        SELECT c.cart_no, c.user_no, c.product_no, c.option_no, c.cart_count, p.name as product_name, p.price as product_price
+        FROM cart c
+                 JOIN product p ON c.product_no = p.product_no
+        WHERE c.user_no = #{userNo}
+    </select>
+
+    <resultMap id="CartResultMap" type="com.myapp.team.cart.model.Cart">
+            <id property="cartNo" column="cart_no"/>
+            <result property="userNo" column="user_no"/>
+            <result property="productNo" column="product_no"/>
+            <result property="optionNo" column="option_no"/>
+            <result property="cartCount" column="cart_count"/>
+            <result property="productName" column="product_name"/>
+            <result property="productPrice" column="product_price"/>
+        </resultMap>
+
+        <insert id="addCart" parameterType="com.myapp.team.cart.model.Cart">
+            INSERT INTO cart (user_no, product_no, option_no, cart_count)
+            VALUES (#{userNo}, #{productNo}, #{optionNo}, #{cartCount})
+        </insert>
+
+
 
 </mapper>

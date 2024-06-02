@@ -1,4 +1,4 @@
-package com.myapp.team.cart.entity;
+package com.myapp.team.cart.model;
 
 import lombok.*;
 
