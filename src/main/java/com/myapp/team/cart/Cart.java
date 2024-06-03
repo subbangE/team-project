@@ -20,4 +20,7 @@ public class Cart {
 
     public void setUserNo(int userNo) {
     }
+    public void setUserId(String userId){
+
+    }
 }

@@ -36,4 +36,8 @@ public class UserService {
     public void deleteUserByUserNo(String userId) {
         userMapper.deleteUserByUserId(userId);
     }
+
+    public User getUserNo(int userNo) {
+        return userMapper.getUserNo(userNo);
+    }
 }

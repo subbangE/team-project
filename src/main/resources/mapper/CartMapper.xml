@@ -11,19 +11,19 @@
     SELECT * FROM Cart WHERE user_no = #{userNo}
   </select>
 
-    <insert id="insertCart" useGeneratedKeys="true" keyProperty="cartId">
-      INSERT INTO Cart (user_id, product_id, cart_count)
-      VALUES (#{userId}, #{productId}, #{quantity})
+    <insert id="insertCart" useGeneratedKeys="true" keyProperty="cartNo">
+      INSERT INTO Cart (user_no, product_no, cart_count, option_no)
+      VALUES (#{userNo}, #{productNo}, #{cartCount}, #{optionNo})
     </insert>
 
     <update id="updateCart">
       UPDATE Cart
       SET cart_count = #{cartCount}
-      WHERE cart_id = #{cartId}
+      WHERE cart_no = #{cartNo}
     </update>
 
     <delete id="deleteCart">
-      DELETE FROM Cart WHERE cart_id = #{cartId}
+      DELETE FROM Cart WHERE cart_no = #{cartNo}
     </delete>
 
     <select id="findProductsByCategory" parameterType="string" resultType="Product">

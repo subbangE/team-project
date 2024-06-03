@@ -19,4 +19,6 @@ public interface UserMapper {
     User getUserByUsername(String UserName);
 
     void deleteUserByUserId(String UserId);
+
+    User getUserNo(int userNO);
 }

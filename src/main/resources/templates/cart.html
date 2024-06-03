@@ -20,24 +20,25 @@
             <th>Actions</th>
         </tr>
         </thead>
+
         <tbody>
         <tr th:each="cart : ${carts}">
             <td th:text="${cart.product.productName}">Product Name</td>
-            <td th:text="${cart.cartCount}">Quantity</td>
-            <td th:text="${cart.product.productPrice}">Price</td>
-            <td th:text="${cart.cartCount * cart.product.productPrice}">Total</td>
+<!--            <td th:text="${cart.cartCount}">Quantity</td>-->
+<!--            <td th:text="${cart.product.productPrice}">Price</td>-->
+<!--            <td th:text="${cart.cartCount * cart.product.productPrice}">Total</td>-->
 
-            <td>
-                <form th:action="@{/cart/update}" method="post">
-                    <input type="hidden" name="cartId" th:value="${cart.cartNo}">
-                    <input type="number" name="quantity" th:value="${cart.cartCount}" min="1">
-                    <button type="submit">Update</button>
-                </form>
-                <form th:action="@{/cart/delete}" method="post">
-                    <input type="hidden" name="cartId" th:value="${cart.cartNo}">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
+<!--            <td>-->
+<!--                <form th:action="@{/cart/update}" method="post">-->
+<!--                    <input type="hidden" name="cartId" th:value="${cart.cartNo}">-->
+<!--                    <input type="number" name="quantity" th:value="${cart.cartCount}" min="1">-->
+<!--                    <button type="submit">Update</button>-->
+<!--                </form>-->
+<!--                <form th:action="@{/cart/delete}" method="post">-->
+<!--                    <input type="hidden" name="cartId" th:value="${cart.cartNo}">-->
+<!--                    <button type="submit">Delete</button>-->
+<!--                </form>-->
+<!--            </td>-->
 
         </tr>
         </tbody>
