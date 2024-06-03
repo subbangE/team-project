@@ -36,4 +36,5 @@ public interface QuestionMapper {
     // question 삭제
     @Delete("delete from question where question_no=#{questionNo}")
     int deleteQuestion(int questionNo);
+
 }

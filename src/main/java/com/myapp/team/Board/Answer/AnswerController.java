@@ -1,12 +1,12 @@
 package com.myapp.team.Board.Answer;
 
-import com.myapp.team.Board.Question.Question;
+import com.myapp.team.Board.Attachment.AttachmentService;
 import com.myapp.team.Board.Question.QuestionService;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequestMapping("/answer")
@@ -14,6 +14,11 @@ public class AnswerController {
 
     @Autowired
     private AnswerMapper answerMapper;
+
+    @Autowired
+    private AttachmentService attachmentService;
+    @Autowired
+    private QuestionService questionService;
 
     // 답변 생성 페이지 보여주는 컨트롤러
     @GetMapping("/create/{questionNo}")
@@ -59,4 +64,5 @@ public class AnswerController {
         answerMapper.deleteAnswer(questionNo);
         return "redirect:/question/" + questionNo;
     }
+
 }

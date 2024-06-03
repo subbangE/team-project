@@ -14,8 +14,4 @@ public class Answer {
 
     private String answerContent;    // 질문 내용
 
-    //    public Answer(String answerTitle, String answerContent) {
-//        this.answerTitle = answerTitle;
-//        this.answerContent = answerContent;
-//    }
 }

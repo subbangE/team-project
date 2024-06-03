@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 20px;
 }
+
 .container {
     max-width: 600px;
     margin: 0 auto;
@@ -12,19 +13,23 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 h1 {
     text-align: center;
     color: #ad1457;
 }
+
 form {
     margin-top: 20px;
 }
+
 label {
     font-weight: bold;
     color: #ad1457;
 }
+
 input[type="text"],
-textarea {
+textarea, .field-group {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -35,6 +40,7 @@ textarea {
     background-color: #f8bbd0;
     color: #6a1b9a;
 }
+
 button[type="submit"] {
     padding: 12px 20px;
     background-color: #ad1457;
@@ -46,6 +52,7 @@ button[type="submit"] {
     text-transform: uppercase;
     transition: background-color 0.3s ease;
 }
+
 button[type="submit"]:hover {
     background-color: #880e4f;
 }

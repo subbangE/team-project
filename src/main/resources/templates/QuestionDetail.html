@@ -8,8 +8,6 @@
 </head>
 <body>
 
-<body>
-
 <div class="container">
     <h1>질문 보기</h1>
 
@@ -23,10 +21,23 @@
             <textarea id="questionContent" readonly th:text="${question.questionContent}"></textarea>
         </div>
     </div>
-    <div class="field-group">
+    <div class="field-group" hidden="hidden">
         <label for="userNo">작성자</label>
         <div class="value" id="userNo" th:text="${question.userNo}"></div>
     </div>
+
+    <div class="field-group">
+        <label>첨부파일</label>
+        <div class="value" th:if="${#lists.isEmpty(question.attachments)}">
+            <p>첨부파일이 없습니다.</p>
+        </div>
+        <div class="value" th:if="${!#lists.isEmpty(question.attachments)}">
+            <div th:each="attachment : ${question.attachments}">
+                <a th:href="@{/question/download/{attachmentNo}(attachmentNo=${attachment.attachmentNo})}" th:text="${attachment.originalFilename}"></a>
+            </div>
+        </div>
+    </div>
+
     <div class="buttons">
         <a href="/question" class="btn back-button">뒤로가기</a>
         <a th:href="@{/question/update/{questionNo}(questionNo=${question.questionNo})}" class="btn">수정</a>
