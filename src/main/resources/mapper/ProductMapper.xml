@@ -60,4 +60,11 @@
     DELETE FROM PRODUCTS WHERE product_no = #{productNo};
   </delete>
 
+  <!-- 카테고리별 상품 조회 -->
+  <select id="findProductsByCategory" parameterType="string" resultType="Product">
+    SELECT product_no, product_condition, category_name, product_name, product_price, product_content, product_image_name, product_image_path
+    FROM PRODUCTS
+    WHERE category_name = #{categoryName}
+  </select>
+
 </mapper>
