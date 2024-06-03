@@ -51,5 +51,6 @@ public class UserController {
     public String indexPage() {
         return "index";
     }
+
 }
 

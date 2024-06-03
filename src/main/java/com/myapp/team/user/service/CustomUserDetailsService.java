@@ -1,5 +1,6 @@
 package com.myapp.team.user.service;
 
+import com.myapp.team.user.config.CustomUserDetails;
 import com.myapp.team.user.mapper.UserMapper;
 import com.myapp.team.user.model.User;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new IllegalArgumentException("User role cannot be null");
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUserId(), user.getUserPw(), authorities);
+        return new com.myapp.team.user.config.CustomUserDetails(user, authorities);
     }
+
 }
