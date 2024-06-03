@@ -32,13 +32,7 @@ public class ProductController {
         this.optionService = optionService;
     }
 
-    // Product Page
-/*    @GetMapping("/product")
-    public String showProductsPage(Model model) {
-        model.addAttribute("product", new Product());
-        return "product";
-    }*/
-
+    // 상품 메인 페이지
     @GetMapping("/products")
     public String getProducts(Model model) {
         List<Product> products = productService.findAllProducts();
@@ -69,21 +63,14 @@ public class ProductController {
         return "list";
     }
 
-    // Create Page
-    @GetMapping("/insert/{id}")
-    public String createProductPage(@PathVariable int id, Model model) {
-        Product product = productService.findProductById(id);
-        model.addAttribute("product", product);
-        return "insert";
-    }
-
-    // Create Page
+    // 상품 추가 페이지
     @GetMapping("/insert")
     public String createProductPage(Model model) throws Exception {
         model.addAttribute("product", new Product());
         return "insert";
     }
 
+    // 상품 추가
     @PostMapping("/insert")
     public String insertProduct(Product product, @RequestParam("optionName") List<String> optionNames,
                                 @RequestParam("optionValue") List<String> optionValues,
@@ -99,7 +86,7 @@ public class ProductController {
         }
         product.setOptions(options);
 
-        // 이미지 파일 저장
+        // 이미지 파일 저장 (복붙해온거)
         MultipartFile image = product.getProductImageFile();
         if (image != null && !image.isEmpty()) {
         Date createDate = new Date();
@@ -117,12 +104,10 @@ public class ProductController {
             product.setProductImageName(storeFileName);
             product.setProductImagePath("/images/" + storeFileName);
         } catch (Exception ex) {
-            System.out.println("이이이이미미이이이지지지지이이없다 " + ex.getMessage());
+            System.out.println("이미지 없당" + ex.getMessage());
             }
         }
-
         productService.insertProduct(product);
-
         ra.addFlashAttribute("manage_result", product.getProductName());
         return "redirect:/prod/list";
     }
@@ -142,17 +127,6 @@ public class ProductController {
         model.addAttribute("product", product);
         return "update";
     }
-
-
-    // UPDATE
-//    @PostMapping("/update/{id}")
-//    public String updateProduct(@PathVariable("id") int id, @ModelAttribute Product product, Option option) {
-//        option.setOptionNo(id);
-//        product.setProductNo(id);
-//        optionService.updateOption(option);
-//        productService.updateProduct(product);
-//        return "redirect:/prod/list";
-//    }
 
     @PostMapping("/update/{id}")
     public String updateProduct(@PathVariable("id") int id, @ModelAttribute Product product, BindingResult result, RedirectAttributes ra) {
@@ -176,10 +150,7 @@ public class ProductController {
         return "redirect:/prod/list";
     }
 
-
-
-
-    // DELETE
+    // 상품 삭제
     @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id) {
         optionService.deleteOption(id);
@@ -187,10 +158,10 @@ public class ProductController {
         return "redirect:/prod/list";
     }
 
+    // 옵션
     @PostMapping("/option/delete")
     public String deleteOption(int optionNo) {
         optionService.deleteOption(optionNo);
         return "redirect:/prod/list";
     }
-
 }

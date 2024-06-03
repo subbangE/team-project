@@ -1,6 +1,5 @@
 package com.myapp.team.product;
 
-import com.myapp.team.image.Image;
 import com.myapp.team.option.Option;
 import lombok.Getter;
 import lombok.Setter;

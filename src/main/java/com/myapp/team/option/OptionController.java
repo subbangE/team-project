@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class OptionController {
 
     private final OptionService optionService;
-
     public OptionController(OptionService optionService) {
         this.optionService = optionService;
     }
@@ -26,13 +25,9 @@ public class OptionController {
         return "redirect:/prod/list";
     }
 
-// deleteOption
     @PostMapping("/option/delete")
     public String deleteOption(int optionNo) {
-
         optionService.deleteOption(optionNo);
         return "redirect:/prod/list";
     }
-
-
 }
