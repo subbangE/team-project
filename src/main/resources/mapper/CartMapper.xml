@@ -11,10 +11,15 @@
     SELECT * FROM Cart WHERE user_no = #{userNo}
   </select>
 
-    <insert id="insertCart" useGeneratedKeys="true" keyProperty="cartNo">
-      INSERT INTO Cart (user_no, product_no, cart_count, option_no)
-      VALUES (#{userNo}, #{productNo}, #{cartCount}, #{optionNo})
-    </insert>
+<!--  <insert id="insertCart" useGeneratedKeys="true" keyProperty="cartNo" parameterType="com.myapp.team.cart.Cart">-->
+<!--    INSERT INTO Cart (product_name, product_price, options)-->
+<!--    VALUES (#{productName}, #{productPrice}, #{options})-->
+<!--  </insert>-->
+
+  <insert id="insertCart" parameterType="com.myapp.team.cart.Cart">
+    INSERT INTO Cart (product_name, product_price, options)
+    VALUES (#{productName}, #{productPrice}, #{options})
+  </insert>
 
     <update id="updateCart">
       UPDATE Cart

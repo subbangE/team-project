@@ -18,9 +18,32 @@ public class Cart {
     private Product product; // 상품 정보 포함
     private Option option; // 옵션 정보 포함
 
+    private String productName;
+    private int productPrice;
+    private String options;
+
+    // 외부 테이블들
     public void setUserNo(int userNo) {
     }
     public void setUserId(String userId){
+    }
 
+    public String getProductName() {
+        return productName;
+    }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    public int getProductPrice() {
+        return productPrice;
+    }
+    public void setProductPrice(int productPrice) {
+        this.productPrice = productPrice;
+    }
+    public String getOptions() {
+        return options;
+    }
+    public void setOptions(String options) {
+        this.options = options;
     }
 }

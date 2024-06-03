@@ -1,8 +1,14 @@
 package com.myapp.team.product;
 
+import com.myapp.team.cart.Cart;
+import com.myapp.team.cart.CartMapper;
 import com.myapp.team.option.Option;
 import com.myapp.team.option.OptionService;
+import com.myapp.team.user.config.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,11 +32,13 @@ public class ProductController {
 
     private final ProductService productService;
     private final OptionService optionService;
+    private final CartMapper cartMapper;
 
     @Autowired
-    public ProductController(ProductService productService, OptionService optionService) {
+    public ProductController(ProductService productService, OptionService optionService, CartMapper cartMapper) {
         this.productService = productService;
         this.optionService = optionService;
+        this.cartMapper = cartMapper;
     }
 
     // 상품 메인 페이지
@@ -243,4 +251,26 @@ public class ProductController {
         }
         return "detail";
     }
+
+    // 상품 -> 장바구니
+//    @PostMapping("/add")
+//    public ResponseEntity<String> addToCart(@RequestParam("productName") String productName,
+//                                            @RequestParam("productPrice") int productPrice,
+//                                            @RequestParam("options") String options,
+//                                            Model model) {
+//        Cart cart = new Cart();
+//        cart.setProductName(productName);
+//        cart.setProductPrice(productPrice);
+//        cart.setOptions(options);
+//
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        int userNo = userDetails.getUserNo();
+//        cart.setUserNo(userNo);
+//
+//        cartMapper.insertCart(cart);
+//
+////        return "redirect:/cart/" + userNo;
+//        return ResponseEntity.ok("Item added to cart");
+//    }
 }

@@ -40,18 +40,16 @@
         <div class="actions">
 
 <!--            <a th:href="@{/cart/{id}(id=${cart.cartNo})}" th:text="${cart.cartNo}">장바구니-->
-<!--                <button class="buy-button">장바구니1</button>-->
+<!--                <button class="buy-button">장바구니</button>-->
 <!--            </a>-->
 
             <!-- 장바구니 연결 관련 -->
             <form th:action="@{/cart/add}" method="post">
+                <button class="btn btn-primary">장바구니</button>
                 <input type="hidden" name="productName" th:value="${product.productName}">
                 <input type="hidden" name="productPrice" th:value="${product.productPrice}">
                 <input type="hidden" name="options" th:value="${product.options}">
-                <button class="btn btn-primary">장바구니</button>
             </form>
-
-
         </div>
 
         <!--        <a th:href="@{/prod/update/{id}(id=${product.productNo})}">-->
