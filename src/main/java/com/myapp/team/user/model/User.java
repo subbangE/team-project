@@ -23,6 +23,6 @@ public class User {
 
     private String userEmail;
 
-    private String role;
+    private String role; //관리자 or 회원이냐 정의 하는 변수
 
 }
