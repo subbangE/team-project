@@ -61,13 +61,13 @@
     <a href="#">Products</a>
     <a href="#">About Us</a>
     <a href="#">Contact</a>
-    <li sec:authorize="isAuthenticated()"><a th:href="@{'/mypage/' + ${#authentication.principal.userNo}}">My Page</a></li>
-    <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></li>
-    <li sec:authorize="isAuthenticated()">
+    <span sec:authorize="isAuthenticated()"><a th:href="@{'/mypage/' + ${#authentication.principal.userNo}}">My Page</a></span>
+    <span sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></span>
+    <span sec:authorize="isAuthenticated()">
         <form th:action="@{/logout}" method="post">
             <button type="submit">Logout</button>
         </form>
-    </li>
+    </span>
 <!--    <span sec:authentication="principal.authorities"></span>-->
 </nav>
 <section>
