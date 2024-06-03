@@ -27,9 +27,15 @@ public class mypageController {
     @PostMapping("/update")
     public String update(@ModelAttribute User user, Model model) {
         System.out.println("유저번호: "+ user.getUserNo());
+        userService.updateUser(user);
         User updateUser = userService.getUserByUserNo(user.getUserNo());
         model.addAttribute("user", updateUser);
-        userService.updateUser(user);
         return "redirect:/mypage/" + user.getUserNo();
+    }
+
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam String userId) {
+        userService.deleteUserByUserNo(userId);
+        return "deleteSuccess";
     }
 }

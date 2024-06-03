@@ -25,4 +25,8 @@
     <select id="getUserByUsername" parameterType="String">
         SELECT * FROM user WHERE user_name = #{userName}
     </select>
+    
+    <delete id="deleteUserByUserId" parameterType="String">
+        DELETE FROM user WHERE user_id = #{userId}
+    </delete>
 </mapper>
