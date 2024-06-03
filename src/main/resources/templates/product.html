@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Mall</title>
+    <link rel="stylesheet" th:href="@{/product.css}">
+</head>
+<!-- /prod/products -->
+<body>
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close-button" onclick="closePopup()">&times;</span>
+        <p>This is a closable popup window.</p>
+    </div>
+</div>
+<header>
+    <h1><a href="/prod/products">DAPALA</a></h1>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="/prod/list">관리자 상품 추가</a></li>
+        </ul>
+<!--        <ul>-->
+<!--            <li th:if="${session.user == null}"><a href="#">Sign In</a></li>-->
+<!--            <li th:if="${session.user == null}"><a href="#">Sign Up</a></li>-->
+<!--            <li th:if="${session.user != null}"><a href="/logout">Logout</a></li>-->
+<!--            <li th:if="${session.user != null}"><a href="/mypage">My Page</a></li>-->
+<!--        </ul>-->
+        <ul>
+            <li><a href="#">Sign In</a></li>
+            <li><a href="#">Sign Up</a></li>
+            <li><a href="#">Logout</a></li>
+            <li><a href="#">My Page</a></li>
+        </ul>
+
+
+<!--        <ul>-->
+<!--            <li><a href="#" onclick="filterProducts('all')">All</a></li>-->
+<!--            <li><a href="#" onclick="filterProducts('레고')">레고</a></li>-->
+<!--            <li><a href="#" onclick="filterProducts('산리오')">산리오</a></li>-->
+<!--        </ul>-->
+    </nav>
+</header>
+<main>
+    <section class="products">
+        <h2>ALL Products</h2>
+
+        <div class="product-item">
+        <!-- data-category="${product.category_name}" : 카테고리 분류 -->
+        <div th:each="product : ${products}" class="product-item" data-category="${product.categoryName}">
+
+            <h3 th:text="${product.productNo}">Product Number</h3>
+            <h3><a th:href="@{/prod/detail/{id}(id=${product.productName})}" th:text="${product.productName}">Product No</a></h3>
+<!--            <h3 th:text="${product.productName}">Product Name</h3>-->
+            <p class="price" th:text="${product.productPrice} + '원'">Price</p>
+
+            <!-- 상품 이미지 추가 -->
+            <td><img th:src="@{'/images/'+${product.productImageName}}" width="100" alt="사진뿅"></td>
+<!--            <img th:src="@{'/public/images/' + ${product.productImageName}}" alt="Product Image">-->
+
+            <!-- 여기엔 옵션 뜸 왜 시발 왜 -->
+<!--            <h3 th:each="option : ${product.options}" th:text="${option.optionName}"></h3>-->
+<!--            <p class="description" th:text="${product.productContent}">Description</p>-->
+            <button>Add to Cart</button>
+        </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 dapala Shopping Mall. All rights reserved.</p>
+
+</footer>
+
+<script src="/js/product.js"></script>
+</body>
+</html>
