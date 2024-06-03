@@ -24,5 +24,16 @@ public class UserService {
         userMapper.insertUser(user);
     }
 
+    public void updateUser(User user) {
+        user.setUserPw(passwordEncoder.encode(user.getUserPw()));
+        userMapper.updateUser(user);
+    }
 
+    public User getUserByUserNo(int userNo) {
+        return userMapper.getUserByUserNo(userNo);
+    }
+
+    public void deleteUserByUserNo(String userId) {
+        userMapper.deleteUserByUserId(userId);
+    }
 }
