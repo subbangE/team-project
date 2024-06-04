@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Product List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Question No</th>
+        <th>User NO</th>
+        <th>Product No</th>
+        <th>Question Title</th>
+        <th>Question Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.questionNo}">1</td>
+        <td th:text="${question.UserNo}">판매 예정</td>
+        <td th:text="${question.ProductNo}">산티오</td>
+        <td th:text="${question.QuestionTitle}">1111</td>
+        <td th:text="${question.QuestionContent}">1111</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -18,7 +18,7 @@ public class Product {
     private String categoryName;
     private String productName;
     private String productContent;
-    private double productPrice;
+    private int productPrice;
     private String productImageName;
 
     private String productImagePath; // 이미지 경로 추가

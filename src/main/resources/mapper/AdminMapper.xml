@@ -12,4 +12,15 @@
         WHERE user_id = #{userId}
     </update>
 
+    <select id="findAllUser" resultType="com.myapp.team.user.model.User">
+        SELECT * FROM user
+    </select>
+
+    <select id="findAllProd" resultType="com.myapp.team.product.Product">
+        SELECT * FROM products
+    </select>
+
+    <select id="findAllQuestion" resultType="com.myapp.team.Board.Question.Question">
+        SELECT * FROM question
+    </select>
 </mapper>

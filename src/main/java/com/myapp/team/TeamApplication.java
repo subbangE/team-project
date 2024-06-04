@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 
 @SpringBootApplication
-@MapperScan("com.myapp.team")
 public class TeamApplication {
 
     public static void main(String[] args) {

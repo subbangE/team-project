@@ -23,6 +23,8 @@ public class User {
 
     private String userEmail;
 
+    private String userRank;
+
     private String role;
 
 }
