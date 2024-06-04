@@ -4,6 +4,7 @@ import com.myapp.team.Board.Answer.Answer;
 import com.myapp.team.Board.Answer.AnswerMapper;
 import com.myapp.team.Board.Attachment.Attachment;
 import com.myapp.team.Board.Attachment.AttachmentMapper;
+import com.myapp.team.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class QuestionService {
     @Autowired
     private AttachmentMapper attachmentMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     // questiondetail (질문과 답변 보여주기 위함 => 질문 1개, 답변 1개)
     public Question getQuestionById(int questionNo) {
         Question question = questionMapper.selectQuestion(questionNo);
@@ -31,8 +35,13 @@ public class QuestionService {
                 question.setAnswer(answer);
             }
         }
+
         List<Attachment> attachments = attachmentMapper.getAttachmentsByNo(questionNo);
         question.setAttachments(attachments);
+
+        String userName = userMapper.findByUserName(question.getUserNo());
+        question.setUserName(userName);
+
         return question;
     }
 
@@ -40,7 +49,14 @@ public class QuestionService {
     public List<Question> getQuestions(int page) {
         int size = 10;
         int offset = (page - 1) * size;
-        return questionMapper.getQuestions(offset, size);
+        List<Question> questions = questionMapper.getQuestions(offset, size);
+
+        // 출력되는 질문들을 User 테이블의 userId를 가져와서 userId에 입력
+        for (Question question : questions) {
+            String userName = userMapper.findByUserName(question.getUserNo());
+            question.setUserName(userName);
+        }
+        return questions;
     }
 
 }
