@@ -3,6 +3,7 @@ package com.myapp.team.Board.Answer;
 import com.myapp.team.Board.Attachment.AttachmentService;
 import com.myapp.team.Board.Question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class AnswerController {
     private AnswerMapper answerMapper;
 
     // 답변 생성 페이지 보여주는 컨트롤러
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/create/{questionNo}")
     public String showAnswerCreateForm(@PathVariable("questionNo") int questionNo, Model model) {
         Answer answer = new Answer();
@@ -24,6 +26,7 @@ public class AnswerController {
         return "CreateAnswer";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/create/{questionNo}")
     public String createAnswer(@PathVariable("questionNo") int questionNo,
                                @RequestParam String answerTitle,
@@ -36,6 +39,7 @@ public class AnswerController {
         return "redirect:/question/" + questionNo;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/update/{questionNo}")
     public String showAnswerUpdateForm(@PathVariable("questionNo") int questionNo, Model model) {
         Answer answer = answerMapper.selectQuestionByNo(questionNo);
@@ -45,6 +49,7 @@ public class AnswerController {
     }
 
     // 답변 수정하는 컨트롤러
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/update/{questionNo}")
     public String editAnswer(@PathVariable("questionNo") int questionNo,
                                @RequestParam("answerTitle") String answerTitle,
@@ -54,6 +59,7 @@ public class AnswerController {
     }
 
     // 답변 삭제하는 컨트롤러
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/delete")
     public String deleteAnswer(@RequestParam("questionNo") int questionNo) {
         answerMapper.deleteAnswer(questionNo);

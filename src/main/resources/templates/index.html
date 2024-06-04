@@ -61,6 +61,8 @@
     <a href="#">Products</a>
     <a href="#">About Us</a>
     <a href="#">Contact</a>
+    <a href="/question">Board</a>
+
     <span sec:authorize="isAuthenticated()"><a th:href="@{'/mypage/' + ${#authentication.principal.userNo}}">My Page</a></span>
     <span sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></span>
     <span sec:authorize="isAuthenticated()">

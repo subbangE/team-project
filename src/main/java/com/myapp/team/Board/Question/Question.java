@@ -31,4 +31,6 @@ public class Question {
     private List<Attachment> attachments; // 다중첨부파일 리스트 (질문 1개당 여러개 파일 가능하기 때문)
 
     private String userName;
+
+    private boolean canEditOrDelete;
 }

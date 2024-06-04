@@ -2,11 +2,15 @@ package com.myapp.team.Board.Question;
 
 import com.myapp.team.Board.Attachment.Attachment;
 import com.myapp.team.Board.Attachment.AttachmentService;
+import com.myapp.team.user.config.CustomUserDetails;
+import com.myapp.team.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,8 +70,25 @@ public class QuestionController {
     @GetMapping("/{questionNo}")
     public String showQuestionDetailForm(@PathVariable int questionNo, Model model) {
         Question question = questionService.getQuestionById(questionNo);
+
+
+        // 현재 로그인된 사용자 정보를 가져와 질문 userNo와 비교하여 수정 및 삭제 가능하게 함
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = userDetails.getUser();
+        int currentUserNo = currentUser.getUserNo();
+
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"));
+
+        boolean canEditOrDelete = question.getUserNo() == currentUserNo;
+        question.setCanEditOrDelete(canEditOrDelete);
+
+        // 뷰에서 사용하기 위해 가져옴
         model.addAttribute("question", question);
+        model.addAttribute("canEditOrDelete", canEditOrDelete);
+        model.addAttribute("isAdmin", isAdmin);
+
         System.out.println(question);
+
         return "QuestionDetail";
     }
 
