@@ -4,6 +4,7 @@ import com.myapp.team.option.Option;
 import lombok.Getter;
 import lombok.Setter;
 
+import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class Product {
 
     private Integer productNo;

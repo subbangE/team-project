@@ -3,10 +3,13 @@ package com.myapp.team.cart;
 import com.myapp.team.option.Option;
 import com.myapp.team.product.Product;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 @Getter
-@Service
+@Setter
+@ToString
 public class Cart {
 
     private int cartNo;  // 장바구니 번호

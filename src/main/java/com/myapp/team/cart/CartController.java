@@ -39,6 +39,20 @@ public class CartController {
                             @PathVariable("userNo") int userNo,
                             RedirectAttributes redirectAttributes) {
 
+        System.out.println("product = !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + product);
+        System.out.println("option = " + option);
+        System.out.println("userNo = " + userNo);
+
+        String productName = product.getProductName();
+
+        if (productName == null || productName.isEmpty()) {
+            // productName이 null이거나 비어 있는 경우를 처리합니다.
+            // 사용자에게 오류 메시지를 반환하거나 예외를 던질 수 있습니다.
+            // 지금은 그냥 반환하고 아무 것도 하지 않겠습니다.
+            System.out.println("쉬발 product Name이 없지만 일단 실행하겟듭니다 헤헤");
+            return "redirect:/cart/add/" + userNo;
+        }
+
         Cart cart = new Cart();
         cart.setUserNo(userNo);
         cart.setProductName(product.getProductName());
@@ -46,13 +60,6 @@ public class CartController {
         cart.setOptions(option.getOptionName());
         cart.setCartCount(1); // 기본 값 설정
 
-        String productName = product.getProductName();
-
-        if (productName == null || productName.isEmpty()) {
-            // 로그를 출력하거나 예외를 던집니다.
-            System.err.println("Product name 없음 다시 해 !!");
-            throw new IllegalArgumentException("오류 !!!!! 다시해 !!");
-        }
         cartService.insertCart(cart);
         return "redirect:/cart/add/" + userNo;
     }

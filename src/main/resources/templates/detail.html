@@ -35,18 +35,15 @@
             <p>오늘 출발 14:00 마감 (지금 주문 시)</p>
             <p>택배비: 3,500원 (CJ 대한통운)</p>
         </div>
+    </div>
         <div class="actions">
-
-<!--            <div th:object="${product}">-->
-<!--                <h2 th:text="*{productName}"></h2>-->
-<!--                <p th:text="*{productPrice}"></p>-->
-
                 <!-- 장바구니에 추가하는 폼 -->
                 <form th:object="${product}" th:action="@{/cart/add/{userNo}(userNo=${userNo})}" method="post" >
 <!--                    <input type="hidden" th:name="userNo" th:value="${userNo}">-->
+                    <input type="hidden" th:name="productNo" th:field="*{productNo}">
                     <input type="hidden" th:name="productName" th:field="*{productName}">
                     <input type="hidden" th:name="productPrice" th:field="*{productPrice}">
-                    <input type="hidden" th:name="options" th:field="*{options}">
+<!--                    <input type="hidden" th:name="options" th:field="*{options}">-->
                     <button type="submit">Add to Cart</button>
                 </form>
 <!--                <form th:action="@{/cart/add/{userNo}(userNo=${userNo})}" method="post">-->
@@ -55,16 +52,10 @@
 <!--                    <input type="hidden" name="options" id="hiddenOptions" th:value="${#strings.listJoin(product.options, ',')}">-->
 <!--                    <button type="submit">Add to Cart</button>-->
 <!--                </form>-->
-
         </div>
-    </div>
+
 
     <script>
-        // function submitCartForm() {
-        //     const options = [...document.querySelectorAll('.options p')].map(option => option.textContent).join(', ');
-        //     document.getElementById('hiddenOptions').value = options;
-        //     document.forms[0].submit();
-        // }
         function submitCartForm() {
             const options = [...document.querySelectorAll('.options p')].map(option => option.textContent).join(', ');
             document.getElementById('hiddenOptions').value = options;
@@ -72,7 +63,6 @@
             console.log('Product Name:', document.getElementById('hiddenProductName').value); // 디버깅 로그
             document.forms[0].submit();
         }
-
     </script>
 </div>
 </div>
