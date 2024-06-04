@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Product List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Product No</th>
+        <th>Product Condition</th>
+        <th>Category Name</th>
+        <th>Product Name</th>
+        <th>Product Content</th>
+        <th>Product Price</th>
+        <th>Product Image Name</th>
+        <th>Product Image Path</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="products : ${prods}">
+        <td th:text="${products.productNo}">1</td>
+        <td th:text="${products.productCondition}">판매 예정</td>
+        <td th:text="${products.categoryName}">산티오</td>
+        <td th:text="${products.productName}">1111</td>
+        <td th:text="${products.productContent}">1111</td>
+        <td th:text="${products.productPrice}">11111</td>
+        <td th:text="${products.productImageName}">11111</td>
+        <td th:text="${products.productImagePath}">11111</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -38,4 +38,5 @@ public class mypageController {
         userService.deleteUserByUserNo(userId);
         return "deleteSuccess";
     }
+
 }

@@ -19,7 +19,7 @@
         <div class="options">
             <h2>옵션</h2>
             <div th:each="option : ${product.options}">
-                <p th:text="${option.optionName} + ' - ' + ${option.optionValue}"></p>
+                <p th:text="${option.optionNo}+ ' - ' + ${option.optionName} + ' - ' + ${option.optionValue}"></p>
             </div>
         </div>
 
@@ -44,11 +44,12 @@
 <!--            </a>-->
 
             <!-- 장바구니 연결 관련 -->
-            <form th:action="@{/cart/add}" method="post">
-                <button class="btn btn-primary">장바구니</button>
-                <input type="hidden" name="productName" th:value="${product.productName}">
-                <input type="hidden" name="productPrice" th:value="${product.productPrice}">
-                <input type="hidden" name="options" th:value="${product.options}">
+            <form action="/cart/add" method="post">
+                <div th:each="option : ${product.options}">
+                <input type="hidden" name="orderOptionNo" th:value="${option.optionNo}">
+                <input type="hidden" name="orderOptionQt" value="1">
+                <button type="submit">Add to Cart</button>
+                </div>
             </form>
         </div>
 

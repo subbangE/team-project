@@ -105,4 +105,8 @@ public class ProductService {
         return productMapper.findProductsByCategory(category);
     }
 
+    public int searchProdNoByOptionNo(int optionNo) {
+        return productMapper.searchProdNoByOptionNo(optionNo);
+    }
+
 }

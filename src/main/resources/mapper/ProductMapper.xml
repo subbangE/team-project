@@ -68,4 +68,12 @@
     WHERE category_name = #{categoryName}
   </select>
 
+  <!-- 옵션번호 기준 상품번호 조회 -->
+  <select id="searchProdNoByOptionNo" resultType="Integer">
+    SELECT
+     product_no
+    FROM product_option
+    WHERE option_no = #{ optionNo }
+  </select>
+
 </mapper>

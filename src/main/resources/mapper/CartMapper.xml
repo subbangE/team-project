@@ -2,42 +2,150 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.myapp.team.cart.CartMapper">
+  <!-- 장바구니 조회용 -->
+  <resultMap id="cartResultMap" type="com.myapp.team.cart.Cart">
+    <id property="cartNo" column="cart_no"/>
+    <result property="userNo" column="user_no"/>
+    <result property="productNo" column="product_no"/>
+    <result property="optionNo" column="option_no"/>
+    <result property="cartCount" column="cart_count"/>
+    <association property="product" resultMap="productResultMap"/> <!-- 1:1 -->
+    <association property="option" resultMap="optionResultMap"/> <!-- 1:1 -->
+  </resultMap>
 
-<!--    <select id="findCartsByUserId" resultType="com.myapp.team.cart.Cart">-->
-<!--      SELECT * FROM Cart WHERE user_id = #{userId}-->
-<!--    </select>-->
+  <!-- 상품 조회용 -->
+  <resultMap id="productResultMap" type="com.myapp.team.product.Product">
+    <id property="productNo" column="product_no"/>
+    <result property="productCondition" column="product_condition"/>
+    <result property="categoryName" column="category_name"/>
+    <result property="productName" column="product_name"/>
+    <result property="productContent" column="product_content"/>
+    <result property="productPrice" column="product_price"/>
+    <result property="productImageName" column="product_image_name"/>
+    <result property="productImagePath" column="product_image_path"/>
+    <collection property="options" resultMap="optionResultMap"/> <!-- 1:N -->
+  </resultMap>
 
-  <select id="findCartsByUserNo" resultType="com.myapp.team.cart.Cart">
-    SELECT * FROM Cart WHERE user_no = #{userNo}
+  <!-- 옵션 조회용 -->
+  <resultMap id="optionResultMap" type="com.myapp.team.option.Option">
+    <id property="optionNo" column="option_no"/>
+    <result property="optionName" column="option_name"/>
+    <result property="optionValue" column="option_value"/>
+    <result property="optionCount" column="option_count"/>
+    <result property="productNo" column="product_no"/>
+  </resultMap>
+
+  <!-- 장바구니에 새 상품 목록 추가 -->
+    <insert id="addToCart">
+        <selectKey resultType="int" keyProperty="cartNo" order="BEFORE">
+            SELECT
+            NVL(MAX(cart_no), 0) + 1
+            FROM CART
+        </selectKey>
+        INSERT INTO CART
+        (
+        cart_no
+        , user_no
+        , product_no
+        , option_no
+        , cart_count
+        , user_id
+        )
+        VALUES
+        (
+        #{cartNo}
+        , #{userNo}
+        , #{productNo}
+        , #{optionNo}
+        , #{productCount}
+        , #{userId}
+        )
+    </insert>
+
+  <!-- 이미 담겨 있는 상품은 기존 목록에서 수량만 증가 또는 사용자 요청에 따른 수량 변경 -->
+  <update id="updateQuantityInCart">
+    UPDATE
+      CART
+    SET cart_count = #{productCount}
+    WHERE option_no = #{ optionNo }
+      AND user_id = #{loginMember}
+  </update>
+
+  <!-- 회원용 장바구니에서 선택 상품 삭제 -->
+  <delete id="deleteItemFromCart">
+    DELETE
+    FROM CART
+    WHERE option_no = #{ optionNo }
+      AND user_no = #{ userNo }
+  </delete>
+
+  <!-- 회원용 장바구니 전체 목록 조회 -->
+  <select id="getCurrentCart" resultMap="cartResultMap">
+    SELECT
+      A.cart_no
+         , A.user_no
+         , A.product_no
+         , A.option_no
+         , A.cart_count
+         , B.product_name
+         , B.product_price
+         , B.product_image_name
+         , B.product_image_path
+         , O.option_name
+         , O.option_value
+    FROM CART A
+           LEFT JOIN PRODUCTS B ON(A.product_no = B.product_no)
+           LEFT JOIN PRODUCT_OPTION O ON(A.option_no = O.option_no)
+    WHERE user_no = #{ userNo }
+    ORDER BY A.cart_no ASC
   </select>
 
-<!--  <insert id="insertCart" useGeneratedKeys="true" keyProperty="cartNo" parameterType="com.myapp.team.cart.Cart">-->
-<!--    INSERT INTO Cart (product_name, product_price, options)-->
-<!--    VALUES (#{productName}, #{productPrice}, #{options})-->
-<!--  </insert>-->
+  <!-- 옵션번호 기준 옵션 정보 조회 -->
+  <select id="searchOptionInfoByOptionNo" resultMap="optionResultMap">
+    SELECT
+      option_no
+         , option_name
+         , option_value
+         , option_count
+         , product_no
+    FROM PRODUCT_OPTION
+    WHERE option_no = #{ optionNo }
+  </select>
 
-  <insert id="insertCart" parameterType="com.myapp.team.cart.Cart">
-    INSERT INTO Cart (product_name, product_price, options)
-    VALUES (#{productName}, #{productPrice}, #{options})
-  </insert>
+  <!-- 옵션번호 기준 상품 정보 조회 -->
+  <select id="searchProductInfoByOptionNo" resultMap="productResultMap">
+    SELECT
+      A.product_no
+         , A.product_condition
+         , A.category_name
+         , A.product_name
+         , A.product_content
+         , A.product_price
+         , A.product_image_name
+         , A.product_image_path
+    FROM PRODUCTS A
+           LEFT JOIN PRODUCT_OPTION O ON(A.product_no = O.product_no)
+    WHERE O.option_no = #{ optionNo }
+  </select>
 
-    <update id="updateCart">
-      UPDATE Cart
-      SET cart_count = #{cartCount}
-      WHERE cart_no = #{cartNo}
-    </update>
-
-    <delete id="deleteCart">
-      DELETE FROM Cart WHERE cart_no = #{cartNo}
-    </delete>
-
-    <select id="findProductsByCategory" parameterType="string" resultType="Product">
-      SELECT product_no, product_condition, category_name, product_name, product_price, product_content, product_image_name, product_image_path
-      FROM PRODUCTS
-      WHERE category_name = #{categoryName}
-    </select>
-
-
-
-  </mapper>
-
+  <!-- 옵션번호 기준 장바구니 단일 상품 조회 -->
+  <select id="getCartItemByOptionNo" resultMap="cartResultMap">
+    SELECT
+      A.cart_no
+         , A.user_no
+         , A.product_no
+         , A.option_no
+         , A.cart_count
+         , B.product_name
+         , B.product_price
+         , B.product_image_name
+         , B.product_image_path
+         , O.option_name
+         , O.option_value
+    FROM CART A
+           LEFT JOIN PRODUCTS B ON(A.product_no = B.product_no)
+           LEFT JOIN PRODUCT_OPTION O ON(A.option_no = O.option_no)
+    WHERE A.user_no = #{ userNo }
+      AND A.option_no = #{ optionNo }
+  </select>
+</mapper>

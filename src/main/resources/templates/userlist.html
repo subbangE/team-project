@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>All Users</h1>
+<table>
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Birth</th>
+        <th>Rank</th>
+        <!-- 필요한 다른 컬럼을 추가할 수 있습니다. -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}" th:if="${user.role == 'USER'}">
+        <td th:text="${user.userNo}">1</td>
+        <td th:text="${user.userId}">1</td>
+        <td th:text="${user.userName}">JohnDoe</td>
+        <td th:text="${user.userAddress}">JohnDoe</td>
+        <td th:text="${user.userEmail}">john.doe@example.com</td>
+        <td th:text="${user.userBirth}">john.doe@example.com</td>
+        <td th:text="${user.userRank}">john.doe@example.com</td>
+        <!-- 필요한 다른 컬럼 데이터를 추가할 수 있습니다. -->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
