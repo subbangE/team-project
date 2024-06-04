@@ -40,6 +40,7 @@
         product_image_path = #{productImagePath}
     WHERE product_no = #{productNo}
   </update>
+
   <!-- 옵션 수정 -->
   <update id="updateOption" parameterType="Option">
     UPDATE PRODUCT_OPTION
@@ -59,5 +60,20 @@
   <delete id="deleteProduct" parameterType="int">
     DELETE FROM PRODUCTS WHERE product_no = #{productNo};
   </delete>
+
+  <!-- 카테고리별 상품 조회 -->
+  <select id="findProductsByCategory" parameterType="string" resultType="Product">
+    SELECT product_no, product_condition, category_name, product_name, product_price, product_content, product_image_name, product_image_path
+    FROM PRODUCTS
+    WHERE category_name = #{categoryName}
+  </select>
+
+  <!-- 옵션번호 기준 상품번호 조회 -->
+  <select id="searchProdNoByOptionNo" resultType="Integer">
+    SELECT
+     product_no
+    FROM product_option
+    WHERE option_no = #{ optionNo }
+  </select>
 
 </mapper>

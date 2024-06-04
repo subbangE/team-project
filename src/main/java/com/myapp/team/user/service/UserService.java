@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -36,5 +38,14 @@ public class UserService {
     public void deleteUserByUserNo(String userId) {
         userMapper.deleteUserByUserId(userId);
     }
+
+    public User getUserNo(int userNo) {
+        return userMapper.getUserNo(userNo);
+    }
+
+    public User findByUserName(String userName){
+        return userMapper.findByUserName(userName);
+    }
+
 
 }

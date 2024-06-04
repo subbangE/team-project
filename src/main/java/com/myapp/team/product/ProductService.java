@@ -45,6 +45,10 @@ public class ProductService {
         }
     }
 
+    // findProductByNo
+    public Product findProductByNo(int productNo) {
+        return productMapper.findProductById(productNo);
+    }
 
     // updateProduct
 //    @Transactional
@@ -97,7 +101,12 @@ public class ProductService {
         productMapper.deleteProduct(productNo);
     }
 
-//    public List<Product> getProductsByCategory(String categoryName) {
-//        return productMapper.selectProductsByCategory(categoryName);
-//    }
+    public List<Product> findProductsByCategory(String category) {
+        return productMapper.findProductsByCategory(category);
+    }
+
+    public int searchProdNoByOptionNo(int optionNo) {
+        return productMapper.searchProdNoByOptionNo(optionNo);
+    }
+
 }

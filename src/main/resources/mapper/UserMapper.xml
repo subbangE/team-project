@@ -29,9 +29,22 @@
     <select id="getUserByUsername" parameterType="String">
         SELECT * FROM user WHERE user_name = #{userName}
     </select>
-
+    
     <delete id="deleteUserByUserId" parameterType="String">
         DELETE FROM user WHERE user_id = #{userId}
     </delete>
 
+    <select id="getUserNo" resultType="int">
+        SELECT user_no FROM user WHERE user_id = #{userId}
+    </select>
+
+    <select id="findUserNoByUsername" resultType="java.lang.Integer">
+        SELECT user_no
+        FROM user
+        WHERE user_id = #{username}
+    </select>
+
+    <select id="findByUserName" parameterType="String">
+        SELECT  * FROM user WHERE user_name = #{userName}
+    </select>
 </mapper>
