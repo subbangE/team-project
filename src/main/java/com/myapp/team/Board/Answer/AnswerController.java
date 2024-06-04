@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AnswerController {
 
     @Autowired
-    private AnswerMapper answerMapper;
+    private AnswerService answerService;
 
     // 답변 생성 페이지 보여주는 컨트롤러
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -35,14 +35,14 @@ public class AnswerController {
         answer.setQuestionNo(questionNo);
         answer.setAnswerTitle(answerTitle);
         answer.setAnswerContent(answerContent);
-        answerMapper.insertAnswer(answer);
+        answerService.insertAnswer(answer);
         return "redirect:/question/" + questionNo;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/update/{questionNo}")
     public String showAnswerUpdateForm(@PathVariable("questionNo") int questionNo, Model model) {
-        Answer answer = answerMapper.selectQuestionByNo(questionNo);
+        Answer answer = answerService.selectQuestionByNo(questionNo);
         model.addAttribute("answer", answer);
         System.out.println(answer);
         return "UpdateAnswer";
@@ -54,7 +54,7 @@ public class AnswerController {
     public String editAnswer(@PathVariable("questionNo") int questionNo,
                                @RequestParam("answerTitle") String answerTitle,
                                @RequestParam("answerContent") String answerContent) {
-        answerMapper.updateAnswer(questionNo, answerTitle, answerContent);
+        answerService.updateAnswer(questionNo, answerTitle, answerContent);
         return "redirect:/question/" + questionNo;
     }
 
@@ -62,7 +62,7 @@ public class AnswerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/delete")
     public String deleteAnswer(@RequestParam("questionNo") int questionNo) {
-        answerMapper.deleteAnswer(questionNo);
+        answerService.deleteAnswer(questionNo);
         return "redirect:/question/" + questionNo;
     }
 

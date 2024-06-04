@@ -39,7 +39,7 @@ public class QuestionService {
         List<Attachment> attachments = attachmentMapper.getAttachmentsByNo(questionNo);
         question.setAttachments(attachments);
 
-        String userName = userMapper.findByUserName(question.getUserNo());
+        String userName = userMapper.findByUserNo(question.getUserNo());
         question.setUserName(userName);
 
         return question;
@@ -53,7 +53,7 @@ public class QuestionService {
 
         // 출력되는 질문들을 User 테이블의 userId를 가져와서 userId에 입력
         for (Question question : questions) {
-            String userName = userMapper.findByUserName(question.getUserNo());
+            String userName = userMapper.findByUserNo(question.getUserNo());
             question.setUserName(userName);
         }
         return questions;

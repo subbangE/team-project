@@ -18,7 +18,9 @@ public class Question {
     private String questionContent;    // 질문 내용
 
     // 참조키라서 일단 주석 처리 필요하다면 사용, user별 질문 select하기 위해 사용함
-    private Integer userNo;
+    private int userNo;
+
+    private int productNo;
 
     public Question(String questionTitle, String questionContent, Integer userNo) {
         this.questionTitle = questionTitle;
