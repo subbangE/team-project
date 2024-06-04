@@ -15,11 +15,6 @@ public class AnswerController {
     @Autowired
     private AnswerMapper answerMapper;
 
-    @Autowired
-    private AttachmentService attachmentService;
-    @Autowired
-    private QuestionService questionService;
-
     // 답변 생성 페이지 보여주는 컨트롤러
     @GetMapping("/create/{questionNo}")
     public String showAnswerCreateForm(@PathVariable("questionNo") int questionNo, Model model) {

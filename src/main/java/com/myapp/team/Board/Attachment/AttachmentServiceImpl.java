@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -12,7 +13,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Paths;
 import java.util.List;
 
-@Service    // AttachmentService(인터페이스)를 구현해서 실질적인 로직 수행(기능이 수행되도록함)
+@Service // AttachmentService(인터페이스)를 구현해서 실질적인 로직 수행(기능이 수행되도록함)
 public class AttachmentServiceImpl implements AttachmentService {
     // 파일 업로드할 디렉토리 경로 지정
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/src/main/java/com/myapp/team/Board/Attachment/uploads/";
@@ -22,7 +23,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     private AttachmentMapper attachmentMapper;
 
     @Override
-    public void addAttachment(Attachment attachment, MultipartFile file) {
+    public void addAttachment(Attachment attachment) {
         attachmentMapper.insertAttachment(attachment);
     }
 
@@ -48,6 +49,6 @@ public class AttachmentServiceImpl implements AttachmentService {
         if (file.exists()) {
             file.delete(); // 파일 시스템에서 파일 삭제
         }
-        attachmentMapper.deleteAttachmentByNo(attachmentNo); // 데이터베이스에서 레코드 삭제
+        attachmentMapper.deleteAttachmentByNo(attachmentNo); // 데이터베이스에서 삭제
     }
 }

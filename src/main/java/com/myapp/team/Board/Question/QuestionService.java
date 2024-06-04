@@ -36,4 +36,11 @@ public class QuestionService {
         return question;
     }
 
+    // 페이징 처리를 위한 질문 목록
+    public List<Question> getQuestions(int page) {
+        int size = 10;
+        int offset = (page - 1) * size;
+        return questionMapper.getQuestions(offset, size);
+    }
+
 }

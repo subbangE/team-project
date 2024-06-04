@@ -12,6 +12,4 @@ public interface UserMapper {
 
     User findByUserId(String userId);
 
-
-
 }

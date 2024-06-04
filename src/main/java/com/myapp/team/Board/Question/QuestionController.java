@@ -53,9 +53,11 @@ public class QuestionController {
 
     // 질문 번호, 질문 제목 및 회원일련번호만 가져오게 하는 컨트롤러
     @GetMapping
-    public String getQuestion(Model model) {
-        List<Question> questionList = questionMapper.getQuestion();
+    public String getQuestion(Model model,
+                              @RequestParam(defaultValue = "1") int page) {
+        List<Question> questionList = questionService.getQuestions(page);
         model.addAttribute("questionList", questionList);
+        model.addAttribute("currentPage", page);
         System.out.println(questionList);
         return "Board";
     }
@@ -104,7 +106,6 @@ public class QuestionController {
                                  @RequestParam("file")MultipartFile file,
                                  Model model) throws IOException {
         Question question = new Question(questionTitle, questionContent, userNo);
-//        System.out.println(question);
         questionMapper.insertQuestion(question);
 
 
@@ -128,8 +129,9 @@ public class QuestionController {
             attachment.setOriginalFilename(file.getOriginalFilename()); // 원본 파일명
             attachment.setAttachmentPath(AttachmentLocation.toString());    // 파일 위치
             attachment.setStoredFilename(storedFileName);   // 저장된 파일명
-            attachmentService.addAttachment(attachment, file);
+            System.out.println(attachment);
             System.out.println(file);
+            attachmentService.addAttachment(attachment);
         }
         return "redirect:/question";
     }
@@ -137,7 +139,6 @@ public class QuestionController {
     // 수정할 수 있도록 질문 하나씩 가져 오게 하는 컨트롤러 (보여주기용)
     @GetMapping("/update/{questionNo}")
     public String showQuestionUpdateForm(@PathVariable int questionNo, Model model) {
-//        Question question = questionMapper.selectQuestion(questionNo);
         Question question = questionService.getQuestionById(questionNo);
         model.addAttribute("question", question);
         return "UpdateQuestion";
@@ -178,7 +179,7 @@ public class QuestionController {
                     attachment.setOriginalFilename(originalFileName);
                     attachment.setStoredFilename(storedFileName);
                     attachment.setAttachmentPath(attachmentLocation.toString());
-                    attachmentService.addAttachment(attachment, file);
+                    attachmentService.addAttachment(attachment);
                 }
             }
         }
