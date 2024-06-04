@@ -1,7 +1,5 @@
 package com.myapp.team.product;
 
-import com.myapp.team.cart.Cart;
-import com.myapp.team.cart.CartMapper;
 import com.myapp.team.option.Option;
 import com.myapp.team.option.OptionService;
 import com.myapp.team.user.config.CustomUserDetails;
@@ -32,13 +30,11 @@ public class ProductController {
 
     private final ProductService productService;
     private final OptionService optionService;
-    private final CartMapper cartMapper;
 
     @Autowired
-    public ProductController(ProductService productService, OptionService optionService, CartMapper cartMapper) {
+    public ProductController(ProductService productService, OptionService optionService) {
         this.productService = productService;
         this.optionService = optionService;
-        this.cartMapper = cartMapper;
     }
 
     // 상품 메인 페이지
