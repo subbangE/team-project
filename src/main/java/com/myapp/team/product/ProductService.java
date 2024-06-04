@@ -105,4 +105,7 @@ public class ProductService {
         return productMapper.findProductsByCategory(category);
     }
 
+    public Object getAllProducts() {
+        return productMapper.findAllProducts();
+    }
 }

@@ -6,40 +6,37 @@
 </head>
 <body>
 <h1>Shopping Cart</h1>
-<!--<div th:if="${carts.empty}">-->
-<!--    <p>Your cart is empty</p>-->
-<!--</div>-->
 <!--<div th:if="${not #lists.isEmpty(carts)}">-->
     <table>
         <thead>
         <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
+            <th>Product</th>
             <th>Price</th>
+            <th>Options</th>
+            <th>Count</th>
             <th>Total</th>
             <th>Actions</th>
         </tr>
         </thead>
-
         <tbody>
         <tr th:each="cart : ${carts}">
-            <td th:text="${cart.product.productName}">Product Name</td>
-<!--            <td th:text="${cart.cartCount}">Quantity</td>-->
-<!--            <td th:text="${cart.product.productPrice}">Price</td>-->
-<!--            <td th:text="${cart.cartCount * cart.product.productPrice}">Total</td>-->
+            <td th:text="${cart.productName}">Product Name</td>
+            <td th:text="${cart.productPrice}">Price</td>
+            <td th:text="${cart.options}">Options</td>
+            <td th:text="${cart.cartCount}">Quantity</td>
+<!--            <td th:text="${cart.productPrice * cart.cartCount}">Total</td>-->
+
 
 <!--            <td>-->
 <!--                <form th:action="@{/cart/update}" method="post">-->
-<!--                    <input type="hidden" name="cartId" th:value="${cart.cartNo}">-->
-<!--                    <input type="number" name="quantity" th:value="${cart.cartCount}" min="1">-->
+<!--                    <input type="hidden" name="cartNo" th:value="${cart.cartNo}">-->
+<!--                    <input type="number" name="cartCount" th:value="${cart.cartCount}" min="1">-->
 <!--                    <button type="submit">Update</button>-->
 <!--                </form>-->
-<!--                <form th:action="@{/cart/delete}" method="post">-->
-<!--                    <input type="hidden" name="cartId" th:value="${cart.cartNo}">-->
+<!--                <form th:action="@{/cart/delete/{userNo}}" method="post">-->
 <!--                    <button type="submit">Delete</button>-->
 <!--                </form>-->
 <!--            </td>-->
-
         </tr>
         </tbody>
     </table>

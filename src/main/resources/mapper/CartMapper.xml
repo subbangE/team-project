@@ -1,43 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.myapp.team.cart.CartMapper">
 
-<!--    <select id="findCartsByUserId" resultType="com.myapp.team.cart.Cart">-->
-<!--      SELECT * FROM Cart WHERE user_id = #{userId}-->
-<!--    </select>-->
-
   <select id="findCartsByUserNo" resultType="com.myapp.team.cart.Cart">
-    SELECT * FROM Cart WHERE user_no = #{userNo}
+    SELECT * FROM cart WHERE user_no = #{userNo}
   </select>
-
-<!--  <insert id="insertCart" useGeneratedKeys="true" keyProperty="cartNo" parameterType="com.myapp.team.cart.Cart">-->
-<!--    INSERT INTO Cart (product_name, product_price, options)-->
-<!--    VALUES (#{productName}, #{productPrice}, #{options})-->
-<!--  </insert>-->
-
-  <insert id="insertCart" parameterType="com.myapp.team.cart.Cart">
-    INSERT INTO Cart (product_name, product_price, options)
-    VALUES (#{productName}, #{productPrice}, #{options})
+  <insert id="insertCart">
+    INSERT INTO cart (product_name, product_price, options, cart_count)
+    VALUES (#{productName}, #{productPrice}, #{options}, #{cartCount})
   </insert>
-
-    <update id="updateCart">
-      UPDATE Cart
-      SET cart_count = #{cartCount}
-      WHERE cart_no = #{cartNo}
-    </update>
-
-    <delete id="deleteCart">
-      DELETE FROM Cart WHERE cart_no = #{cartNo}
-    </delete>
-
-    <select id="findProductsByCategory" parameterType="string" resultType="Product">
-      SELECT product_no, product_condition, category_name, product_name, product_price, product_content, product_image_name, product_image_path
-      FROM PRODUCTS
-      WHERE category_name = #{categoryName}
-    </select>
-
-
-
-  </mapper>
-
+  <select id="findAllCartItem">
+    SELECT product_no, product_name, product_price, product_image_name, product_image_path
+    FROM PRODUCTS
+  </select>
+  <update id="updateCart">
+    UPDATE cart SET product_name = #{productName}, product_price = #{productPrice},
+                    options = #{options}, cart_count = #{cartCount} WHERE cart_no = #{cartNo}
+  </update>
+  <delete id="deleteCart">
+    DELETE FROM cart WHERE cart_no = #{cartNo}
+  </delete>
+</mapper>

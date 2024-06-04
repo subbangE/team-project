@@ -1,32 +1,26 @@
 package com.myapp.team.cart;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
 public interface CartMapper {
 
-//    @Select("SELECT * FROM Cart WHERE userId = #{userId}")
-//    @Results({
-//        @Result(property = "cartId", column = "cartId"),
-//        @Result(property = "userId", column = "userId"),
-//        @Result(property = "productId", column = "productId"),
-//        @Result(property = "quantity", column = "quantity"),
-//        @Result(property = "product", column = "productId",
-//            one = @One(select = "com.myapp.team.product.ProductMapper.findProductById"))
-//    })
-    List<Cart> findCartsByUserId(int userId);
+    List<Cart> findCartsByUserNo(@Param("userNo") int userNo);
 
-//    @Insert("INSERT INTO Cart(userId, productId, quantity) VALUES(#{userId}, #{productId}, #{quantity})")
-//    @Options(useGeneratedKeys = true, keyProperty = "cartId")
     void insertCart(Cart cart);
 
-//    @Update("UPDATE Cart SET quantity = #{quantity} WHERE cartId = #{cartId}")
     void updateCart(Cart cart);
 
-//    @Delete("DELETE FROM Cart WHERE cartId = #{cartId}")
-    void deleteCart(int cartId);
+    void deleteCart(@Param("cartNo") int cartNo);
 
-    List<Cart> findCartsByUserNo(int userNo);
+    List<Cart> findAllCartItem(int userNo);
+
+
+    // 글벗 Mapper
+//    void updateQuantityInCart(String userNo, int cartCount, int optionNo);
+//    void deleteItemFromCart(String userNo, int optionNo);
+
 }

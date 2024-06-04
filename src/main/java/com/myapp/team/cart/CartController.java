@@ -1,131 +1,82 @@
 package com.myapp.team.cart;
 
+import com.myapp.team.option.Option;
 import com.myapp.team.product.Product;
-import com.myapp.team.product.ProductService;
-import com.myapp.team.user.config.CustomUserDetails;
-import com.myapp.team.user.model.User;
-import com.myapp.team.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
 public class CartController {
-
     private final CartService cartService;
-    private final ProductService productService;
-    private final UserService userService;
-    private final CartMapper cartMapper;
 
     @Autowired
-    public CartController(CartService cartService, ProductService productService, UserService userService, CartMapper cartMapper) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
-        this.productService = productService;
-        this.userService = userService;
-        this.cartMapper = cartMapper;
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping
-//    public String viewCart(Model model, Principal principal) {
-//        int userNo = Integer.parseInt(principal.getName());
-//        List<Cart> carts = cartService.findCartsByUserId(userNo);
+//    @GetMapping("/add/{userNo}")
+//    public String viewUserCart(@PathVariable("userNo") int userNo, Model model) {
+//        List<Cart> carts = cartService.findCartsByUserNo(userNo);
 //        model.addAttribute("carts", carts);
 //        return "cart";
 //    }
 
-//    @GetMapping("/{userNo}")
-//    public String viewCart(@PathVariable("userNo") int userNo, Model model) {
-//        List<Cart> carts = cartService.findCartsByUserId(userNo);
-//        model.addAttribute("carts", carts);
-//        return "cart";
+    // 상품 상세 -> 장바구니 (/cart/add)
+//    @PostMapping("/add/{userNo}")
+//    public String addToCart(@PathVariable("userNo") int userNo, @ModelAttribute Cart cart) {
+//        cartService.insertCart(cart);
+//        return "redirect:/cart/" + cart.getUserNo();
 //    }
 
-//    @GetMapping
-//    public String viewCart(Model model, Principal principal) {
-//        if (principal != null) {
-//            int userNo = Integer.parseInt(principal.getName());
-//            List<Cart> carts = cartService.findCartsByUserNo(userNo);
-//            model.addAttribute("carts", carts);
-//            model.addAttribute("userNo", userNo);
-//        }
-//        return "cart";
-//    }
+    @PostMapping("/add/{userNo}")
+    public String addToCart(@ModelAttribute("product") Product product, @ModelAttribute("option") Option option,
+                            @PathVariable("userNo") int userNo,
+                            RedirectAttributes redirectAttributes) {
 
-    @GetMapping("/{userNo}")
-    public String viewUserCart(@PathVariable("userNo") int userNo, Model model) {
-        List<Cart> carts = cartService.findCartsByUserNo(userNo);
+        Cart cart = new Cart();
+        cart.setUserNo(userNo);
+        cart.setProductName(product.getProductName());
+        cart.setProductPrice(product.getProductPrice());
+        cart.setOptions(option.getOptionName());
+        cart.setCartCount(1); // 기본 값 설정
+
+        String productName = product.getProductName();
+
+        if (productName == null || productName.isEmpty()) {
+            // 로그를 출력하거나 예외를 던집니다.
+            System.err.println("Product name 없음 다시 해 !!");
+            throw new IllegalArgumentException("오류 !!!!! 다시해 !!");
+        }
+        cartService.insertCart(cart);
+        return "redirect:/cart/add/" + userNo;
+    }
+
+    @GetMapping("/add/{userNo}")
+    public String addToCart(@PathVariable("userNo") int userNo, @ModelAttribute Cart cart, Model model) {
+
+        List<Cart> carts = cartService.findAllCartItem(userNo);
         model.addAttribute("carts", carts);
-        model.addAttribute("userNo", userNo);
         return "cart";
     }
 
-//    @PostMapping("/add")
-//    public String addToCart(Cart cart) {
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        int userNo = userDetails.getUserNo();
-//        cart.setUserNo(userNo);
-//        //cartService.insertCart(cart);
-//        System.out.println("Redirecting to: /cart/" + userNo);
-//        return "redirect:/cart/" + userNo;
-//    }
-
-//    @PostMapping("/add")
-//    public String addToCart(@RequestParam("productName") String productName,
-//                            @RequestParam("productPrice") int productPrice,
-//                            @RequestParam("options") String options,
-//                            Model model, Cart cart) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        int userNo = userDetails.getUserNo();
-//        cart.setUserNo(userNo);
-//
-//        return "redirect:/cart/" + userNo;
-//    }
-
-
+    // 수정
     @PostMapping("/update")
     public String updateCart(Cart cart) {
         cartService.updateCart(cart);
-        return "redirect:/cart";
+        return "redirect:/cart/" + cart.getUserNo();
     }
 
-    @PostMapping("/delete")
-    public String deleteCart(@RequestParam int cartId) {
-        cartService.deleteCart(cartId);
-        return "redirect:/cart";
-    }
-
-    // 상품 -> 장바구니
-    @PostMapping("/add")
-    public ResponseEntity<String> addToCart(@RequestParam("productName") String productName,
-                                            @RequestParam("productPrice") int productPrice,
-                                            @RequestParam("options") String options,
-                                            Model model) {
-
-        Cart cart = new Cart();
-        cart.setProductName(productName);
-        cart.setProductPrice(productPrice);
-        cart.setOptions(options);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        int userNo = userDetails.getUserNo();
-        cart.setUserNo(userNo);
-
-        cartMapper.insertCart(cart);
-
-        return ResponseEntity.ok("Item added to cart");
+    // 삭제
+    @PostMapping("/delete/{cartNo}")
+    public String deleteCart(@PathVariable("cartNo") int cartNo) {
+        Cart cart = cartService.findCartsByUserNo(cartNo).get(0);
+        cartService.deleteCart(cartNo);
+        return "redirect:/cart/" + cart.getUserNo();
     }
 }

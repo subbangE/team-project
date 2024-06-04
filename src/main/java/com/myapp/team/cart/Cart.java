@@ -3,47 +3,42 @@ package com.myapp.team.cart;
 import com.myapp.team.option.Option;
 import com.myapp.team.product.Product;
 import lombok.Getter;
-import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 @Getter
-@Setter
+@Service
 public class Cart {
-    private int cartNo;
-    private int userNo;
-    private int productNo;
-    private int optionNo;
 
-    private int cartCount;
+    private int cartNo;  // 장바구니 번호
+    private int userNo;  // 사용자 번호
+    private int productNo;  // 상품 번호
+    private int optionNo;  // 옵션 번호
 
-    private Product product; // 상품 정보 포함
-    private Option option; // 옵션 정보 포함
+    private Product product; // 상품 정보
+    private Option option;   // 옵션 정보
 
-    private String productName;
-    private int productPrice;
-    private String options;
+    private String productName; // 상품명
+    private int productPrice;   // 상품 가격
+    private String options;     // 옵션명
 
-    // 외부 테이블들
+    private int cartCount;  // 상품 수량 (내가 살 수량임 = default 1)
+    private int cartPrice;  // 상품 가격 * 수량 (결제 금액)
+
     public void setUserNo(int userNo) {
     }
-    public void setUserId(String userId){
+
+    public void setProductName(String productName) {
     }
 
-    public String getProductName() {
-        return productName;
-    }
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-    public int getProductPrice() {
-        return productPrice;
-    }
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
-    }
-    public String getOptions() {
-        return options;
-    }
     public void setOptions(String options) {
-        this.options = options;
+    }
+
+    public void setProductPrice(int productPrice) {
+    }
+
+    public void setCartCount(int i) {
+
     }
 }
+
+

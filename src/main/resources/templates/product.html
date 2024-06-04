@@ -47,7 +47,7 @@
         <h2>ALL Products</h2>
         <div th:each="product : ${products}" class="product-item" data-category="${product.categoryName}">
             <h3 th:text="${product.productNo}">Product Number</h3>
-            <h3><a th:href="@{/prod/detail/{id}(id=${product.productNo})}" th:text="${product.productName}">Product No</a></h3>
+            <h3><a th:href="@{/prod/detail/{prodNo}(prodNo=${product.productNo})}" th:text="${product.productName}">Product No</a></h3>
             <p class="price" th:text="${product.productPrice} + '원'">Price</p>
 
             <img th:src="@{'/images/' + ${product.productImageName}}" width="150" alt="상품 사진">
