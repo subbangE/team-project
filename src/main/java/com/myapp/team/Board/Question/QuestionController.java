@@ -9,6 +9,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -115,6 +118,12 @@ public class QuestionController {
     // 질문 생성 페이지 보여주는 컨트롤러
     @GetMapping("/create")
     public String showCreateForm(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+        String username = userDetails.getUsername();
+        int userNo = userDetails.getUserNo();
+        model.addAttribute("username", username);
+        model.addAttribute("userNo", userNo);
         model.addAttribute("question", new Question());
         return "CreateQuestion";
     }
