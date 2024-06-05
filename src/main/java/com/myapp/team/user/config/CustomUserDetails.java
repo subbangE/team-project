@@ -1,6 +1,7 @@
 package com.myapp.team.user.config;
 
 import com.myapp.team.user.model.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
+    @Getter
     private final User user;
     private final List<GrantedAuthority> authorities;
 
@@ -54,9 +56,5 @@ public class CustomUserDetails implements UserDetails {
 
     public int getUserNo() {
         return user.getUserNo();
-    }
-
-    public User getUser() {
-        return user;
     }
 }

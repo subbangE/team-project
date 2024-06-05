@@ -24,7 +24,7 @@
         <tr th:each="question : ${questionList}">
             <td th:text="${question.questionNo}"></td>
             <td><a th:href="@{/question/{questionNo}(questionNo=${question.questionNo})}" th:text="${question.questionTitle}"></a></td>
-            <td th:text="${question.userName}"></td>
+            <td th:text="${question.userId}"></td>
         </tr>
         </tbody>
     </table>
