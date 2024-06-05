@@ -30,7 +30,7 @@ public class CustomSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/admin/**","/answer/**").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/**","/answer/**","/images/**").hasAuthority("ADMIN")
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
