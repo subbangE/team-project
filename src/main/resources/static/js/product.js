@@ -35,6 +35,7 @@ function filterProducts(category) {
         }
     });
 }
+
 // 이거 적용하면 카테고리별로 나눠지는데, 이거 적용하면 전체보기가 안됨 그리고 쉬발 관리자 안넘어감
 //
 // document.addEventListener('DOMContentLoaded', function() {

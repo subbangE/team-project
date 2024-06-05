@@ -12,7 +12,7 @@
         <tr>
             <th>Product</th>
             <th>Price</th>
-            <th>Options</th>
+<!--            <th>Options</th>-->
             <th>Count</th>
             <th>Total</th>
 <!--            <th>Actions</th>-->
@@ -20,9 +20,9 @@
         </thead>
         <tbody>
         <tr th:each="cart : ${carts}">
-            <td th:text="${product.productName}">Product Name</td>
-            <td th:text="${product.productPrice}">Price</td>
-            <td th:text="${product.options}">Options</td>
+            <td th:text="${cart.productName}">Product Name</td>
+            <td th:text="${cart.productPrice}">Price</td>
+<!--            <td th:text="${cart.options}">Options</td>-->
             <td th:text="${cart.cartCount}">Quantity</td>
 <!--            <td th:text="${cart.productPrice * cart.cartCount}">Total</td>-->
 

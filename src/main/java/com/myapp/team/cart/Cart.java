@@ -22,7 +22,7 @@ public class Cart {
 
     private String productName; // 상품명
     private int productPrice;   // 상품 가격
-    private String options;     // 옵션명
+//    private String options;     // 옵션명
 
     private int cartCount;  // 상품 수량 (내가 살 수량임 = default 1)
     private int cartPrice;  // 상품 가격 * 수량 (결제 금액)

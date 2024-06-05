@@ -33,10 +33,8 @@ public class QuestionController {
 
     @Autowired
     private QuestionMapper questionMapper;
-
     @Autowired
     private QuestionService questionService;
-
     @Autowired
     private AttachmentService attachmentService;
 
@@ -131,8 +129,11 @@ public class QuestionController {
             attachmentService.addAttachment(attachment, file);
             System.out.println(file);
         }
-        return "redirect:/question";
+//        return "redirect:/question";
+        return "questionSuccess";
     }
+
+
 
     // 수정할 수 있도록 질문 하나씩 가져 오게 하는 컨트롤러 (보여주기용)
     @GetMapping("/update/{questionNo}")
@@ -182,7 +183,6 @@ public class QuestionController {
                 }
             }
         }
-
         return "redirect:/question/{questionNo}";
     }
 
@@ -191,7 +191,8 @@ public class QuestionController {
     public String deleteQuestion(@RequestParam int questionNo) {
 //        System.out.println("삭제 질문 번호: " + questionNo);
         questionMapper.deleteQuestion(questionNo);
-        return "redirect:/question";
+        return "redirect:/";
     }
+
 
 }

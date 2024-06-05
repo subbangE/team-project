@@ -22,6 +22,7 @@ public class Product {
     private String productContent;
     private int productPrice;
     private String productImageName;
+//    private String productOption;
 
     private String productImagePath; // 이미지 경로 추가
 

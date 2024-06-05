@@ -18,6 +18,9 @@ public interface CartMapper {
 
     List<Cart> findAllCartItem(int userNo);
 
+    Cart findCartByProductNo(int productNo, int userNo);
+
+
 
     // 글벗 Mapper
 //    void updateQuantityInCart(String userNo, int cartCount, int optionNo);

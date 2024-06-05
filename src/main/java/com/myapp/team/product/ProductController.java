@@ -44,18 +44,23 @@ public class ProductController {
     // 상품 메인 페이지
     @GetMapping("/products")
     public String getProducts(@RequestParam(required = false) String category, Model model) {
+
         List<Product> products;
+//        List<Product> products = productService.findAllProducts();
+
         // 카테고리 관련 설정쓰
         if (category == null || category.isEmpty()) {
             products = productService.findAllProducts();
         } else {
             products = productService.findProductsByCategory(category);
         }
+        // 옵션 여러개 리스트
         for (Product product : products) {
             List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
             product.setOptions(options);
         }
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", products);
+//        model.addAttribute("products", productService.getAllProducts());
         return "product";
     }
 
@@ -121,6 +126,7 @@ public class ProductController {
         ra.addFlashAttribute("manage_result", product.getProductName());
         return "redirect:/prod/list";
     }
+
 
     @PostMapping("/insertOption")
     public String insertOption(Product product, Option option) {

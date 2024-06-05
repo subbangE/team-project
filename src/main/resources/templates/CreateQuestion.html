@@ -4,13 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>질문 등록</title>
-    <link rel="stylesheet" href="/css/create-question.css">
+
+    <script type="text/javascript">
+        function showPopup() {
+            alert("제출이 완료되었습니다.");
+        }
+    </script>
+
+<!--    <link rel="stylesheet" href="/css/create-question.css">-->
+    <style>
+        /* 팝업 스타일 */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup.active {
+            display: block;
+        }
+        .popup .close-button {
+            float: right;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <h1>질문 등록</h1>
-    <form action="#" th:action="@{/question/create}" th:object="${question}" method="post" enctype="multipart/form-data">
+<!--    <form action="#" th:action="@{/question/create}" th:object="${question}" method="post" enctype="multipart/form-data">-->
+    <form id="questionForm" onsubmit="showPopup()" th:action="@{/question/create}" th:object="${question}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="questionTitle">제목</label>
             <input type="text" id="questionTitle" th:field="*{questionTitle}" required />

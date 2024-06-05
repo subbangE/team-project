@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Shopping Mall</title>
-    <link rel="stylesheet" th:href="@{/product.css}">
+<!--    <link rel="stylesheet" th:href="@{/product.css}">-->
 </head>
 <body>
-<div id="popup" class="popup">
-    <div class="popup-content">
-        <span class="close-button" onclick="closePopup()">&times;</span>
-        <p>This is a closable popup window.</p>
-    </div>
-</div>
+<!--<div id="popup" class="popup">-->
+<!--    <div class="popup-content">-->
+<!--        <span class="close-button" onclick="closePopup()">&times;</span>-->
+<!--        <p>This is a closable popup window.</p>-->
+<!--    </div>-->
+<!--</div>-->
 <header>
     <h1><a href="/prod/products">DAPALA</a></h1>
     <nav>
@@ -44,7 +44,6 @@
     </section>
 
     <section class="products">
-        <h2>ALL Products</h2>
         <div th:each="product : ${products}" class="product-item" data-category="${product.categoryName}">
             <h3 th:text="${product.productNo}">Product Number</h3>
             <h3><a th:href="@{/prod/detail/{prodNo}(prodNo=${product.productNo})}" th:text="${product.productName}">Product No</a></h3>

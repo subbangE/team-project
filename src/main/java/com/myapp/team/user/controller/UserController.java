@@ -47,9 +47,14 @@ public class UserController {
     }
 
     //인덱스 페이지 호출(Get안해주면 페이지 안뜸)
-    @GetMapping("/index")
+//    @GetMapping("/index")
+//    public String indexPage() {
+//        return "index";
+//    }
+
+    @GetMapping("/main")
     public String indexPage() {
-        return "index";
+        return "main";
     }
 
 }

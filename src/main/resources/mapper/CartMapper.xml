@@ -6,9 +6,13 @@
   <select id="findCartsByUserNo" resultType="com.myapp.team.cart.Cart">
     SELECT * FROM cart WHERE user_no = #{userNo}
   </select>
+<!--  <insert id="insertCart">-->
+<!--    INSERT INTO cart (user_no, product_name, product_price, options)-->
+<!--    VALUES (#{userNo}, #{productName}, #{productPrice}, #{options})-->
+<!--  </insert>  -->
   <insert id="insertCart">
-    INSERT INTO cart (user_no, product_name, product_price, options)
-    VALUES (#{userNo}, #{productName}, #{productPrice}, #{options})
+    INSERT INTO cart (user_no, product_name, product_price, cart_count)
+    VALUES (#{userNo}, #{productName}, #{productPrice}, #{cartCount})
   </insert>
   <select id="findAllCartItem">
     SELECT product_no, product_name, product_price, product_image_name, product_image_path
