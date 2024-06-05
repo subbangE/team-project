@@ -12,6 +12,8 @@ public interface UserMapper {
 
     User findByUserId(String userId);
 
+    String findByUserNo(int userNo);
+
     void updateUser(User user);
 
     User getUserByUserNo(int UserNo);
@@ -22,7 +24,6 @@ public interface UserMapper {
 
     User getUserNo(int userNO);
 
-    Integer findUserNoByUsername(String username);
 
     User findByUserName(String userName);
 }

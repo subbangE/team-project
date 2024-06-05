@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<h1>Product List</h1>
+<h1>Question List</h1>
 <table>
     <thead>
     <tr>
@@ -32,10 +32,10 @@
     <tbody>
     <tr th:each="question : ${questions}">
         <td th:text="${question.questionNo}">1</td>
-        <td th:text="${question.UserNo}">판매 예정</td>
-        <td th:text="${question.ProductNo}">산티오</td>
-        <td th:text="${question.QuestionTitle}">1111</td>
-        <td th:text="${question.QuestionContent}">1111</td>
+        <td th:text="${question.userNo}">판매 예정</td>
+        <td th:text="${question.productNo}">산티오</td>
+        <td th:text="${question.questionTitle}">1111</td>
+        <td th:text="${question.questionContent}">1111</td>
     </tr>
     </tbody>
 </table>

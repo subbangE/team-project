@@ -14,6 +14,10 @@
         SELECT * FROM user WHERE user_id = #{userId}
     </select>
 
+    <select id="findByUserNo" resultType="String">
+        SELECT user_name FROM user WHERE user_no = #{userNo}
+    </select>
+
     <update id="updateUser" parameterType="String">
         UPDATE user SET user_name = #{userName}, user_address = #{userAddress}, user_Pw = #{userPw} WHERE user_id = #{userId}
     </update>
@@ -32,12 +36,6 @@
 
     <select id="getUserNo" resultType="int">
         SELECT user_no FROM user WHERE user_id = #{userId}
-    </select>
-
-    <select id="findUserNoByUsername" resultType="java.lang.Integer">
-        SELECT user_no
-        FROM user
-        WHERE user_id = #{username}
     </select>
 
     <select id="findByUserName" parameterType="String">

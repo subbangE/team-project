@@ -1,55 +1,122 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fce4ec;
+body, html {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #fff5f5;
 }
-
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /*width: 55%;*/
+    width: 1000px;
+    height: 750px;
+    margin: 50px auto;
+    padding: 20px;
+    /*background-color: #ffe6e6;*/
 }
-
 h1 {
     text-align: center;
-    color: #d81b60;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #ff9999;
 }
-
 .form-group {
-    margin-right: 20px;
     margin-bottom: 20px;
 }
-
-label {
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
     font-weight: bold;
-    color: #d81b60;
+    color: #ff6666;
 }
-
-input[type="text"],
-textarea{
+.form-group input, .form-group textarea, .form-group select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #f48fb1;
-    border-radius: 8px;
-    background-color: #f8bbd0;
-    color: #d81b60;
+    box-sizing: border-box;
+    border: 1px solid #ffcccc;
+    border-radius: 5px;
 }
-
+#questionContent {
+    height: 300px;
+}
+.form-group input[type="file"] {
+    padding: 3px;
+}
 .btn-primary {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #d81b60;
+    background-color: #ff6666;
     color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-}
+    transition: background 0.3s;
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
 
+}
 .btn-primary:hover {
-    background-color: #ad1457;
+    background-color: #ff4d4d;
+}
+.header, .footer {
+    width: 100%;
+    background-color: #ffe6e6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header-top, .footer-section {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+.header-top div, .footer-section div {
+    display: flex;
+    align-items: center;
+}
+.header-top div div, .footer-section div div {
+    margin-right: 20px;
+}
+.header-bottom {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: #ff9999;
+}
+.footer-content {
+    text-align: center;
+    padding: 10px;
+    background: #ffd9d9;
+}
+.footer-text {
+    font-size: 14px;
+    color: #ff6666;
+}
+.form-group-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px; /* 간격을 더 넓게 설정 */
+}
+.form-group-row label {
+    flex: 1;
+    margin-right: 10px;
+    color: #ff6666;
+    font-size: 18px; /* 레이블 글자 크기를 키움 */
+}
+.form-group-row input, .form-group-row textarea {
+    flex: 3;
+    border: 1px solid #ffcccc;
+    padding: 15px; /* 입력 필드의 높이를 높임 */
+    font-size: 16px; /* 입력 필드 글자 크기를 키움 */
+}
+.file-upload {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* 간격을 더 넓게 설정 */
+}
+.file-upload input[type="file"] {
+    margin-left: 10px;
 }

@@ -58,7 +58,7 @@ public class AdminController {
         return "prodlist";
     }
 
-    @GetMapping("/Questionlist")
+    @GetMapping("/questionlist")
     public String QuestionListPage(Model model) {
         List<Question> questionList = adminService.findAllQuestion();
         model.addAttribute("questions", questionList);

@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -20,10 +21,10 @@ public class AttachmentController {
 
     // 첨부파일 데이터베이스에 업로드하는 컨트롤러
     @PostMapping
-    public ResponseEntity<Attachment> addAttachment(@RequestParam("file")MultipartFile file, @RequestParam("questionNo") int questionNo ) throws IOException {
+    public ResponseEntity<Attachment> addAttachment(@RequestParam("questionNo") int questionNo ) throws IOException {
         Attachment attachment = new Attachment();
         attachment.setQuestionNo(questionNo);
-        attachmentService.addAttachment(attachment, file);
+        attachmentService.addAttachment(attachment);
         return ResponseEntity.ok().build();
     }
 
