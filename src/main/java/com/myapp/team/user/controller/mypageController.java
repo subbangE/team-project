@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/mypage")
-@PreAuthorize("#userNo == authentication.principal.userNo")
+@PreAuthorize("#userNo == authentication.principalgit.userNo")
 
 public class mypageController {
 
@@ -38,4 +38,5 @@ public class mypageController {
         userService.deleteUserByUserNo(userId);
         return "deleteSuccess";
     }
+
 }

@@ -2,11 +2,17 @@ package com.myapp.team.Board.Question;
 
 import com.myapp.team.Board.Attachment.Attachment;
 import com.myapp.team.Board.Attachment.AttachmentService;
+import com.myapp.team.user.config.CustomUserDetails;
+import com.myapp.team.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,9 +58,11 @@ public class QuestionController {
 
     // 질문 번호, 질문 제목 및 회원일련번호만 가져오게 하는 컨트롤러
     @GetMapping
-    public String getQuestion(Model model) {
-        List<Question> questionList = questionMapper.getQuestion();
+    public String getQuestion(Model model,
+                              @RequestParam(defaultValue = "1") int page) {
+        List<Question> questionList = questionService.getQuestions(page);
         model.addAttribute("questionList", questionList);
+        model.addAttribute("currentPage", page);
         System.out.println(questionList);
         return "Board";
     }
@@ -62,8 +71,25 @@ public class QuestionController {
     @GetMapping("/{questionNo}")
     public String showQuestionDetailForm(@PathVariable int questionNo, Model model) {
         Question question = questionService.getQuestionById(questionNo);
+
+
+        // 현재 로그인된 사용자 정보를 가져와 질문 userNo와 비교하여 수정 및 삭제 가능하게 함
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = userDetails.getUser();
+        int currentUserNo = currentUser.getUserNo();
+
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"));
+
+        boolean canEditOrDelete = question.getUserNo() == currentUserNo;
+        question.setCanEditOrDelete(canEditOrDelete);
+
+        // 뷰에서 사용하기 위해 가져옴
         model.addAttribute("question", question);
+        model.addAttribute("canEditOrDelete", canEditOrDelete);
+        model.addAttribute("isAdmin", isAdmin);
+
         System.out.println(question);
+
         return "QuestionDetail";
     }
 
@@ -90,6 +116,12 @@ public class QuestionController {
     // 질문 생성 페이지 보여주는 컨트롤러
     @GetMapping("/create")
     public String showCreateForm(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+        String username = userDetails.getUsername();
+        int userNo = userDetails.getUserNo();
+        model.addAttribute("username", username);
+        model.addAttribute("userNo", userNo);
         model.addAttribute("question", new Question());
         return "CreateQuestion";
     }
@@ -102,7 +134,6 @@ public class QuestionController {
                                  @RequestParam("file")MultipartFile file,
                                  Model model) throws IOException {
         Question question = new Question(questionTitle, questionContent, userNo);
-//        System.out.println(question);
         questionMapper.insertQuestion(question);
 
 
@@ -126,8 +157,9 @@ public class QuestionController {
             attachment.setOriginalFilename(file.getOriginalFilename()); // 원본 파일명
             attachment.setAttachmentPath(AttachmentLocation.toString());    // 파일 위치
             attachment.setStoredFilename(storedFileName);   // 저장된 파일명
-            attachmentService.addAttachment(attachment, file);
+            System.out.println(attachment);
             System.out.println(file);
+            attachmentService.addAttachment(attachment);
         }
 //        return "redirect:/question";
         return "questionSuccess";
@@ -138,7 +170,6 @@ public class QuestionController {
     // 수정할 수 있도록 질문 하나씩 가져 오게 하는 컨트롤러 (보여주기용)
     @GetMapping("/update/{questionNo}")
     public String showQuestionUpdateForm(@PathVariable int questionNo, Model model) {
-//        Question question = questionMapper.selectQuestion(questionNo);
         Question question = questionService.getQuestionById(questionNo);
         model.addAttribute("question", question);
         return "UpdateQuestion";
@@ -179,7 +210,7 @@ public class QuestionController {
                     attachment.setOriginalFilename(originalFileName);
                     attachment.setStoredFilename(storedFileName);
                     attachment.setAttachmentPath(attachmentLocation.toString());
-                    attachmentService.addAttachment(attachment, file);
+                    attachmentService.addAttachment(attachment);
                 }
             }
         }

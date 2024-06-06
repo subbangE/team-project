@@ -2,6 +2,7 @@ package com.myapp.team.user.controller;
 
 import com.myapp.team.user.model.User;
 import com.myapp.team.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

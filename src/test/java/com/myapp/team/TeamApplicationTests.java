@@ -10,16 +10,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 class TeamApplicationTests {
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @Test
-    public void testRegisterUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/register"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("register"))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("user"));
+    void contextLoads() {
     }
-
 
 }

@@ -25,4 +25,6 @@ public interface ProductMapper {
 
     List<Product> findProductsByCategory(@Param("categoryName") String categoryName);
 
+    Integer searchProdNoByOptionNo(int optionNo);
+
 }

@@ -13,5 +13,4 @@ public class Answer {
     private String answerTitle;  // 질문 제목
 
     private String answerContent;    // 질문 내용
-
 }
