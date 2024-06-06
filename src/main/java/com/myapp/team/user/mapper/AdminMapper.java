@@ -17,4 +17,5 @@ public interface AdminMapper {
     List<Product> findAllProd();
 
     List<Question> findAllQuestion();
+
 }

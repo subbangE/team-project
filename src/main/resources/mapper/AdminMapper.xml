@@ -23,4 +23,5 @@
     <select id="findAllQuestion" resultType="com.myapp.team.Board.Question.Question">
         SELECT * FROM question
     </select>
+
 </mapper>

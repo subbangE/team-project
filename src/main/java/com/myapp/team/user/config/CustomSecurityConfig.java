@@ -30,7 +30,7 @@ public class CustomSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/admin/**","/answer/**","/images/**").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/**","/answer/**").hasAuthority("ADMIN")
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -56,7 +56,7 @@ public class CustomSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) ->
-                web.ignoring().requestMatchers("/css/**", "/js/**");
+                web.ignoring().requestMatchers("/css/**", "/js/**","/images/**");
     }
 
     @Bean

@@ -28,4 +28,5 @@ public class AdminService {
     public List<Question> findAllQuestion() {
         return adminMapper.findAllQuestion();
     }
+
 }

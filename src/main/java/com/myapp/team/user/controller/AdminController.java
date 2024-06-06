@@ -100,6 +100,7 @@ public class AdminController {
         long questionNoCount = questionCount.size();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
+
         model.addAttribute("questions", questionList);
         model.addAttribute("userName", userName);
         model.addAttribute("questionNoCount",questionNoCount);

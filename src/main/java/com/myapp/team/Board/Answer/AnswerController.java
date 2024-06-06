@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/answer")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class AnswerController {
 
     @Autowired
     private AnswerService answerService;
 
     // 답변 생성 페이지 보여주는 컨트롤러
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/create/{questionNo}")
     public String showAnswerCreateForm(@PathVariable("questionNo") int questionNo, Model model) {
         Answer answer = new Answer();
@@ -26,7 +26,6 @@ public class AnswerController {
         return "CreateAnswer";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/create/{questionNo}")
     public String createAnswer(@PathVariable("questionNo") int questionNo,
                                @RequestParam String answerTitle,
@@ -39,7 +38,6 @@ public class AnswerController {
         return "redirect:/question/" + questionNo;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/update/{questionNo}")
     public String showAnswerUpdateForm(@PathVariable("questionNo") int questionNo, Model model) {
         Answer answer = answerService.selectQuestionByNo(questionNo);
@@ -49,7 +47,6 @@ public class AnswerController {
     }
 
     // 답변 수정하는 컨트롤러
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/update/{questionNo}")
     public String editAnswer(@PathVariable("questionNo") int questionNo,
                                @RequestParam("answerTitle") String answerTitle,
@@ -59,7 +56,6 @@ public class AnswerController {
     }
 
     // 답변 삭제하는 컨트롤러
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/delete")
     public String deleteAnswer(@RequestParam("questionNo") int questionNo) {
         answerService.deleteAnswer(questionNo);

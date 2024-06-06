@@ -134,14 +134,14 @@ public class ProductController {
         }
         productService.insertProduct(product);
         ra.addFlashAttribute("manage_result", product.getProductName());
-        return "redirect:/prod/list";
+        return "redirect:/admin/prodlist";
     }
 
 
     @PostMapping("/insertOption")
     public String insertOption(Product product, Option option) {
         optionService.insertOption(product, option);
-        return "redirect:/prod/list";
+        return "redirect:/admin/prodlist";
     }
 
     // 상품 수정 페이지
@@ -203,7 +203,7 @@ public class ProductController {
         System.out.println("update test = " + product);
 
         // 제품 목록 페이지로 리다이렉션
-        return "redirect:/prod/list";
+        return "redirect:/admin/prodlist";
     }
 
 
@@ -212,14 +212,14 @@ public class ProductController {
     public String deleteProduct(@PathVariable("id") int id) {
         optionService.deleteOption(id);
         productService.deleteProduct(id);
-        return "redirect:/prod/list";
+        return "redirect:/admin/prodlist";
     }
 
     // 옵션 삭제
     @PostMapping("/option/delete")
     public String deleteOption(int optionNo) {
         optionService.deleteOption(optionNo);
-        return "redirect:/prod/list";
+        return "redirect:/admin/prodlist";
     }
 
 //    // 상품 상세 페이지

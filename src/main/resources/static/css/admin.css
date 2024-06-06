@@ -328,11 +328,11 @@
 }
 .all-user-frame {
   width: 1664px;
-  height: 944px;
+  height: 87.4%;
   position: absolute;
   left: 256px;
   top: 80px;
-  overflow: hidden;
+  overflow: auto;
   padding: 60px 63px 0 29px;
 }
 
@@ -405,6 +405,21 @@
   align-items: center;
   justify-content: flex-start;
   padding: 30px 63px 0 29px;
+}
+._6 {
+  color: #000000;
+  position: absolute;
+  right: 70px;
+  top: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 10px;
+  text-align: right;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
 .header {
   background: #ffffff;
@@ -523,4 +538,14 @@
   height: 20px;
   position: relative;
   overflow: visible;
+}
+.status-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background-size: cover;
+  border: 1px solid #000000;
+}
+.status-icon.completed {
+  background-image: url('https://cdn-icons-png.flaticon.com/512/845/845646.png'); /* 체크 아이콘 이미지 */
 }
