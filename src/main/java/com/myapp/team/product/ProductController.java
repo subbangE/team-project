@@ -1,14 +1,10 @@
 package com.myapp.team.product;
 
-import com.myapp.team.cart.Cart;
-import com.myapp.team.cart.CartService;
 import com.myapp.team.option.Option;
 import com.myapp.team.option.OptionService;
 import com.myapp.team.user.config.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

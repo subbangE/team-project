@@ -323,6 +323,9 @@ ul.grid4 > li {
 /* 상품 이미지 */
 .thumbnail a img {
     max-width: 100%;
+    width: 300px;  /* 이미지 너비를 200px로 설정 */
+    height: 300px; /* 이미지 높이를 200px로 설정 */
+    object-fit: cover; /* 이미지 비율을 유지하면서 지정된 너비와 높이에 맞게 조정 */
     box-sizing: border-box;
 }
 
