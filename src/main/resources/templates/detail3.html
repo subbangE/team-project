@@ -50,28 +50,28 @@
 <!--&lt;!&ndash;                    <input type="hidden" th:name="options" th:field="*{options}">&ndash;&gt;-->
 <!--                    <button type="submit">Add to Cart</button>-->
 <!--                </form>-->
-<!--            &lt;!&ndash; 질문 버튼 &ndash;&gt;-->
+            <!-- 질문 버튼 -->
 <!--        </div>-->
 
-<!--        &lt;!&ndash; 질문 관련 &ndash;&gt;-->
-<!--        <button onclick="loadQuestionForm()">질문 등록</button>-->
-<!--        <div id="questionFormContainer"></div>-->
-<!--        &lt;!&ndash; 부가 기능 끝 &ndash;&gt;-->
+        <!-- 질문 관련 -->
+        <button onclick="loadQuestionForm()">질문 등록</button>
+        <div id="questionFormContainer"></div>
+        <!-- 부가 기능 끝 -->
 
-<!--    <script>-->
-<!--        // 질문-->
-<!--        function loadQuestionForm() {-->
-<!--            const container = document.getElementById('questionFormContainer');-->
-<!--            const xhr = new XMLHttpRequest();-->
-<!--            xhr.open('GET', '/question/create', true);-->
-<!--            xhr.onload = function() {-->
-<!--                if (xhr.status === 200) {-->
-<!--                    container.innerHTML = xhr.responseText;-->
-<!--                }-->
-<!--            };-->
-<!--            xhr.send();-->
-<!--        }-->
-<!--    </script>-->
+    <script>
+        // 질문
+        function loadQuestionForm() {
+            const container = document.getElementById('questionFormContainer');
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/question/create', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    container.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
 </div>
 </body>
 </html>

@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -241,6 +242,8 @@ public class ProductController {
         List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
         product.setOptions(options);
         model.addAttribute("product", product);
+
+        DecimalFormat decFormat = new DecimalFormat("###,###");
 
         if (principal != null) {
             CustomUserDetails userDetails = (CustomUserDetails) ((Authentication) principal).getPrincipal();

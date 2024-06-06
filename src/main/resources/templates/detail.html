@@ -16,8 +16,14 @@
                 <div class="top-bar">
                     <!-- 왼쪽 카테고리 -->
                     <div class="top-bar-left">
-                        <a href="#">LOG-IN</a>
-                        <a href="#">JOIN</a>
+                        <!-- 로그인/로그아웃 -->
+                        <span sec:authorize="isAnonymous()"><a th:href="@{/login}">LOG-IN</a></span>
+                        <span sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">LOGOUT</button>
+                    </form>
+                </span>
+                        <a href="/register">JOIN</a>
                         <a href="#">MY PAGE</a>
                         <a href="#">ORDER</a>
                         <a href="#">CART</a>
@@ -179,16 +185,16 @@
                             <td>
                                 <span class="quantity" style="width:65px;">
                                     <input type="text" id="option_box1_quantity" name="quantity_opt[]" class="quantity_opt eProductQuantityClass" value="1" product-no="1123">
-                                    <a href="#none" class="up eProductQuantityUpClass" data-target="option_box1_up">
-                                    <img src="/images/up.PNG" id="option_box1_up" class="option_box_up" alt="수량증가">
-                                    </a>
-                                    <a href="#none" class="down eProductQuantityDownClass" data-target="option_box1_down">
-                                        <img src="/images/down.PNG" id="option_box1_down" class="option_box_down" alt="수량감소">
-                                    </a>
+<!--                                    <a href="#none" class="up eProductQuantityUpClass" data-target="option_box1_up">-->
+<!--                                    <img src="/images/up.PNG" id="option_box1_up" class="option_box_up" alt="수량증가">-->
+<!--                                    </a>-->
+<!--                                    <a href="#none" class="down eProductQuantityDownClass" data-target="option_box1_down">-->
+<!--                                        <img src="/images/down.PNG" id="option_box1_down" class="option_box_down" alt="수량감소">-->
+<!--                                    </a>-->
                                 </span>
-                                <a href="#none" class="delete">
-                                    <img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="option_box1_del" class="option_box_del">
-                                </a>
+<!--                                <a href="#none" class="delete">-->
+<!--                                    <img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="option_box1_del" class="option_box_del">-->
+<!--                                </a>-->
                             </td>
                             <td class="right">
                                 <span id="option_box1_price">
@@ -206,6 +212,8 @@
                                 <strong>TOTAL : </strong>
                                 <span class="total">
                                     <strong><em><p th:text="${product.productPrice} + '원'"></p></em></strong> (1개)
+<!--                                    <strong><em><p th:text="decFormat.format(${product.productPrice}) + '원'"></p></em></strong> (1개)-->
+<!--                                    <strong><em><p "${#numbers.formatInteger(th:text="${product.productPrice}", 3, 'COMMA') + '원'}"></p></em></strong> (1개)-->
                                 </span>
                             </div>
 
@@ -248,7 +256,9 @@
                                 <li>/</li>
                                 <li class=""><a href="#prdReview">Review (<strong> 0 </strong>)</a></li>
                                 <li>/</li>
-                                <li class="" id="sso_tab_right"><a href="#prdQnA">Q&amp;A (<strong> 0 </strong>)</a></li>
+                                <li class="" id="sso_tab_right" onclick="loadQuestionForm()"><a href="/question/create">Q&amp;A <!-- (<strong> 0 </strong>) -->
+                                </a></li>
+                                <div id="questionFormContainer"></div>
                             </ul>
 <!--                            <p class="de_tabmenu_blank"></p>-->
                         </div>
@@ -275,7 +285,7 @@
                             </div>
                             <div class="txt_con">
                                 <h3>교환 및 반품정보</h3>
-                                <strong>교환 및 반품 주소</strong><br>- [31572] 충남 아산시 용화고길30번길 20-5 1층 디어바스켓<br><br>
+                                <strong>교환 및 반품 주소</strong><br>- [31572] 부산광역시 부산진구 중앙대로 708 5층 다팔아<br><br>
                                 <strong>교환 및 반품이 가능한 경우</strong><br>
                                 - 상품을 공급 받으신 날로부터 7일이내 단, 가전제품의 경우 포장을 개봉하였거나 포장이 훼손되어 상품가치가 상실된 경우에는 교환/반품이 불가능합니다.<br>
                                 - 공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 다르게 이행된 경우에는 공급받은 날로부터 3월이내, 그사실을 알게 된 날로부터 30일이내<br><br>
@@ -331,7 +341,7 @@
                         <p class="bottom_title_s">DELIVERY &amp; RETURN</p>
                         <div>
                             <p>한진택배 1588-0011 [ 배송조회 ]</p>
-                            <p>반품주소 : 아산시 용화고길30번길 20-5 1층 DAPALA</p>
+                            <p>반품주소 : 부산광역시 부산진구 중앙대로 708 5층 DAPALA</p>
                         </div>
                     </div>
                 </div>
@@ -345,7 +355,7 @@
                         <p>Business License. 712-35-00653</p>
                         <br><p>Tel. 010-8332-4726</p>
                         <p>Master. 서영호<span class="shop_blank"></span>E-mail. Ho@naver.com</p>
-                        <p>Add. 31572 부산광역시 부산진구 (영호동)</p>
+                        <p>Add. 31572 부산광역시 부산진구 중앙대로 708</p>
                         <p>1층</p>
                     </div>
                 </div>
@@ -357,26 +367,26 @@
 </div>
 
 <script>
-    document.querySelector('.QuantityUp').addEventListener('click', function() {
+    document.querySelector('.QuantityUp').addEventListener('click', function () {
         var quantityInput = document.getElementById('quantity');
         quantityInput.value = parseInt(quantityInput.value) + 1;
     });
 
-    document.querySelector('.QuantityDown').addEventListener('click', function() {
+    document.querySelector('.QuantityDown').addEventListener('click', function () {
         var quantityInput = document.getElementById('quantity');
         if (parseInt(quantityInput.value) > 0) {
             quantityInput.value = parseInt(quantityInput.value) - 1;
         }
     });
 
-// 합계를 표시할 HTML 요소를 찾습니다
+    // 합계를 표시할 HTML 요소를 찾습니다
     // 선택한 옵션을 표시할 HTML 요소를 찾습니다
     var selectedOptionElement = document.getElementById('selectedOption');
     // select 요소를 찾습니다
     var selectElement = document.getElementById('product_option_id1');
 
     // select 요소에 이벤트 리스너를 추가합니다
-    selectElement.addEventListener('change', function(event) {
+    selectElement.addEventListener('change', function (event) {
         // 만약 사용자가 "- [필수] 옵션을 선택해 주세요 -" 옵션을 선택했다면
         if (selectElement.value === '*') {
             // 이벤트를 중단합니다
@@ -385,13 +395,37 @@
             // 선택한 옵션의 텍스트를 가져옵니다
             var selectedOptionText = selectElement.options[selectElement.selectedIndex].text;
 
-        // 선택한 옵션을 새 HTML 요소에 표시합니다
-        selectedOptionElement.textContent = '선택한 옵션: ' + selectedOptionText;
-        // 합계에 선택한 옵션의 가격을 추가합니다
-        totalElement.textContent = parseInt(totalElement.textContent) + parseInt(selectedOptionPrice);
+            // 선택한 옵션을 새 HTML 요소에 표시합니다
+            selectedOptionElement.textContent = '선택한 옵션: ' + selectedOptionText;
+            // 합계에 선택한 옵션의 가격을 추가합니다
+            totalElement.textContent = parseInt(totalElement.textContent) + parseInt(selectedOptionPrice);
 
-        }});
+        }
+    });
 
+        // 질문
+        function loadQuestionForm() {
+        const container = document.getElementById('questionFormContainer');
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/question/create', true);
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+        container.innerHTML = xhr.responseText;
+    }
+    };
+        xhr.send();
+    }
+
+    // // DOM이 완전히 로드된 후 이벤트 리스너 추가
+    // document.addEventListener('DOMContentLoaded', (event) => {
+    //     const ssoTabRight = document.getElementById('sso_tab_right');
+    //     if (ssoTabRight) {
+    //         ssoTabRight.addEventListener('click', function(event) {
+    //             event.preventDefault();  // 링크 기본 동작 방지
+    //             loadQuestionForm();  // 함수 호출
+    //         });
+    //     }
+    // });
 </script>
 
 </body>

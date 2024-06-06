@@ -120,3 +120,130 @@ h1 {
 .file-upload input[type="file"] {
     margin-left: 10px;
 }
+
+#footer {
+    width: 100%;
+    margin: 100px auto 0;
+    font-size: 12px;
+    line-height: 1.9;
+    color: #888;
+    max-width: 4920px;
+}
+
+#footer .inner {
+    position: relative;
+    display: table;
+    clear: both;
+    width: 100%;
+    background: #f8f8f8;
+    padding: 85px 0 65px 0;
+    margin: 75px auto 0;
+}
+
+#footer .inner_con {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* inner_con01 */
+#footer .inner_con01 {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+#footer .bottom_title {
+    clear: both;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: #111;
+    letter-spacing: 1.5px;
+}
+
+#footer .bo_customer {
+    clear: both;
+}
+
+#footer .cs_tel {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#footer .cs_line {
+    float: left;
+    line-height: 1.9;
+    color: #aaa;
+    padding: 0 10px;
+}
+
+#footer .cs_txt {
+    float: left;
+}
+
+#footer .cs_txt2 {
+    clear: both;
+}
+
+#footer .cs_txt2 strong {
+    color: #333;
+    letter-spacing: 0.8px;
+    font-weight: normal;
+}
+
+#footer .bo_bank {
+    clear: both;
+    margin-top: 35px;
+}
+
+#footer .bottom_title_s {
+    clear: both;
+    font-weight: normal;
+    margin-bottom: 2px;
+    color: #111;
+    letter-spacing: 1.5px;
+    font-size: 11px;
+}
+
+#footer .bank_txt {
+    float: left;
+}
+
+#footer .bo_delivery {
+    clear: both;
+    margin-top: 55px;
+}
+/* inner_con01 끝 */
+
+#footer .inner_con2 {
+    float: right;
+    text-align: right;
+    width: 50%;
+    /*box-sizing: border-box;*/
+}
+
+#footer .bottom_title {
+    clear: both;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: #111;
+    letter-spacing: 1.5px;
+}
+
+#footer .shop_info {
+    line-height: 2;
+}
+
+#footer .shop_blank {
+    padding-right: 15px;
+}
+
+#footer .shop_blank {
+    padding-right: 15px;
+}
+
+#footer .inner a {
+    color: #888;
+}

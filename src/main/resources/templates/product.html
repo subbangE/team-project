@@ -24,7 +24,13 @@
             <div class="top-bar">
                 <!-- 왼쪽 카테고리 -->
                 <div class="top-bar-left">
-                    <a href="/login">LOG-IN</a>
+                    <!-- 로그인/로그아웃 -->
+                    <span sec:authorize="isAnonymous()"><a th:href="@{/login}">LOG-IN</a></span>
+                    <span sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">LOGOUT</button>
+                    </form>
+                </span>
                     <a href="/register">JOIN</a>
                     <a href="#">MY PAGE</a>
                     <a href="#">ORDER</a>
@@ -220,7 +226,7 @@
                         <p class="bottom_title_s">DELIVERY &amp; RETURN</p>
                         <div>
                             <p>한진택배 1588-0011 [ 배송조회 ]</p>
-                            <p>반품주소 : 아산시 용화고길30번길 20-5 1층 DAPALA</p>
+                            <p>반품주소 : 부산광역시 부산진구 중앙대로 708 5층 DAPALA</p>
                         </div>
                     </div>
                 </div>
@@ -236,7 +242,7 @@
                         <p>Business License. 712-35-00653</p>
                         <br><p>Tel. 010-8332-4726</p>
                         <p>Master. 서영호<span class="shop_blank"></span>E-mail. Ho@naver.com</p>
-                        <p>Add. 31572 부산광역시 부산진구 (영호동)</p>
+                        <p>Add. 31572 부산광역시 부산진구 중앙대로 708 5층</p>
                         <p>1층</p>
                     </div>
                 </div>
