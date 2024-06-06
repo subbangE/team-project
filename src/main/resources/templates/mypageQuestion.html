@@ -50,7 +50,7 @@
             <!-- 메인 네비게이션 -->
             <nav class="main-nav">
                 <ul class="main-nav-li">
-                    <li><a href="#">홈</a></li>
+                    <li><a href="http://localhost:8080/main">홈</a></li>
                     <li><a href="/prod/products">상품 보기</a></li>
                     <li><a href="#">캐릭터</a></li>
                     <li><a href="#">❤실바니안 패밀리❤</a></li>
@@ -69,37 +69,25 @@
             <div class="main">
                 <div class="userup">
                     <div class="basic-information">
-                        <form th:action="@{/mypage/update}" method="post" th:object="${user}">
-                            <div class="mainsection">
-                                <input type="hidden" th:field="*{userNo}"/>
-                                <input type="hidden" th:field="*{userId}"/>
-                                <div class="addresshead">
-                                    <input class="link" type="text" th:field="*{userAddress}"
-                                           placeholder="주소를 입력해 주세요." required/>
-                                    <div class="div4">주소</div>
-                                </div>
-                                <div class="namehead">
-                                    <input class="link2" type="text" th:field="*{userName}" required/>
-                                    <div class="div6">이름</div>
-                                </div>
-                                <div class="pwhead">
-                                    <input class="link2" type="password" th:field="*{userPw}" required/>
-                                    <div class="div6">비밀번호</div>
-                                </div>
-                                <div class="idhead">
-                                    <input class="link3" th:field="*{userId}" disabled/>
-                                    <div class="div4">아이디</div>
-                                </div>
-                                <button class="userupdate buttons" type="submit">저장하기</button>
+
+                        <div class="main-frame">
+                            <div class="questionhead">
+                                <div class="questionlist">문의 내역</div>
                             </div>
-                        </form>
-                        <form th:action="@{/mypage/delete}" th:object="${user}" method="post">
-                            <input type="hidden" th:field="*{userNo}"/>
-                            <input type="hidden" th:field="*{userId}"/>
-                            <button class="cancle" type="button" onclick="confirmDelete()">회원탈퇴</button>
-                        </form>
-                        <div class="mainbar">
-                            <div class="div7">회원정보수정</div>
+                            <div class="table-head">
+                                <div>질문 번호</div>
+                                <div>유저 번호</div>
+                                <div>제품 번호</div>
+                                <div>질문 제목</div>
+                                <div>질문 내용</div>
+                            </div>
+                            <div class="user-frame" th:each="question : ${questionList}">
+                                    <div class="bar"  th:text="${question.questionNo}">1234</div>
+                                    <div class="bar2" th:text="${question.userNo}">1</div>
+                                    <div class="bar3" th:text="${question.productNo}">아 달라고</div>
+                                    <div class="bar4" th:text="${question.questionTitle}">아 그냥 줘</div>
+                                    <div class="bar5" th:text="${question.questionContent}">11</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,7 +109,7 @@
                         </div>
                         <a class="question-list" th:href="@{../qlist/{userNo}(userNo =${user.userNo})}">
                             <img class="image-3" src="/images/image-30.png"/>
-                            <div class="div8">문의내역</div>
+                            <div class="div10">문의내역</div>
                         </a>
                     </div>
                     <div class="admin-welcome"><span th:text="${user.userName}+ '님의 마이페이지'"></span></div>
