@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,12 @@
         <div class="top-bar">
             <!-- 왼쪽 카테고리 -->
             <div class="top-bar-left">
-                <a href="#">LOG-IN</a>
+                <span sec:authorize="isAnonymous()"><a th:href="@{/login}">LOG-IN</a></span>
+                <span sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <button class="logout" type="submit">LOG-OUT</button>
+        </form>
+    </span>
                 <a href="#">JOIN</a>
                 <a href="#">MY PAGE</a>
                 <a href="#">ORDER</a>

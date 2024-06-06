@@ -38,7 +38,7 @@ public class CustomSecurityConfig {
                         formLogin
                                 .loginPage("/login")
                                 .failureUrl("/login?error=true")
-                                .defaultSuccessUrl("/", true)
+                                .defaultSuccessUrl("/main", true)
                                 .usernameParameter("userId")
                                 .passwordParameter("userPw")
                                 .permitAll()
@@ -46,7 +46,7 @@ public class CustomSecurityConfig {
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/main")
                         .permitAll()
                 );
 
