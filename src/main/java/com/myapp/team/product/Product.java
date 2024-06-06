@@ -34,6 +34,8 @@ public class Product {
 
     private MultipartFile productImageFile;
 
+    private String priceWithComma;
+
 }
 
 

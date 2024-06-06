@@ -57,5 +57,10 @@ public class UserController {
         return "main";
     }
 
+    @GetMapping("/detail2")
+    public String detailPage() {
+        return "detail2";
+    }
+
 }
 

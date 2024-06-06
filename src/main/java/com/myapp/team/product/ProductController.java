@@ -22,9 +22,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/prod")
@@ -32,13 +34,11 @@ public class ProductController {
 
     private final ProductService productService;
     private final OptionService optionService;
-    private final CartService cartService;
 
     @Autowired
-    public ProductController(ProductService productService, OptionService optionService, CartService cartService) {
+    public ProductController(ProductService productService, OptionService optionService) {
         this.productService = productService;
         this.optionService = optionService;
-        this.cartService = cartService;
     }
 
     // 상품 메인 페이지
@@ -47,6 +47,9 @@ public class ProductController {
 
         List<Product> products;
 //        List<Product> products = productService.findAllProducts();
+
+        // NumberFormat 인스턴스 생성
+        NumberFormat nf = NumberFormat.getInstance(Locale.KOREAN);
 
         // 카테고리 관련 설정쓰
         if (category == null || category.isEmpty()) {
@@ -59,6 +62,13 @@ public class ProductController {
             List<Option> options = optionService.selectOptionListByProduct(product.getProductNo());
             product.setOptions(options);
         }
+
+        // 각 상품의 가격을 천 단위로 콤마를 붙여서 문자열로 변환
+        for (Product product : products) {
+            String priceWithComma = nf.format(product.getProductPrice());
+            product.setPriceWithComma(priceWithComma);
+        }
+
         model.addAttribute("products", products);
 //        model.addAttribute("products", productService.getAllProducts());
         return "product";
