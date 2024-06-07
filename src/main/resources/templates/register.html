@@ -45,62 +45,63 @@
 <div class="container">
     <div class="maxwidth">
     <!-- 헤더 시작 -->
-    <header class="header">
+        <header class="header">
 
-        <div class="inner">
-        <!-- top-bar 시작 -->
-        <div class="top-bar">
-            <!-- 왼쪽 카테고리 -->
-            <div class="top-bar-left">
-                <span sec:authorize="isAnonymous()"><a th:href="@{/login}">LOG-IN</a></span>
-                <span sec:authorize="isAuthenticated()">
-        <form th:action="@{/logout}" method="post">
-            <button class="logout" type="submit">LOG-OUT</button>
-        </form>
-    </span>
-                <a href="#">JOIN</a>
-                <a href="#">MY PAGE</a>
-                <a href="#">ORDER</a>
-                <a href="#">CART</a>
-                <!-- 검색 아이콘 -->
-                <img src="/images/icon-search.png" alt="검색" id="lo_search">
+            <div class="inner">
+                <!-- top-bar 시작 -->
+                <div class="top-bar">
+                    <!-- 왼쪽 카테고리 -->
+                    <div class="top-bar-left">
+                        <!-- 로그인/로그아웃 -->
+                        <span sec:authorize="isAnonymous()"><a th:href="@{/login}">LOG-IN</a></span>
+                        <span sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button class="logout" type="submit">LOG-OUT</button>
+                    </form>
+                </span>
+                        <span sec:authorize="isAnonymous()"><a href="/register">JOIN</a></span>
+                        <span sec:authorize="isAuthenticated()"><a th:href="@{'/mypage/user/' + ${#authentication.principal.userNo}}">My Page</a></span>
+                        <a href="#">ORDER</a>
+                        <a href="#">CART</a>
+                        <!-- 검색 아이콘 -->
+                        <img src="/images/icon-search.png" alt="검색" id="lo_search">
+                    </div>
+
+                    <!-- 오른쪽 카테고리 -->
+                    <div class="top-bar-right">
+                        <a href="#" class="notice">NOTICE</a>
+                        <a href="#" class="qna">Q&A</a>
+                        <a href="#" class="review">REVIEW</a>
+                        <!-- 검색 아이콘 -->
+                        <a href="https://instagram.com/" target="_blank">
+                            <img src="/images/icon-instagram.png" alt="인스타그램" id="lo_sns">
+                        </a>
+                    </div>
+
+                </div>
+                <!-- top-bar 끝 -->
+
+                <!-- 로고 -->
+                <div class="top-bar-center">
+                    <img src="/images/logo.PNG" alt="Logo" class="logo">
+                </div>
             </div>
+            <!-- inner End -->
 
-            <!-- 오른쪽 카테고리 -->
-            <div class="top-bar-right">
-                <a href="#" class="notice">NOTICE</a>
-                <a href="#" class="qna">Q&A</a>
-                <a href="#" class="review">REVIEW</a>
-                <!-- 검색 아이콘 -->
-                <a href="https://instagram.com/" target="_blank">
-                    <img src="/images/icon-instagram.png" alt="인스타그램" id="lo_sns">
-                </a>
-            </div>
-
-        </div>
-        <!-- top-bar 끝 -->
-
-            <!-- 로고 -->
-            <div class="top-bar-center">
-                <img src="/images/logo.PNG" alt="Logo" class="logo">
-            </div>
-        </div>
-        <!-- inner End -->
-
-        <!-- 메인 네비게이션 -->
-        <nav class="main-nav">
-            <ul class="main-nav-li">
-                <li><a href="#">홈</a></li>
-                <li><a href="/prod/products">상품 보기</a></li>
-                <li><a href="#">캐릭터</a></li>
-                <li><a href="#">❤실바니안 패밀리❤</a></li>
-                <li><a href="#">피규어</a></li>
-                <li><a href="#">가챠/랜덤토이</a></li>
-                <li><a href="#">소품&리빙</a></li>
-                <li><a href="#">문구</a></li>
-            </ul>
-        </nav>
-    </header>
+            <!-- 메인 네비게이션 -->
+            <nav class="main-nav">
+                <ul class="main-nav-li">
+                    <li><a href="/main">홈</a></li>
+                    <li><a href="/prod/products">상품 보기</a></li>
+                    <li><a href="#">캐릭터</a></li>
+                    <li><a href="#">❤실바니안 패밀리❤</a></li>
+                    <li><a href="#">피규어</a></li>
+                    <li><a href="#">가챠/랜덤토이</a></li>
+                    <li><a href="#">소품&리빙</a></li>
+                    <li><a href="#">문구</a></li>
+                </ul>
+            </nav>
+        </header>
     <!-- 헤더 끝 -->
 
 

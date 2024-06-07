@@ -12,13 +12,11 @@ html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form
     padding: 0;
 }
 button {
-    background: none!important;
     border: none;
     padding: 0!important;
     cursor: pointer;
     font: 0.75em 'Lato', 'Nanum Gothic', 'Malgun Gothic', sans-serif !important;
     color: #333;
-    background: #fff;
     letter-spacing: 0.4px;
 }
 
@@ -588,16 +586,16 @@ p {
 }
 
 .userupdate {
-    background: #3090d6;
     border-radius: 3px;
     border-color: #999999;
     height: 60px;
     position: absolute;
     right: 126px;
-    left: 685px;
+    left: 45%;
     top: 325px;
     overflow: hidden;
     width: 130px;
+    background: #3090d6;
 }
 
 .div {
@@ -626,7 +624,7 @@ p {
     height: 60px;
     position: absolute;
     right: 0px;
-    left: 875px;
+    left: 85%;
     top: 424px;
     overflow: hidden;
     width: 130px;
@@ -682,7 +680,7 @@ p {
     height: 34px;
     position: absolute;
     left: 170px;
-    top: 17px;
+    top: 15px;
     text-indent: 10px;
 }
 
@@ -743,7 +741,7 @@ p {
     height: 34px;
     position: absolute;
     left: 170px;
-    top: 8px;
+    top: 15px;
     text-indent: 10px;
 }
 
@@ -815,7 +813,7 @@ p {
     height: 34px;
     position: absolute;
     left: 170px;
-    top: 17px;
+    top: 15px;
     text-indent: 10px;
 }
 
@@ -1327,9 +1325,9 @@ p {
     background: none;
     border: none;
     padding: 0;
-    font: inherit;
     color: inherit;
     cursor: pointer;
     outline: inherit;
-
+    font: 11px 'Lato', 'Nanum Gothic', 'Malgun Gothic', sans-serif !important;
 }
+

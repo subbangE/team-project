@@ -11,6 +11,7 @@
     <div class="maxwidth">
         <!-- 헤더 시작 -->
         <header class="header">
+
             <div class="inner">
                 <!-- top-bar 시작 -->
                 <div class="top-bar">
@@ -20,11 +21,11 @@
                         <span sec:authorize="isAnonymous()"><a th:href="@{/login}">LOG-IN</a></span>
                         <span sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" method="post">
-                        <button type="submit">LOGOUT</button>
+                        <button class="logout" type="submit">LOG-OUT</button>
                     </form>
                 </span>
-                        <a href="/register">JOIN</a>
-                        <a href="#">MY PAGE</a>
+                        <span sec:authorize="isAnonymous()"><a href="/register">JOIN</a></span>
+                        <span sec:authorize="isAuthenticated()"><a th:href="@{'/mypage/user/' + ${#authentication.principal.userNo}}">My Page</a></span>
                         <a href="#">ORDER</a>
                         <a href="#">CART</a>
                         <!-- 검색 아이콘 -->
@@ -41,6 +42,7 @@
                             <img src="/images/icon-instagram.png" alt="인스타그램" id="lo_sns">
                         </a>
                     </div>
+
                 </div>
                 <!-- top-bar 끝 -->
 
@@ -54,7 +56,7 @@
             <!-- 메인 네비게이션 -->
             <nav class="main-nav">
                 <ul class="main-nav-li">
-                    <li><a href="#">홈</a></li>
+                    <li><a href="/main">홈</a></li>
                     <li><a href="/prod/products">상품 보기</a></li>
                     <li><a href="#">캐릭터</a></li>
                     <li><a href="#">❤실바니안 패밀리❤</a></li>
@@ -91,7 +93,7 @@
                         <!-- 상세정보 내역 -->
                         <div class="infoArea">
                             <p class="icon"></p>
-                            <h3>치이카와 미니 피규어 4탄</h3>
+                            <h3><span th:text="${product.productName}"></span></h3>
 
                             <div class="xans-element- xans-product xans-product-action top_simple_txt">
                                 <p class="displaynone"></p>
@@ -157,7 +159,7 @@
                                             </tr></thead>
 
                                             <tbody class="displaynone"><tr>
-                                                <td>치이카와 미니 피규어 4탄</td>
+                                                <td><span th:text="${product.productName}"></span></td>
 
                                                 <td>
                                 <span class="quantity">
@@ -177,9 +179,9 @@
                         <tr class="option_product" data-option-index="1" target-key="1123">
                             <td>
                                 <input type="hidden" class="option_box_id" id="option_box1_id" value="P0000BRF000A" name="item_code[]" data-item-add-option="" data-item-reserved="N" data-option-id="000A" data-option-index="1">
-                                <p class="product">치이카와 미니 피규어 4탄
+                                <p class="product"><span th:text="${product.productName}"></span>
                                     <br> -
-                                    <span>고양이 가족</span>
+                                    <span>토끼 가족</span>
                                 </p>
                             </td>
                             <td>

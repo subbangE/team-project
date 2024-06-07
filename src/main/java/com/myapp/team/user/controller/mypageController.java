@@ -55,7 +55,7 @@ public class mypageController {
         userService.updateUser(user);
         User updateUser = userService.getUserByUserNo(user.getUserNo());
         model.addAttribute("user", updateUser);
-        return "redirect:/mypage/" + user.getUserNo();
+        return "redirect:/mypage/user/" + user.getUserNo();
     }
 
     @PostMapping("/delete")
