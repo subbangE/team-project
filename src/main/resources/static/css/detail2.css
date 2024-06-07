@@ -1227,3 +1227,12 @@ p {
 #footer .inner a {
     color: #888;
 }
+.logout {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    cursor: pointer;
+    outline: inherit;
+    font: 11px 'Lato', 'Nanum Gothic', 'Malgun Gothic', sans-serif !important;
+}

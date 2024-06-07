@@ -26,6 +26,7 @@
                 </span>
                 <span sec:authorize="isAnonymous()"><a href="/register">JOIN</a></span>
                 <span sec:authorize="isAuthenticated()"><a th:href="@{'/mypage/user/' + ${#authentication.principal.userNo}}">My Page</a></span>
+                <span sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/userlist}">Admin Page</a></span>
                 <a href="#">ORDER</a>
                 <a href="#">CART</a>
                 <!-- 검색 아이콘 -->
