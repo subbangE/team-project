@@ -60,6 +60,7 @@ public class mypageController {
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam String userId) {
+        System.out.println(userId);
         userService.deleteUserByUserNo(userId);
         return "deleteSuccess";
     }

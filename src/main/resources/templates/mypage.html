@@ -99,9 +99,9 @@
                                 <button class="userupdate buttons" type="submit">저장하기</button>
                             </div>
                         </form>
-                        <form th:action="@{/mypage/delete}" th:object="${user}" method="post">
+                        <form id="deleteForm" th:action="@{/mypage/delete}" th:object="${user}" method="post">
                             <input type="hidden" th:field="*{userNo}"/>
-                            <input type="hidden" th:field="*{userId}"/>
+                            <input type="hidden" name="userId" th:value="*{userId}"/>
                             <button class="cancle" type="button" onclick="confirmDelete()">회원탈퇴</button>
                         </form>
                         <div class="mainbar">
