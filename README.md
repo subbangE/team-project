@@ -3,9 +3,12 @@
 + 개발 인원: 3명
 
 ## 개발 환경 및 적용 기술
++ Spring Boot
 + Mybatis
 + MySQL
 + Thymeleaf 적용
++ html 및 css
++ JavaScript
 + 사용 언어 : JAVA
 
 ## 구현 기능
